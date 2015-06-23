@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/george/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-9d354bdc5d0d28d64a87e7eedf344361322ae327.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-9ac1c4232c3af7d14f7c1918513af747bca90c8c.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-3dd5db699761b8f838f40e6c9ff27ed1a814b1d9.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-2912e4774628c3f575909bec35c18987f68146af.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-6702abef2a460404106964c964280a1c1ff18dff.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-adfdd8e38991fb6f6e56da8d7b29b2401b4199bf.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-9d6a595293ff365ffe12d3ecf4076647935513c2.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-c46ca6ea64392c202988f85a3f988ae35f6492bd.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-dadf2dde3e82763a7256cc858c19f6b8ae74812a.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="d405025c600055237c171a0bbabaa49d69696573">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-97d0885facc3633b5615463935c021dd4db1b6df.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-b79c23de500202f6abcd409e3348312822c10f71.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="63ec6e9f4fe5482a7447d0f3091b8e543a02554c">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-7fb1c6986de6b146964b6cd9b50064b2d9232d4a.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-830427214a4f691baff8cefa00432eead06e9024.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-f77b98f7e030f20191e39b68f70f5e6841a9430d.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-9d813521e8a5d0b8c388625e102f285f2a4d0f44.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-17a6635c7658c1ceacbfdc71bdaf62faee84f91b.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-95cde033ff8a9704919c9056bbf97b2acb5efaab.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-1c8d7da9b6eaaac8e853e1d6bf80d2683bebd38e.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-bc9d2049108599d7a5bbfa13ef67b37006795d47.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-3b87d9021e75f965d7eb57337e54ff45fff5f13f.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-3e4d65c82e2ad25f2f317b0c4781741f1cb71907.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-a54eeae755f0d41180d2033ca17b255939d5f90c.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-09dd0c9da6ce0aae88c29a2e404228f7966abfb2.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-3d5d759415eae81c4fcd8268de184678e0fd5458.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-199c70bfa5c0b854f7f5982989beb6c79de199fa.jar" />
+    </item>
+    <item
+        jar="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="/Users/george/AndroidStudioProjects/MapsTest/app/build/intermediates/pre-dexed/debug/classes-988649a9af786ae4114b8c596764f951f4acd295.jar" />
+    </item>
+
+</items>
