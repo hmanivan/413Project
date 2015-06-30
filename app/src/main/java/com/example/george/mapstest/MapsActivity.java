@@ -10,6 +10,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity {
 
+    //comment expressly put here to test git/github functionality
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     @Override
