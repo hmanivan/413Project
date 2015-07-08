@@ -8,20 +8,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/partybutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="18"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_row="60"
+        <!--<Button-->
+            <!--android:id="@+id/partybutton"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_column="18"-->
+            <!--android:layout_gravity="center_horizontal|bottom"-->
+            <!--android:layout_row="60"-->
 
-            android:text="OFF" />
+            <!--android:text="OFF" />-->
 
         <Button
             android:id="@+id/boton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_column="18"
             android:layout_gravity="center"
             android:layout_row="60"
