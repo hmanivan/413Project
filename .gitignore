@@ -1,16 +1,3 @@
-Skip to content
-This repository  
-Pull requests
-Issues
-Gist
- @iamthepanda
- Unwatch 8
-  Unstar 1
- Fork 2sfsucsc413/t1 PRIVATE
- branch: frontEnd  t1/.gitignore
-@somecallmetimsomecallmetim 11 days ago first commit
-1 contributor
-RawBlameHistory     35 lines (26 sloc)  0.42 kB
 #built application files
 *.apk
 *.ap_
@@ -45,5 +32,3 @@ Thumbs.db
 .gradle
 build/
 AuthKeys
-Status API Training Shop Blog About Help
-© 2015 GitHub, Inc. Terms Privacy Security Contact
