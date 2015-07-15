@@ -1,7 +1,111 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/map"
-    tools:context="com.example.ozzca_000.myapplication.MapsActivity"
-    android:name="com.google.android.gms.maps.SupportMapFragment" />
+    android:layout_gravity="center|top"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="#f00000"
+    tools:context=".MainActivity"
+    android:id="@+id/postroulette"
+    android:rowCount="4"
+    android:columnCount="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        android:id="@+id/restname">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:text="Hall of Flame"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="346dp"
+            tools:context=".MapsActivity"
+            android:layout_gravity="left|center_vertical" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        android:id="@+id/blacklist">
+        <Button
+            android:id="@+id/B1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onB1"
+            android:text="Blacklist"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:background="#000000"
+        tools:context=".MainActivity"
+        android:id="@+id/uber">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:text="UBER"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/B2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:onClick="onB2"
+            android:text="Go" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:textColor="#ffffff"
+            android:text="IN 4 MIN"
+            android:textSize="25sp" />
+    </LinearLayout>
+</LinearLayout>
