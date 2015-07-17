@@ -9,12 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import apitest.R;
+
 
 public class MainActivity extends ActionBarActivity {
 
     /*Initialize variables for buttons created in activity_main.xml file*/
     private Button button1, button2, button3, button4, button5, button6;
     private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
