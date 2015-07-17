@@ -1,6 +1,7 @@
 package com.example.ozzca_000.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import apitest.R;
+//import apitest.R;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mContext = getApplicationContext();
 
         //set local button variables to corresponding id's from activity_main
@@ -71,7 +73,10 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //update view to activity_maps (for testing purposes)
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.activity_maps);
+                Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
     //On Button2 Pressed
@@ -81,8 +86,12 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.activity_maps);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
+
 
     //On Button3 Pressed
     public void onB3(View view) {
@@ -91,7 +100,10 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.activity_maps);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
     //On Button4 Pressed
@@ -101,7 +113,10 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.activity_maps);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
     //On Button5 Pressed
@@ -111,7 +126,10 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.activity_maps);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
     //On Button6 Pressed
@@ -121,7 +139,10 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.activity_maps);
+//        setContentView(R.layout.activity_maps);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+        MainActivity.this.startActivity(myIntent);
     }
 
     // on back button pressed
