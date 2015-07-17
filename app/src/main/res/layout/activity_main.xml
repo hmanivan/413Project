@@ -20,6 +20,7 @@
         android:layout_margin="5dp"
         android:id="@+id/Set"
         android:onClick="onSet" />
+
     <TextView
         android:text="Food Roulette Home Screen"
         android:textSize="25sp"
@@ -111,4 +112,5 @@
             android:layout_column="1" />
 
     </GridLayout>
+
 </LinearLayout>

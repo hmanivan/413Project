@@ -129,7 +129,6 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.start();
         //Go back to Home Screen
         setContentView(R.layout.activity_main);
-
     }
 
     //On Settings button pressed
