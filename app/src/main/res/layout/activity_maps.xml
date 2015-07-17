@@ -68,7 +68,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -83,10 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_margin="10dp"
             android:textColor="#ffffff"
             android:text="UBER"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:id="@+id/textView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
         <Button
             android:id="@+id/B2"
@@ -94,18 +98,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
             android:onClick="onB2"
-            android:text="Go" />
+            android:text="Go"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="right"
-            android:layout_margin="10dp"
             android:textColor="#ffffff"
             android:text="IN 4 MIN"
-            android:textSize="25sp" />
-    </LinearLayout>
+            android:textSize="25sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/textView"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 </LinearLayout>
