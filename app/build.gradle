@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0 rc2"
 
     defaultConfig {
-        applicationId "timbauer.foodroulette"
+        applicationId "com.example.ozzca_000.myapplication"
         minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
