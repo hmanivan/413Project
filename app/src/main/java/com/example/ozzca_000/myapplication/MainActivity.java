@@ -1,5 +1,6 @@
 package com.example.ozzca_000.myapplication;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,12 +14,13 @@ public class MainActivity extends ActionBarActivity {
 
     /*Initialize variables for buttons created in activity_main.xml file*/
     private Button button1, button2, button3, button4, button5, button6;
-
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mContext = getApplicationContext();
 
         //set local button variables to corresponding id's from activity_main
         button1 = (Button) findViewById(R.id.B1);
@@ -76,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.next_activity);
+        setContentView(R.layout.activity_maps);
     }
 
     //On Button3 Pressed
@@ -86,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.next_activity);
+        setContentView(R.layout.activity_maps);
     }
 
     //On Button4 Pressed
@@ -96,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.next_activity);
+        setContentView(R.layout.activity_maps);
     }
 
     //On Button5 Pressed
@@ -106,7 +108,7 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.next_activity);
+        setContentView(R.layout.activity_maps);
     }
 
     //On Button6 Pressed
@@ -116,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
-        setContentView(R.layout.next_activity);
+        setContentView(R.layout.activity_maps);
     }
 
     // on back button pressed
@@ -127,7 +129,6 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.start();
         //Go back to Home Screen
         setContentView(R.layout.activity_main);
-
     }
 
     //On Settings button pressed

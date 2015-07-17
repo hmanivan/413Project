@@ -10,17 +10,17 @@
     android:layout_gravity="center|top"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:weightSum="1">
+    android:weightSum="6">
 
     <Button
         android:text="Settings"
-        android:layout_width="105dp"
-        android:layout_height="65dp"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="top|left"
         android:layout_margin="5dp"
         android:id="@+id/Set"
-        android:onClick="onSet" />
-
+        android:onClick="onSet"
+        android:layout_weight="0.27"/>
     <TextView
         android:text="Food Roulette Home Screen"
         android:textSize="25sp"
@@ -35,8 +35,7 @@
         android:rowCount="9"
         android:columnCount="2"
         android:id="@+id/buttons"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal">
 
 
         <Button
@@ -112,5 +111,8 @@
             android:layout_column="1" />
 
     </GridLayout>
+
+
+
 
 </LinearLayout>
