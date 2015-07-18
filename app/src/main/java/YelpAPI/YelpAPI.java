@@ -14,12 +14,12 @@ import APIKeys.AuthKeys;
 
 /**
  * Code sample for accessing the Yelp API V2.
- * <p/>
+ * <p>
  * This program demonstrates the capability of the Yelp API version 2.0 by using the Search API to
  * query for businesses by a search term and location, and the Business API to query additional
  * information about the top result from the search query.
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * See <a href="http://www.yelp.com/developers/documentation">Yelp Documentation</a> for more info.
  */
 public class YelpAPI {
@@ -64,7 +64,7 @@ public class YelpAPI {
 
     /**
      * Creates and sends a request to the Search API by term and location.
-     * <p/>
+     * <p>
      * See <a href="http://www.yelp.com/developers/documentation/v2/search_api">Yelp Search API V2</a>
      * for more info.
      *
@@ -82,7 +82,7 @@ public class YelpAPI {
 
     /**
      * Creates and sends a request to the Business API by business ID.
-     * <p/>
+     * <p>
      * See <a href="http://www.yelp.com/developers/documentation/v2/business">Yelp Business API V2</a>
      * for more info.
      *
@@ -120,7 +120,7 @@ public class YelpAPI {
 
     /**
      * Main entry for sample Yelp API requests.
-     * <p/>
+     * <p>
      * After entering your OAuth credentials, execute <tt><b>run.sh</b></tt> to run this example.
      */
     public static YelpAPI YelpInit() {
