@@ -1,21 +1,25 @@
 //package gunstuff;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.view.View.OnClickListener;
-
-
-//import appstate.FoodRouletteApplication;
-//import callbacks.BusinessRunnable;
-
-/**
- * Created by george on 7/7/15.
- */
-
-
+//
+//import android.os.AsyncTask;
+//import android.os.Bundle;
+//import android.view.View;
+//import android.widget.Button;
+//import android.widget.TextView;
+//import android.view.View.OnClickListener;
+//
+//
+//import com.example.ozzca_000.myapplication.R;
+////import com.google.gson.Gson;
+//
+////import YelpData.BusinessData;
+////import foodroulette.appstate.FoodRouletteApplication;
+////import foodroulette.callbacks.BusinessRunnable;
+//
+///**
+// * Created by george on 7/7/15.
+// */
+//
+//
 //public class AsyncGun extends AsyncTask<String, Void, Object> implements OnClickListener {
 //    Button btn;
 //
@@ -36,6 +40,11 @@ import android.view.View.OnClickListener;
 //                new LongOperation().execute("");
 //                break;
 //        }
+//    }
+//
+//    @Override
+//    protected Object doInBackground(String... params) {
+//        return null;
 //    }
 //
 //    private class LongOperation extends AsyncTask<String, Void, String> {
@@ -71,36 +80,36 @@ import android.view.View.OnClickListener;
 //
 //
 //
-//    private BusinessRunnable _callback;
+////    private BusinessRunnable _callback;
 //
-//    public YelpSearchAsyncTask(BusinessRunnable callback)
-//    {
-//        _callback = callback;
-//    }
-//
-//
-//    @Override
-//    protected Object doInBackground(String... params)
-//    {
-//        //android.os.Debug.waitForDebugger();
-//
-//        //disseminate the params to get the parameters for the yelp search
-//        String term = params[0];
-//        String location = params[1];
-//
-//        //initialize new instance of YelpAPI class
-//        YelpAPI api = YelpAPI.YelpInit();
+////    public YelpSearchAsyncTask(BusinessRunnable callback)
+////    {
+////        _callback = callback;
+////    }
 //
 //
-//        String response = api.searchForBusinessesByLocation(term, location);
-//        BusinessData business;
-//        business = new Gson().fromJson(response, BusinessData.class);
-//        return business;
-//    }
+////    @Override
+////    protected Object doInBackground(String... params)
+////    {
+////        //android.os.Debug.waitForDebugger();
+////
+////        //disseminate the params to get the parameters for the yelp search
+////        String term = params[0];
+////        String location = params[1];
+////
+////        //initialize new instance of YelpAPI class
+////        YelpAPI.YelpAPI api = YelpAPI.YelpAPI.YelpInit();
+////
+////
+////        String response = api.searchForBusinessesByLocation(term, location);
+////        BusinessData business;
+////        business = new Gson().fromJson(response, BusinessData.class);
+////        return business;
+////    }
 //
-//    @Override
-//    protected void onPostExecute(Object result)
-//    {
-//        _callback.runWithBusiness((BusinessData)result);
-//    }
+////    @Override
+////    protected void onPostExecute(Object result)
+////    {
+////        _callback.runWithBusiness((BusinessData)result);
+////    }
 //}
