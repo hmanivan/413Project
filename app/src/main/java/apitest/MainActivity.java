@@ -77,6 +77,12 @@ public class MainActivity extends ActionBarActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.single_shot);
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
+        try {
+            Thread.sleep(1429);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.release();
         //update view to activity_maps (for testing purposes)
 //        setContentView(R.layout.activity_maps);
         Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
@@ -90,6 +96,12 @@ public class MainActivity extends ActionBarActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.single_shot);
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
+        try {
+            Thread.sleep(1429);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
         Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
@@ -104,6 +116,12 @@ public class MainActivity extends ActionBarActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.single_shot);
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
+        try {
+            Thread.sleep(1429);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
         Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
@@ -117,6 +135,12 @@ public class MainActivity extends ActionBarActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.single_shot);
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
+        try {
+            Thread.sleep(1429);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
         Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
@@ -143,6 +167,12 @@ public class MainActivity extends ActionBarActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.single_shot);
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
+        try {
+            Thread.sleep(1429);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
         Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
@@ -156,6 +186,12 @@ public class MainActivity extends ActionBarActivity {
         MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.reload);
         //play gunshot sound from mediaPlayer object
         mediaPlayer.start();
+        try {
+            Thread.sleep(1429);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer.release();
         //Go back to Home Screen
         setContentView(R.layout.activity_main);
     }

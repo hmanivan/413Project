@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name"></string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_maps">Map</string>
+    <!-- Hall of Flame text as a placeholder. to fix, use title_activity_maps somewhere -->
+    <string name="title_activity_maps">Hall of Flame</string>
 </resources>

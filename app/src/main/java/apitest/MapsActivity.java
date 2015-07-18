@@ -1,9 +1,17 @@
 package apitest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -13,6 +21,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 import YelpData.BusinessData;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.asynctasks.YelpSearchAsyncTask;
@@ -21,7 +31,7 @@ import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationService;
 //import com.example.ozzca_000.R;
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends ActionBarActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LocationListener mLocationListener;
@@ -66,7 +76,80 @@ public class MapsActivity extends FragmentActivity {
         // linking maps activity with the UI layout
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
+        Button boton = (Button) findViewById(R.id.blacklistbutton);
+
+        final int singleShot = R.raw.single_shot;
+        final Context finalThis = this;
+
+        final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
+
+        for (int i = 0; i < 50; i++) {
+            new Thread() {
+                public void run() {
+                    while (true) {
+                        try {
+                            Runnable task = shotQ.take();
+                            task.run();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }.start();
+        }
+
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Runnable task = new Runnable() {
+                    public void run() {
+                        MediaPlayer mp = MediaPlayer.create(finalThis, singleShot);
+                        mp.start();
+                        try {
+                            Thread.sleep(1429);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        mp.release();
+                    }
+                };
+                shotQ.add(task);
+            }
+        });
     }
+
+    //-------------------------------------------------------------------------------------------//
+    //  This is for the settings fragment tab that we want to implement (following 2 methods)    //
+    //-------------------------------------------------------------------------------------------//
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent myIntent = new Intent(MapsActivity.this, apitest.SettingsActivity.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+            MapsActivity.this.startActivity(myIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    //-------------------------------------------------------------------------------------------//
+    //-------------------------------------------------------------------------------------------//
 
     @Override
     protected void onResume() {
