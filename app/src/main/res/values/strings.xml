@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Food Roulette</string>
     <!-- Hall of Flame text as a placeholder. to fix, use title_activity_maps somewhere -->
     <string name="title_activity_maps">Hall of Flame</string>
 
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_revolver_screen">Revolver Activity</string>
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

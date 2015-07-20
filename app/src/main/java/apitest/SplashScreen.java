@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.ozzca_000.myapplication.R;
+
+import revolverwheel.revolver.RevolverActivity;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.asynctasks.YelpSearchAsyncTask;
 import foodroulette.callbacks.BusinessRunnable;
@@ -70,7 +72,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
                 }.start();
 
-                Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
+                Intent intent = new Intent(SplashScreen.this, RevolverActivity.class);
                 startActivity(intent);
             }
         });

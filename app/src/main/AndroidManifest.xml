@@ -19,15 +19,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
+
         <activity
             android:name="apitest.MainActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -40,11 +38,7 @@
         <activity
             android:name="apitest.MapsActivity"
             android:label="@string/title_activity_maps" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
@@ -60,7 +54,9 @@
         <activity
             android:name="apitest.SettingsActivity"
             android:label="@string/title_activity_settings" >
+
         </activity>
+
         <activity
             android:name="apitest.SplashScreen"
             android:label="@string/title_activity_splash_screen" >
@@ -70,6 +66,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="revolverwheel.revolver.RevolverActivity"
+            android:label="@string/title_revolver_screen" >
+        </activity>
+
     </application>
 
 </manifest>

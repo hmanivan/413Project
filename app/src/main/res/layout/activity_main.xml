@@ -113,4 +113,12 @@
 
     </GridLayout>
 
+    <revolverwheel.revolver.CanvasView
+        android:id="@+id/revolver_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
 </LinearLayout>

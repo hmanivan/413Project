@@ -245,7 +245,7 @@ public class MapsActivity extends ActionBarActivity {
     private void setupBusinessDataCallbacks() {
         for (int i = 0; i < 6; i++) {
             //create random color
-            final float color = 60f * (float) i;
+            final float color = 51f + (51f * (float) i);
 
             _appState.addBusinessDataCallback(new BusinessRunnable() {
                 @Override

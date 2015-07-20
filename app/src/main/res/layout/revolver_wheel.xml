@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".RevolverActivity">
 
-    <sfsu.revolver.CanvasView
+    <revolverwheel.revolver.CanvasView
         android:id="@+id/revolver_canvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
