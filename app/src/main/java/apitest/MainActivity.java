@@ -12,6 +12,9 @@ import android.widget.Button;
 
 import com.example.ozzca_000.myapplication.R;
 
+import apitest.settings.SettingsActivity;
+import apitest.settings.Settings_Main;
+
 //import apitest.R;
 
 
@@ -47,7 +50,12 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+//        Intent myIntent = new Intent(MainActivity.this, apitest.SettingsActivity.class);
+////        myIntent.putExtra("key", value); //Optional parameters
+//        MainActivity.this.startActivity(myIntent);
         return true;
+
     }
 
     @Override
@@ -59,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent myIntent = new Intent(MainActivity.this, apitest.SettingsActivity.class);
+            Intent myIntent = new Intent(MainActivity.this, apitest.settings.Settings_Main.class);
 //        myIntent.putExtra("key", value); //Optional parameters
             MainActivity.this.startActivity(myIntent);
             return true;
@@ -85,7 +93,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //update view to activity_maps (for testing purposes)
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -104,7 +112,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -124,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -143,7 +151,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -156,7 +164,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -175,7 +183,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -196,9 +204,9 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
-    //On Settings button pressed
-    public void onSet(View view) {
-        // go to settings screen
-        setContentView(R.layout.settings_activity);
-    }
+//    //On Settings button pressed
+//    public void onSet(View view) {
+//        // go to settings screen
+//        setContentView(R.layout.settings_activity);
+//    }
 }
