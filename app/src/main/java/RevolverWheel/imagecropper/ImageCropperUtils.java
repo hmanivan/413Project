@@ -1,4 +1,4 @@
-package RevolverWheel.imagecropper;
+package revolverwheel.imagecropper;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

@@ -1,6 +1,7 @@
-package RevolverWheel.revolver;
+package revolverwheel.revolver;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.widget.ImageView;
 
 import com.example.ozzca_000.myapplication.R;
 
-import static RevolverWheel.imageJoinerUtils.CombinePNG.PNGCombiner;
+import apitest.MapsActivity;
+
+import static revolverwheel.imageJoinerUtils.CombinePNG.PNGCombiner;
 
 
 public class RevolverActivity extends AppCompatActivity
@@ -27,7 +30,7 @@ public class RevolverActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.revolver_wheel);
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
 

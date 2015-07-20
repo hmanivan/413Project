@@ -1,6 +1,8 @@
-package RevolverWheel.revolver;
+package revolverwheel.revolver;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -9,14 +11,14 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+import apitest.MapsActivity;
+
 /**
  * Created by Sam on 7/6/2015.
  */
 public class CanvasView extends SurfaceView
 {
 
-    public int width;
-    public int height;
     private Bitmap mBitmap;
     private Bitmap samBetterBitmap;
 
@@ -162,17 +164,16 @@ public class CanvasView extends SurfaceView
     // when ACTION_MOVE move touch according to the x,y values
     private void moveTouch(double angle, double radius)
     {
-        if(isBeingTouched)
+        if (isBeingTouched)
         {
             long currentTimeStamp = System.currentTimeMillis();
 
             //find difference in angles, correct for -180 - 180 crossing
             float angleDiff = (float) (angle - previousAngle);
-            if(angleDiff > 180)
+            if (angleDiff > 180)
             {
                 angleDiff -= 360;
-            }
-            else if(angleDiff < -180)
+            } else if (angleDiff < -180)
             {
                 angleDiff += 360;
             }
@@ -198,7 +199,7 @@ public class CanvasView extends SurfaceView
         long touchTime = System.currentTimeMillis() - startTouchTimeStamp;
 
         //a click is defined as a touch event that lasted less than 90 milliseconds
-        if(touchTime < 90)
+        if (touchTime < 200)
         {
             rouletteClickHandler();
         }
@@ -207,50 +208,45 @@ public class CanvasView extends SurfaceView
     private void rouletteClickHandler()
     {
         // this math takes into account the current angle of the wheel to create a corrected touch angle
-        double adjustedAngle = (angleToTouch + 180)- degToSpin;
+        double adjustedAngle = (angleToTouch + 180) - degToSpin;
 
         //overflow correction
-        if(adjustedAngle < 0)
+        if (adjustedAngle < 0)
         {
             adjustedAngle += 360;
         }
 
         //begin button click listeners. Insert appropriate button onClick equivalent code within
-        if(adjustedAngle <= 120 && adjustedAngle > 60)
+        if (adjustedAngle <= 120 && adjustedAngle > 60)
         {
             //run code for option 1
-            int i = 1;
-            i++;
-        }
-        else if(adjustedAngle <= 180 && adjustedAngle > 120)
+            Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
+            ((Activity) getContext()).startActivity(intent);
+        } else if (adjustedAngle <= 180 && adjustedAngle > 120)
         {
             //run code for option 2
-            int i = 1;
-            i++;
-        }
-        else if(adjustedAngle <= 240 && adjustedAngle > 180)
+            Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
+            ((Activity) getContext()).startActivity(intent);
+        } else if (adjustedAngle <= 240 && adjustedAngle > 180)
         {
             //run code for option 3
-            int i = 1;
-            i++;
-        }
-        else if(adjustedAngle <= 300 && adjustedAngle > 240)
+            Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
+            ((Activity) getContext()).startActivity(intent);
+        } else if (adjustedAngle <= 300 && adjustedAngle > 240)
         {
             //run code for option 4
-            int i = 1;
-            i++;
-        }
-        else if(adjustedAngle <= 360 && adjustedAngle > 300)
+            Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
+            ((Activity) getContext()).startActivity(intent);
+        } else if (adjustedAngle <= 360 && adjustedAngle > 300)
         {
             //run code for option 5
-            int i = 1;
-            i++;
-        }
-        else if(adjustedAngle <= 60 && adjustedAngle > 0)
+            Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
+            ((Activity) getContext()).startActivity(intent);
+        } else if (adjustedAngle <= 60 && adjustedAngle > 0)
         {
             //run code for option 6
-            int i = 1;
-            i++;
+            Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
+            ((Activity) getContext()).startActivity(intent);
         }
     }
 
@@ -274,18 +270,18 @@ public class CanvasView extends SurfaceView
         {
             //cylinder was where touch initiated
             //actions to execute if user starts touching wheel
-            if(event.getAction() == MotionEvent.ACTION_DOWN)
+            if (event.getAction() == MotionEvent.ACTION_DOWN)
             {
                 startTouch(angleToTouch, distanceToCenter);
             }
         }
         //actions to execute as user moves finger around wheel
-        if(event.getAction() == MotionEvent.ACTION_MOVE)
+        if (event.getAction() == MotionEvent.ACTION_MOVE)
         {
             moveTouch(angleToTouch, distanceToCenter);
         }
         //actions to execute when user lifts finger
-        if(event.getAction() == MotionEvent.ACTION_UP)
+        if (event.getAction() == MotionEvent.ACTION_UP)
         {
             upTouch();
         }

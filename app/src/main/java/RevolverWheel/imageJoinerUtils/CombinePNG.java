@@ -1,4 +1,4 @@
-package RevolverWheel.imageJoinerUtils;
+package revolverwheel.imageJoinerUtils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 
 import com.example.ozzca_000.myapplication.R;
 
-import static RevolverWheel.imagecropper.ImageCropperUtils.getCroppedBitmap;
+import static revolverwheel.imagecropper.ImageCropperUtils.getCroppedBitmap;
 
 /**
  * Created by Sam on 7/7/2015.
