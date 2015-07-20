@@ -6,7 +6,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,45 +16,19 @@ import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-import YelpData.BusinessData;
-import foodroulette.appstate.FoodRouletteApplication;
-import foodroulette.asynctasks.YelpSearchAsyncTask;
-import foodroulette.callbacks.BusinessRunnable;
-import foodroulette.callbacks.LocationRunnable;
-import foodroulette.locationutils.LocationService;
-//import com.example.ozzca_000.R;
-
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-
-import foodroulette.asynctasks.YelpSearchAsyncTask;
-import foodroulette.callbacks.BusinessRunnable;
-import foodroulette.callbacks.LocationRunnable;
-import foodroulette.locationutils.LocationService;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-
-import foodroulette.appstate.FoodRouletteApplication;
-
-import YelpAPI.YelpAPI;
 import YelpData.Business;
 import YelpData.BusinessData;
+import foodroulette.appstate.FoodRouletteApplication;
+import foodroulette.asynctasks.YelpSearchAsyncTask;
+import foodroulette.callbacks.BusinessRunnable;
+import foodroulette.callbacks.LocationRunnable;
 
 public class MapsActivity extends ActionBarActivity {
 
