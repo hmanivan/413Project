@@ -2,6 +2,7 @@ package database;
 
 import android.app.Activity;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -23,6 +24,8 @@ public class DatabaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         save = (Button) findViewById(R.id.save);
         load = (Button) findViewById(R.id.load);
         name = (EditText) findViewById(R.id.name);

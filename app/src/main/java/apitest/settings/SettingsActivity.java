@@ -3,6 +3,7 @@ package apitest.settings;
 //import android.content.Intent;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -31,6 +32,8 @@ public class SettingsActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
 //        setContentView(R.layout.activity_settings__main);
 
         PreferenceCategory fakeHeader;
@@ -39,6 +42,7 @@ public class SettingsActivity extends PreferenceActivity {
         // use the older PreferenceActivity APIs.
         // Add 'general' preferences.
         addPreferencesFromResource(R.xml.pref_general);
+
 
         // Add 'notifications' preferences, and a corresponding header.
         fakeHeader = new PreferenceCategory(this);

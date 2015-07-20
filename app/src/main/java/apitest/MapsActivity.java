@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -77,6 +78,8 @@ public class MapsActivity extends ActionBarActivity {
 
         // linking maps activity with the UI layout
         setContentView(R.layout.activity_maps);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setUpMapIfNeeded();
 
         Button boton = (Button) findViewById(R.id.blacklistbutton);

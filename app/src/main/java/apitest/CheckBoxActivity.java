@@ -1,5 +1,6 @@
 package apitest;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +16,8 @@ public class CheckBoxActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_box);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         C1 = (CheckBox) findViewById(R.id.checkBoxCustomized1);
         C2 = (CheckBox) findViewById(R.id.checkbox_burger);
         C2.setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("KEY", false));

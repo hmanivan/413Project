@@ -2,6 +2,7 @@ package apitest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         mContext = getApplicationContext();
 

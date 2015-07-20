@@ -1,6 +1,7 @@
 package apitest;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -26,6 +27,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
