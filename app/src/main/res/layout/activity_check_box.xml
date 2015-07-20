@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!--android:background="#FFFF00"-->
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <CheckBox
+                android:id="@+id/checkBoxCustomized1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Checked Checkbox"
+                android:layout_marginTop="20dp"
+                android:checked="true"
+                android:button="@drawable/custom_checkbox_design"
+                android:textSize="20dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox_burger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Burger"
+                android:checked="false"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+
+                android:id="@+id/checkbox_chinese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chinese"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_japanese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Japanese"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_vietnamese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vietnamese"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_coffee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coffee"
+                android:onClick="onCheckboxClicked"
+                android:layout_gravity="center_vertical" />
+
+            <CheckBox
+                android:id="@+id/checkbox_mexican"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mexican"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_indian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indian"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_french"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="French"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_shakes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shakes"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_burrito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Burrito"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_pizza"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pizza"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_sushi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sushi"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_sandwich"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sandwich"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_buffet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buffet"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_fondue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fondue"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_czech"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="czech"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_fastfood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fast Food"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_barbaque"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Barbaque"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_cheesestakes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cheesestakes"
+                android:onClick="onCheckboxClicked" />
+
+            <CheckBox
+                android:id="@+id/checkbox_chickenwing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chicken Wing"
+                android:onClick="onCheckboxClicked" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

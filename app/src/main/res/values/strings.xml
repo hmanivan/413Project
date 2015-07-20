@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">Food Roulette</string>
     <!-- Hall of Flame text as a placeholder. to fix, use title_activity_maps somewhere -->
-    <string name="title_activity_maps">Hall of Flame</string>
+    <string name="title_activity_maps">Post Roulette</string>
 
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_check_box_activity">Checkbox Activity</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -11,4 +12,8 @@
     <string name="gps_network_not_enabled">GPS service is not enabled!</string>
     <string name="open_location_settings">Open location settings</string>
     <string name="Cancel">Cancel</string>
+    <!--<string name="pref_header_categories" />-->
+
+    <string name="title_settings_main">Settings</string>
+    <string name="title_activity_database">Database</string>
 </resources>

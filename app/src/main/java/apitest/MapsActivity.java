@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,38 +24,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import YelpData.BusinessData;
+import apitest.settings.SettingsActivity;
 import foodroulette.appstate.FoodRouletteApplication;
-import foodroulette.asynctasks.YelpSearchAsyncTask;
 import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
-import foodroulette.locationutils.LocationService;
 //import com.example.ozzca_000.R;
 
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
-
-import foodroulette.asynctasks.YelpSearchAsyncTask;
-import foodroulette.callbacks.BusinessRunnable;
-import foodroulette.callbacks.LocationRunnable;
-import foodroulette.locationutils.LocationService;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 
-import foodroulette.appstate.FoodRouletteApplication;
-
-import YelpAPI.YelpAPI;
 import YelpData.Business;
-import YelpData.BusinessData;
 
 public class MapsActivity extends ActionBarActivity {
 
@@ -101,6 +78,8 @@ public class MapsActivity extends ActionBarActivity {
 
         // linking maps activity with the UI layout
         setContentView(R.layout.activity_maps);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setUpMapIfNeeded();
 
         Button boton = (Button) findViewById(R.id.blacklistbutton);
@@ -165,7 +144,7 @@ public class MapsActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent myIntent = new Intent(MapsActivity.this, apitest.SettingsActivity.class);
+            Intent myIntent = new Intent(MapsActivity.this, SettingsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
             MapsActivity.this.startActivity(myIntent);
             return true;
@@ -271,16 +250,15 @@ public class MapsActivity extends ActionBarActivity {
      * <p>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void fetchBusinessData() {
-        new YelpSearchAsyncTask(new BusinessRunnable() {
-            @Override
-            public void runWithBusiness(BusinessData business) {
-                //write code to do something with business, save it or whatever
-            }
-        }).execute("dildo", "San Francisco, CA");
-
-    }
-
+//    private void fetchBusinessData() {
+//        new YelpSearchAsyncTask(new BusinessRunnable() {
+//            @Override
+//            public void runWithBusiness(BusinessData business) {
+//                //write code to do something with business, save it or whatever
+//            }
+//        }).execute("dildo", "San Francisco, CA");
+//
+//    }
     private void updateMarker(double latitude, double longitude) {
         if (mMarker == null) {
             MarkerOptions options = new MarkerOptions();
@@ -293,6 +271,5 @@ public class MapsActivity extends ActionBarActivity {
             mMarker.setPosition(new LatLng(latitude, longitude));
             //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12.0f));
         }
-
     }
 }
