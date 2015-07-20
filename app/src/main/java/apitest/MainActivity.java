@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //update view to activity_maps (for testing purposes)
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -104,7 +104,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -143,7 +143,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -156,7 +156,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.start();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }
@@ -175,7 +175,7 @@ public class MainActivity extends ActionBarActivity {
         mediaPlayer.release();
         //set to dummy next_activity screen ( to become a search )
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(MainActivity.this, apitest.MapsActivity.class);
+        Intent myIntent = new Intent(MainActivity.this, apitest.SplashScreen.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         MainActivity.this.startActivity(myIntent);
     }

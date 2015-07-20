@@ -80,6 +80,15 @@ public class YelpAPI {
         return sendRequestAndGetResponse(request);
     }
 
+    public String searchForBusinessesByGPS(String term, String latitude, String longitude) {
+        String location = latitude + "," + longitude;
+        OAuthRequest request = createOAuthRequest(SEARCH_PATH);
+        request.addQuerystringParameter("term", term);
+        request.addQuerystringParameter("ll", location);
+        request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
+        return sendRequestAndGetResponse(request);
+    }
+
     /**
      * Creates and sends a request to the Business API by business ID.
      * <p>
