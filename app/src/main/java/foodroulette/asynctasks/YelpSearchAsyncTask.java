@@ -24,16 +24,31 @@ public class YelpSearchAsyncTask extends AsyncTask<String, Void, Object> {
         //android.os.Debug.waitForDebugger();
 
         //disseminate the params to get the parameters for the yelp search
-        String term = params[0];
-        String location = params[1];
 
+        String response;
+        String term = params[0];
         //initialize new instance of YelpAPI class
         YelpAPI api = YelpAPI.YelpInit();
 
+        if (params.length == 2)
+        {
+            //get response by location string data
+            String location = params[1];
+            response = api.searchForBusinessesByLocation(term, location);
+        } else
+        {
+            //get response by Lat/Long location data
+            String latitude = params[1];
+            String longitude = params[2];
+            response = api.searchForBusinessesByGPS(term, latitude, longitude);
+        }
 
-        String response = api.searchForBusinessesByLocation(term, location);
         BusinessData business;
         business = new Gson().fromJson(response, BusinessData.class);
+
+        //store term used, this will be used to select which particular Business Data to use
+        business.term = term;
+
         return business;
     }
 

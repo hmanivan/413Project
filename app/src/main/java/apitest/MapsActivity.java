@@ -31,6 +31,32 @@ import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationService;
 //import com.example.ozzca_000.R;
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+
+import foodroulette.asynctasks.YelpSearchAsyncTask;
+import foodroulette.callbacks.BusinessRunnable;
+import foodroulette.callbacks.LocationRunnable;
+import foodroulette.locationutils.LocationService;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+
+import foodroulette.appstate.FoodRouletteApplication;
+
+import YelpAPI.YelpAPI;
+import YelpData.Business;
+import YelpData.BusinessData;
+
 public class MapsActivity extends ActionBarActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -43,26 +69,26 @@ public class MapsActivity extends ActionBarActivity {
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
 
-    private void registerLocationChangeCallback() {
-        if (_locationChangeCallBack == null) {
-            _locationChangeCallBack = new LocationRunnable() {
-                @Override
-                public void runWithLocation(double latitude, double longitude) {
-                    updateMarker(latitude, longitude);
-                }
-            };
-            //register callback with appstate
-            _appState.addLocationChangedCallback(_locationChangeCallBack);
-        }
-        LocationService.startLocationService(_appState);
-    }
-
-    private void unregisterLocationChangeCallback() {
-        if (_locationChangeCallBack != null) {
-            _appState.removeLocationChangedCallback(_locationChangeCallBack);
-            _locationChangeCallBack = null;
-        }
-    }
+//    private void registerLocationChangeCallback() {
+//        if (_locationChangeCallBack == null) {
+//            _locationChangeCallBack = new LocationRunnable() {
+//                @Override
+//                public void runWithLocation(double latitude, double longitude) {
+//                    updateMarker(latitude, longitude);
+//                }
+//            };
+//            //register callback with appstate
+//            _appState.addLocationChangedCallback(_locationChangeCallBack);
+//        }
+//        LocationService.startLocationService(_appState);
+//    }
+//
+//    private void unregisterLocationChangeCallback() {
+//        if (_locationChangeCallBack != null) {
+//            _appState.removeLocationChangedCallback(_locationChangeCallBack);
+//            _locationChangeCallBack = null;
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +97,7 @@ public class MapsActivity extends ActionBarActivity {
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
 
-        registerLocationChangeCallback();
+//        registerLocationChangeCallback();
 
         // linking maps activity with the UI layout
         setContentView(R.layout.activity_maps);
@@ -154,34 +180,34 @@ public class MapsActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerLocationChangeCallback();
+//        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterLocationChangeCallback();
+//        unregisterLocationChangeCallback();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        registerLocationChangeCallback();
+//        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        registerLocationChangeCallback();
+//        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterLocationChangeCallback();
+//        unregisterLocationChangeCallback();
     }
 
     /**
@@ -207,8 +233,35 @@ public class MapsActivity extends ActionBarActivity {
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                fetchBusinessData();
+//                fetchBusinessData();
+
+                //display our location
+                updateMarker(_appState.latitude, _appState.longitude);
+                setupBusinessDataCallbacks();
             }
+        }
+    }
+
+    private void setupBusinessDataCallbacks() {
+        for (int i = 0; i < 6; i++) {
+            //create random color
+            final float color = 60f * (float) i;
+
+            _appState.addBusinessDataCallback(new BusinessRunnable() {
+                @Override
+                public void runWithBusiness(BusinessData businessData) {
+                    int businessCount = businessData.businesses.size();
+                    for (int j = 0; j < businessCount; j++) {
+                        Business business = businessData.businesses.get(j);
+
+                        LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
+                        mMap.addMarker(new MarkerOptions()
+                                .title(business.name)
+                                .position(position)
+                                .icon(BitmapDescriptorFactory.defaultMarker(color)));
+                    }
+                }
+            }, i);
         }
     }
 

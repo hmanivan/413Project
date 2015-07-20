@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name"></string>
+    <!-- Hall of Flame text as a placeholder. to fix, use title_activity_maps somewhere -->
+    <string name="title_activity_maps">Hall of Flame</string>
+
+    <string name="title_activity_splash_screen">SplashScreen</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <!-- Hall of Flame text as a placeholder. to fix, use title_activity_maps somewhere -->
-    <string name="title_activity_maps">Hall of Flame</string>
+
+    <string name="gps_network_not_enabled">GPS service is not enabled!</string>
+    <string name="open_location_settings">Open location settings</string>
+    <string name="Cancel">Cancel</string>
 </resources>
