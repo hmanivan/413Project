@@ -76,7 +76,7 @@
         <!--android:layout_gravity="bottom"-->
         <!--android:orientation="horizontal"-->
         <!--android:background="#000000"-->
-        <!--tools:context=".MainActivity"-->
+        <!--tools:context=".RevolverActivity"-->
         <!--android:id="@+id/uber">-->
 
         <!--<TextView-->
