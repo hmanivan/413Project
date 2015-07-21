@@ -46,7 +46,8 @@ public class RevolverActivity extends AppCompatActivity
         if (width <= height)
         {
             cylinderEdgeLength = width;
-        } else
+        }
+        else
         {
             cylinderEdgeLength = height;
         }

@@ -45,6 +45,9 @@ public class CanvasView extends SurfaceView
     double distanceToCenter;
     double angleToTouch;
 
+    //for click detection
+    float angleTurned = 0;
+
 
     public void setSamBitmap(Bitmap bitmap)
     {
@@ -159,6 +162,9 @@ public class CanvasView extends SurfaceView
         previousAngle = angle;
         previousRadius = radius;
         isBeingTouched = true;
+
+        //reset angle-based click lockout
+        angleTurned = 0;
     }
 
     // when ACTION_MOVE move touch according to the x,y values
@@ -182,6 +188,9 @@ public class CanvasView extends SurfaceView
             //rotate the wheel by the difference between the two angles
             degToSpin += angleDiff;
 
+            //store the amount the wheel has been turned to turn off click
+            angleTurned += Math.abs(angleDiff);
+
             //set velocity for cylinder on touch lift, degrees/second
             float timeDiff = currentTimeStamp - previousTimeStamp;
             angularV = (.8f * angularV) + (.2f * (angleDiff / timeDiff));
@@ -198,8 +207,8 @@ public class CanvasView extends SurfaceView
         isBeingTouched = false;
         long touchTime = System.currentTimeMillis() - startTouchTimeStamp;
 
-        //a click is defined as a touch event that lasted less than 90 milliseconds
-        if (touchTime < 200)
+        //a click is defined as a touch event that lasted less than 200 milliseconds, and doesn't turn the wheel
+        if (touchTime < 200 && angleTurned < 10)
         {
             rouletteClickHandler();
         }
