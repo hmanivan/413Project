@@ -13,13 +13,10 @@ import android.widget.ImageView;
 
 import com.example.ozzca_000.myapplication.R;
 
-import apitest.MapsActivity;
-
 import static revolverwheel.imageJoinerUtils.CombinePNG.PNGCombiner;
 
 
-public class RevolverActivity extends AppCompatActivity
-{
+public class RevolverActivity extends AppCompatActivity {
     private Bitmap mBitmap;
     private CanvasView RevolverCanvas;
     private Context mContext;
@@ -27,8 +24,7 @@ public class RevolverActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.revolver_wheel);
         mContext = getApplicationContext();
@@ -43,12 +39,9 @@ public class RevolverActivity extends AppCompatActivity
 
         //decide which dimension is smaller, set edgelength for cylinder
         int cylinderEdgeLength;
-        if (width <= height)
-        {
+        if (width <= height) {
             cylinderEdgeLength = width;
-        }
-        else
-        {
+        } else {
             cylinderEdgeLength = height;
         }
 
@@ -58,29 +51,40 @@ public class RevolverActivity extends AppCompatActivity
         RevolverCanvas.startRotationThread();
     }
 
+    //-------------------------------------------------------------------------------------------//
+    //  This is for the settings fragment tab that we want to implement (following 2 methods)    //
+    //-------------------------------------------------------------------------------------------//
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+//        Intent myIntent = new Intent(MainActivity.this, apitest.SettingsActivity.class);
+////        myIntent.putExtra("key", value); //Optional parameters
+//        MainActivity.this.startActivity(myIntent);
         return true;
+
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
+        if (id == R.id.action_settings) {
+            Intent myIntent = new Intent(RevolverActivity.this, apitest.settings.Setting_Main.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+            RevolverActivity.this.startActivity(myIntent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+//-------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------//
 }
