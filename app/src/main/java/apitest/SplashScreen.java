@@ -55,7 +55,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
                     public void run()
                     {
                         String[] terms = new String[]{"American", "Mexican", "Italian", "Chinese", "Japanese", "Breakfast"};
-                        for(int i = 0; i < 6; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             //create index for when callback comes back
                             final int callbackIndex = i;
@@ -69,16 +69,19 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
                                 }
                             }).execute(terms[i], Double.toString(latitude), Double.toString(longitude));
                         }
+
+                        //go to roulette screen when position data comes back
+                        Intent intent = new Intent(SplashScreen.this, revolverwheel.revolver.RevolverActivity.class);
+
+                        //alt intent to go straight to post-roulette
+                        //Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
+
+                        SplashScreen.this.startActivity(intent);
                     }
 
                 }.start();
-
-//                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-//                startActivity(intent);
             }
         });
-        Intent intent = new Intent(SplashScreen.this, revolverwheel.revolver.RevolverActivity.class);
-        SplashScreen.this.startActivity(intent);
     }
 
     public void onRestart()
