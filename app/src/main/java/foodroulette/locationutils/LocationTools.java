@@ -1,14 +1,10 @@
 package foodroulette.locationutils;
 
-import android.content.Context;
 import android.content.IntentSender;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-
-import foodroulette.appstate.FoodRouletteApplication;
-import foodroulette.callbacks.LocationRunnable;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -22,6 +18,8 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import apitest.SplashScreen;
+import foodroulette.appstate.FoodRouletteApplication;
+import foodroulette.callbacks.LocationRunnable;
 
 /**
  * Created by Sam on 7/17/2015.
@@ -39,8 +37,8 @@ public class LocationTools {
 
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(30 * 1000);
-            locationRequest.setFastestInterval(5 * 1000);
+            locationRequest.setInterval(5 * 1000);
+            locationRequest.setFastestInterval(1 * 1000);
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                     .addLocationRequest(locationRequest);
 
