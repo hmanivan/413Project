@@ -333,10 +333,11 @@ public class CanvasView extends SurfaceView
         offsetX = x - cylinderCenterX;
         offsetY = y - cylinderCenterY;
 
-        //TODO: Sam- hypot is really slow, implement something faster
-        distanceToCenter = Math.hypot(offsetX, offsetY);
+        //TODO: Sam- possibly figure out how to do this with trig
+        distanceToCenter = Math.sqrt((offsetX * offsetX) + (offsetY * offsetY));
 
         angleToTouch = (180 / Math.PI) * Math.atan2(offsetY, offsetX);
+
 
         //check to see if touch event falls within cylinder region
         if (distanceToCenter < cylinderCenterX && distanceToCenter > cylinderCenterX / 3)

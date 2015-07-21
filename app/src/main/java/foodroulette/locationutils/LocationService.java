@@ -26,7 +26,7 @@ public class LocationService
                 @Override
                 public void run()
                 {
-                    android.os.Debug.waitForDebugger();
+                    //android.os.Debug.waitForDebugger();
                     LocationListener locationListener = new LocationListener()
                     {
                         @Override
