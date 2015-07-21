@@ -16,4 +16,7 @@
 
     <string name="title_settings_main">Settings</string>
     <string name="title_activity_database">Database</string>
+
+    <string name="title_activity_setting__category">Setting_Category</string>
+    <string name="Choose_Yelp_Rating">Choose_Yelp_Rating</string>
 </resources>
