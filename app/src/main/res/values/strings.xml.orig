@@ -4,7 +4,12 @@
     <string name="title_activity_maps">Post Roulette</string>
 
     <string name="title_activity_splash_screen">SplashScreen</string>
+<<<<<<< HEAD
+    <string name="title_revolver_screen">Revolver Activity</string>
+
+=======
     <string name="title_activity_check_box_activity">Checkbox Activity</string>
+>>>>>>> team1/development
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
