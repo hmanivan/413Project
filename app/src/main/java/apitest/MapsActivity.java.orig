@@ -28,14 +28,16 @@ import YelpData.Business;
 import YelpData.BusinessData;
 import apitest.settings.SettingsActivity;
 import foodroulette.appstate.FoodRouletteApplication;
-import foodroulette.asynctasks.YelpSearchAsyncTask;
 import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
+<<<<<<< HEAD
+=======
 //import com.example.ozzca_000.R;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import YelpData.Business;
+>>>>>>> team1/development
 
 public class MapsActivity extends ActionBarActivity {
 

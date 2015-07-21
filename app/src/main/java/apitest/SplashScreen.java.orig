@@ -74,9 +74,15 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
                 }.start();
 
+<<<<<<< HEAD
+                Intent intent = new Intent(SplashScreen.this, RevolverActivity.class);
+                startActivity(intent);
+=======
 //                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
 //                startActivity(intent);
+>>>>>>> team1/development
             }
+
         });
         Intent intent = new Intent(SplashScreen.this, MainActivity.class);
         SplashScreen.this.startActivity(intent);
