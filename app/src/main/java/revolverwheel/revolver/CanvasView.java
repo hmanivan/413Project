@@ -7,9 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+
+import com.example.ozzca_000.myapplication.R;
 
 import apitest.MapsActivity;
 
@@ -228,31 +231,92 @@ public class CanvasView extends SurfaceView
         //begin button click listeners. Insert appropriate button onClick equivalent code within
         if (adjustedAngle <= 120 && adjustedAngle > 60)
         {
+
+            //Set MediaPlayer object to gunshot sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
+            //play gunshot sound from mediaPlayer object
+            mediaPlayer.start();
+            try {
+                Thread.sleep(1429);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.release();
             //run code for option 1
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 180 && adjustedAngle > 120)
         {
+            //Set MediaPlayer object to gunshot sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
+            //play gunshot sound from mediaPlayer object
+            mediaPlayer.start();
+            try {
+                Thread.sleep(1429);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.release();
             //run code for option 2
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 240 && adjustedAngle > 180)
         {
+            //Set MediaPlayer object to gunshot sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
+            //play gunshot sound from mediaPlayer object
+            mediaPlayer.start();
+            try {
+                Thread.sleep(1429);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.release();
             //run code for option 3
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 300 && adjustedAngle > 240)
         {
+            //Set MediaPlayer object to gunshot sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
+            //play gunshot sound from mediaPlayer object
+            mediaPlayer.start();
+            try {
+                Thread.sleep(1429);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.release();
             //run code for option 4
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 360 && adjustedAngle > 300)
         {
+            //Set MediaPlayer object to gunshot sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
+            //play gunshot sound from mediaPlayer object
+            mediaPlayer.start();
+            try {
+                Thread.sleep(1429);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.release();
             //run code for option 5
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 60 && adjustedAngle > 0)
         {
+            //Set MediaPlayer object to gunshot sound
+            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
+            //play gunshot sound from mediaPlayer object
+            mediaPlayer.start();
+            try {
+                Thread.sleep(1429);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mediaPlayer.release();
             //run code for option 6
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
