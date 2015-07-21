@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ozzca_000.myapplication.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

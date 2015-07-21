@@ -70,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent myIntent = new Intent(MainActivity.this, apitest.settings.Settings_Main.class);
+            Intent myIntent = new Intent(MainActivity.this, apitest.settings.Setting_Main.class);
 //        myIntent.putExtra("key", value); //Optional parameters
             MainActivity.this.startActivity(myIntent);
             return true;
@@ -191,21 +191,21 @@ public class MainActivity extends ActionBarActivity {
         MainActivity.this.startActivity(myIntent);
     }
 
-    // on back button pressed
-    public void onBack(View view) {
-        //Set MediaPlayer object to reload sound
-        MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.reload);
-        //play gunshot sound from mediaPlayer object
-        mediaPlayer.start();
-        try {
-            Thread.sleep(1429);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        mediaPlayer.release();
-        //Go back to Home Screen
-        setContentView(R.layout.activity_main);
-    }
+//    // on back button pressed
+//    public void onBack(View view) {
+//        //Set MediaPlayer object to reload sound
+//        MediaPlayer mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.reload);
+//        //play gunshot sound from mediaPlayer object
+//        mediaPlayer.start();
+//        try {
+//            Thread.sleep(1429);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        mediaPlayer.release();
+//        //Go back to Home Screen
+//        setContentView(R.layout.activity_main);
+//    }
 
 //    //On Settings button pressed
 //    public void onSet(View view) {

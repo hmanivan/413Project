@@ -215,6 +215,20 @@ public class MapsActivity extends ActionBarActivity {
 //                fetchBusinessData();
 
                 //display our location
+                updateMarker(37.721627,-122.4750291);
+                setupBusinessDataCallbacks();
+            }
+        }
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
+            if (mMap != null) {
+//                fetchBusinessData();
+
+                //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
             }
