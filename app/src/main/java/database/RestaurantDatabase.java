@@ -29,7 +29,7 @@ public class RestaurantDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase restaurantDb) {
-        String CREATE_CHAMP_TABLE = "CREATE TABLE " + dbResTable + "("
+        String CREATE_DVREST_TABLE = "CREATE TABLE " + dbResTable + "("
                 + id + " INT PRIMARY KEY,"
                 + resaurantName + " TEXT,"
                 + displayPhone + " TEXT,"
@@ -37,8 +37,8 @@ public class RestaurantDatabase extends SQLiteOpenHelper {
                 + image_url + " TEXT,"
                 + mobile_url + " TEXT,"
                 + rating + " REAL,"
-                + reviewCount + " INT," + ")";
-        restaurantDb.execSQL(CREATE_CHAMP_TABLE);
+                + reviewCount + " INT" + ")";
+        restaurantDb.execSQL(CREATE_DVREST_TABLE);
 
     }
 

@@ -39,6 +39,8 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
 
+
+
         DbAbstractionLayer dbAbstractionLayer = DbAbstractionLayer.getDbAbstractionLayer();
 
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(this);
