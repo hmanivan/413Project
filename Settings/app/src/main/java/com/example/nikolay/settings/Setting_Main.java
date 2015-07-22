@@ -32,10 +32,13 @@ import java.util.List;
 public class Setting_Main extends ActionBarActivity {
 
     private Button buttonCategory;
-    private SeekBar mSeekBarVolume;
-    private SharedPreferences prefs;
+    private static SeekBar seekbar_radius;
+    private static TextView text_radius, text_test;
+    private SharedPreferences prefs, prefs2;
     private String prefName = "spinner_value";
-    int id=0;
+    private int id=0,currentProgress, newProgress;
+    private float SeekRadValue;
+    private double progressValue;
 
 
 
@@ -47,11 +50,16 @@ public class Setting_Main extends ActionBarActivity {
         buttonCategory = (Button) findViewById(R.id.button_Category);
         createPriceRange();
         createSpinner();
+        createSeekbar();
+        seekbarRadius();
+
 
 
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,6 +81,66 @@ public class Setting_Main extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void getSeekPref(){
+        prefs2 = getSharedPreferences( "SEEKPROG", Context.MODE_PRIVATE );
+        currentProgress = prefs2.getInt("SEEKPROG", 2);
+    }
+
+    public void createSeekbar(){
+        getSeekPref();
+        seekbar_radius = (SeekBar) findViewById(R.id.seekbar_radius);
+        seekbar_radius.setProgress(currentProgress);
+    }
+
+    public float getRadius(){
+        prefs2 = getSharedPreferences( "SEEKPROG", Context.MODE_PRIVATE );
+        currentProgress = prefs2.getInt("SEEKPROG", 0);
+        SeekRadValue = ((float)currentProgress/10);
+        return SeekRadValue;
+    }
+
+    public void seekbarRadius(){
+        text_radius = (TextView) findViewById(R.id.text_radius);
+        text_radius.setText("Radius: " + ((double) seekbar_radius.getProgress() / 10));
+
+        seekbar_radius.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        progressValue = ((double)progress/10);
+                        text_radius.setText("Radius: " + progressValue);
+
+
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        newProgress = seekbar_radius.getProgress();
+                        currentProgress = newProgress;
+                        text_radius.setText("Radius: " + progressValue);
+                        SharedPreferences.Editor editor = prefs2.edit();
+                        editor.putInt("SEEKPROG", newProgress);
+                        editor.commit();
+
+
+                    }
+                }
+
+        );
+
     }
 
     public void onButton_Category(View view){
