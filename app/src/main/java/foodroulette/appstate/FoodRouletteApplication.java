@@ -128,6 +128,7 @@ public class FoodRouletteApplication extends Application {
     public double latitude;
     public double longitude;
 
+    public int rouletteSelection = -1;
 }
 
 
