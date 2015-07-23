@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
+      <module fileurl="file://$PROJECT_DIR$/revolverroulette.iml" filepath="$PROJECT_DIR$/revolverroulette.iml" />
+=======
       <module fileurl="file://$PROJECT_DIR$/devdev.iml" filepath="$PROJECT_DIR$/devdev.iml" />
+>>>>>>> development
     </modules>
   </component>
 </project>

@@ -62,6 +62,8 @@ public class MapsActivity extends ActionBarActivity {
     private Marker mMarker;
     private Marker businessMarker;
 
+    //private TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+
     private LocationRunnable _locationChangeCallBack;
 
     //list of businesses to sort
@@ -327,14 +329,15 @@ public class MapsActivity extends ActionBarActivity {
                 //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
+                setMapCameraPosition(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
+
+                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+                businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+
             }
         }
     }
 
-    /*private void setupBusinessDataCallbacks() {
-        for (int i = 0; i < 6; i++) {
-            //create random color
-            final float color = 51f + (51f * (float) i);*/
     private void setupBusinessDataCallbacks()
     {
         int selectedCategory = _appState.rouletteSelection;
@@ -423,6 +426,8 @@ public class MapsActivity extends ActionBarActivity {
             businessMarker.setTitle(business.name);
 
             setMapCameraPosition(position.latitude, position.longitude);
+            TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+           businessTitleTextView.setText(business.name);
         }
     }
 
@@ -447,7 +452,7 @@ public class MapsActivity extends ActionBarActivity {
             options.title("You are here");
             options.position(new LatLng(latitude, longitude));
             mMarker = mMap.addMarker(options);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
         }
         else
         {

@@ -8,6 +8,9 @@
 # Java class files
 *.class
 
+#mergetools
+*.orig
+
 # generated files
 bin/
 gen/
