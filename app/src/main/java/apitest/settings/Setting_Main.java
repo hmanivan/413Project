@@ -1,9 +1,11 @@
 package apitest.settings;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,11 +26,16 @@ import java.util.List;
 
 public class Setting_Main extends ActionBarActivity {
 
+    private static Toast address;
     private Button buttonCategory;
-    private SeekBar mSeekBarVolume;
-    private SharedPreferences prefs;
-    private String prefName = "spinner_value";
-    int id=0;
+    private static SeekBar seekbar_radius;
+    private static TextView text_radius, text_test;
+    private SharedPreferences prefs, prefs2, pref;
+    private String prefName = "spinner_value", YelpRating;
+    private int id=0,currentProgress, newProgress, idtemp;
+    private float SeekRadValue;
+    private double progressValue;
+    final private List<String> list=new ArrayList<String>();
 
 
 
@@ -40,10 +47,8 @@ public class Setting_Main extends ActionBarActivity {
         buttonCategory = (Button) findViewById(R.id.button_Category);
         createPriceRange();
         createSpinner();
-
-
-
-
+        createSeekbar();
+        seekbarRadius();
     }
 
     @Override
@@ -68,10 +73,71 @@ public class Setting_Main extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void getSeekPref(){
+        prefs2 = getSharedPreferences( "SEEKPROG", Context.MODE_PRIVATE );
+        currentProgress = prefs2.getInt("SEEKPROG", 20);
+    }
+
+    public void createSeekbar(){
+        getSeekPref();
+        seekbar_radius = (SeekBar) findViewById(R.id.seekbar_radius);
+        seekbar_radius.setProgress(currentProgress);
+
+        //text_test = (TextView) findViewById(R.id.text_test);
+        //text_test.setText("Value is: " + getRadius());
+    }
+
+    public float getRadius(){
+        prefs2 = getSharedPreferences( "SEEKPROG", Context.MODE_PRIVATE );
+        currentProgress = prefs2.getInt("SEEKPROG", 20);
+        SeekRadValue = ((float)currentProgress/10);
+        return SeekRadValue;
+    }
+
+    public void seekbarRadius(){
+        text_radius = (TextView) findViewById(R.id.text_radius);
+        text_radius.setText("Radius: " + ((double) seekbar_radius.getProgress() / 10));
+
+        seekbar_radius.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+
+
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                        progressValue = ((double) progress / 10);
+                        text_radius.setText("Radius: " + progressValue);
+
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        newProgress = seekbar_radius.getProgress();
+                        currentProgress = newProgress;
+                        text_radius.setText("Radius: " + progressValue);
+                        SharedPreferences.Editor editor = prefs2.edit();
+                        editor.putInt("SEEKPROG", newProgress);
+                        editor.commit();
+
+
+                    }
+                }
+
+        );
+
+    }
+
     public void onButton_Category(View view){
         Intent intent = new Intent(this, Setting_Category.class);
-        startActivity(intent);
-    }
+        startActivity(intent);    }
+
+
 
     public void onSave(View view) {
 
@@ -81,6 +147,45 @@ public class Setting_Main extends ActionBarActivity {
                 Toast.LENGTH_LONG).show();
     }
 
+    public void onClear(View view) {
+        prefs2.edit().remove("SEEKPROG").commit();
+        prefs.edit().remove("last_val").commit();
+        pref.edit().remove("MAX").commit();
+        Toast.makeText(getApplicationContext(), "Preferences Cleared",
+                Toast.LENGTH_LONG).show();
+    }
+    public void onHintRadius(View view){
+        if (address != null)
+            address.cancel();
+        address = Toast.makeText(getBaseContext(),"Set Search Radius centered around your current location", Toast.LENGTH_LONG);
+        address.setGravity(Gravity.CENTER, 0, 0);
+        address.show();
+    }
+
+    public void onHintCategory(View view){
+        if (address != null)
+            address.cancel();
+        address = Toast.makeText(getBaseContext(),"Select desired food categories to populate the roulette wheel", Toast.LENGTH_LONG);
+        address.setGravity(Gravity.CENTER, 0, 0);
+        address.show();
+    }
+
+    public void onHintSpinner(View view){
+        if (address != null)
+            address.cancel();
+        address = Toast.makeText(getBaseContext(),"Select desired yelp rating", Toast.LENGTH_LONG);
+        address.setGravity(Gravity.CENTER, 0, 0);
+        address.show();
+    }
+
+    public void onHintRange(View view){
+        if (address != null)
+            address.cancel();
+        address = Toast.makeText(getBaseContext(),"Input MAX amount of money you are willing to spend", Toast.LENGTH_LONG);
+        address.setGravity(Gravity.CENTER, 0, 0);
+        address.show();
+    }
+
     public void createPriceRange(){
         String range = getPriceRange();
         ((TextView)findViewById(R.id.text_priceRange)).setText(range);
@@ -88,8 +193,8 @@ public class Setting_Main extends ActionBarActivity {
     }
 
     public String getPriceRange(){
-        SharedPreferences pref = getSharedPreferences("RANGE",MODE_PRIVATE);
-        String text = pref.getString("MAX","Enter $$$");
+        pref = getSharedPreferences("RANGE", MODE_PRIVATE);
+        String text = pref.getString("MAX", "");
         return text;
 
     }
@@ -101,9 +206,16 @@ public class Setting_Main extends ActionBarActivity {
         editor.commit();
     }
 
+    public String getYelpRating(){
+        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+        idtemp = prefs.getInt("last_val", 2);
+        YelpRating = (String) list.get(idtemp);
+        return YelpRating;
+    }
+
     public void createSpinner(){
 
-        final List<String> list=new ArrayList<String>();
+        //final List<String> list=new ArrayList<String>();
         list.add("1");
         list.add("2");
         list.add("3");
@@ -117,13 +229,13 @@ public class Setting_Main extends ActionBarActivity {
         sp.setAdapter(adp);
 
         prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-        id=prefs.getInt("last_val",0);
+        id=prefs.getInt("last_val",2);
         sp.setSelection(id);
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,int pos, long arg3) {
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 // TODO Auto-generated method stub
 
                 prefs = getSharedPreferences(prefName, MODE_PRIVATE);
@@ -134,7 +246,10 @@ public class Setting_Main extends ActionBarActivity {
 //---saves the values---
                 editor.commit();
 
-                Toast.makeText(getBaseContext(), sp.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                //text_test = (TextView) findViewById(R.id.text_test);
+                //text_test.setText("Value is: " + getYelpRating());
+
+                //Toast.makeText(getBaseContext(), sp.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
             }
 
