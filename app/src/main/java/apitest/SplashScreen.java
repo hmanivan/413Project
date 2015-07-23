@@ -101,7 +101,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
                     @Override
                     public void run()
                     {
-                        String[] terms = new String[]{"American", "Mexican", "Italian", "Chinese", "Japanese", "Breakfast"};
+                        String[] terms = new String[]{"Indian", "American", "Chinese", "Italian", "Japanese", "Mexican"};
                         for (int i = 0; i < 6; i++)
                         {
                             //create index for when callback comes back

@@ -26,5 +26,7 @@ public class Business {
     public List<List<String>> categories;
 
     public Location location;
+
+    public double distanceToUser;
 }
 

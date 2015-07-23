@@ -15,6 +15,7 @@ import android.view.SurfaceView;
 import com.example.ozzca_000.myapplication.R;
 
 import apitest.MapsActivity;
+import foodroulette.appstate.FoodRouletteApplication;
 
 /**
  * Created by Sam on 7/6/2015.
@@ -26,6 +27,9 @@ public class CanvasView extends SurfaceView
     private Bitmap samBetterBitmap;
 
     Context context;
+
+    public FoodRouletteApplication _appstate;
+
     private Paint mPaint;
     private long timeStamp = 0;
     private float degToSpin = 0;
@@ -65,6 +69,7 @@ public class CanvasView extends SurfaceView
     {
         super(c, attrs);
         context = c;
+        _appstate = ((FoodRouletteApplication) (context.getApplicationContext()));
 
         // and we set a new Paint with the desired attributes
         mPaint = new Paint();
@@ -243,6 +248,8 @@ public class CanvasView extends SurfaceView
             }
             mediaPlayer.release();
             //run code for option 1
+            _appstate.rouletteSelection = 0;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 180 && adjustedAngle > 120)
@@ -258,6 +265,8 @@ public class CanvasView extends SurfaceView
             }
             mediaPlayer.release();
             //run code for option 2
+            _appstate.rouletteSelection = 1;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 240 && adjustedAngle > 180)
@@ -273,6 +282,8 @@ public class CanvasView extends SurfaceView
             }
             mediaPlayer.release();
             //run code for option 3
+            _appstate.rouletteSelection = 2;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 300 && adjustedAngle > 240)
@@ -288,6 +299,8 @@ public class CanvasView extends SurfaceView
             }
             mediaPlayer.release();
             //run code for option 4
+            _appstate.rouletteSelection = 3;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 360 && adjustedAngle > 300)
@@ -303,6 +316,8 @@ public class CanvasView extends SurfaceView
             }
             mediaPlayer.release();
             //run code for option 5
+            _appstate.rouletteSelection = 4;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 60 && adjustedAngle > 0)
@@ -318,6 +333,8 @@ public class CanvasView extends SurfaceView
             }
             mediaPlayer.release();
             //run code for option 6
+            _appstate.rouletteSelection = 5;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         }
