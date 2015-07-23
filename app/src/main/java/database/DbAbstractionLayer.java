@@ -39,7 +39,9 @@ public class DbAbstractionLayer {
 
     private DbAbstractionLayer(){}
 
-    public static boolean isRestaurantInBlockedList(int restaurantId, Context context){
+    public static boolean isRestaurantInBlockedList(String restaurantIdStr, Context context){
+
+        int restaurantId = Integer.parseInt(restaurantIdStr);
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
@@ -98,9 +100,11 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
+        int restaurantId = Integer.parseInt(downVotedRestaurant.id);
+
         ContentValues newRestaurant = new ContentValues();
 
-        newRestaurant.put(RestaurantDatabase.id, downVotedRestaurant.id);
+        newRestaurant.put(RestaurantDatabase.id, restaurantId);
         newRestaurant.put(RestaurantDatabase.resaurantName, downVotedRestaurant.name);
         newRestaurant.put(RestaurantDatabase.displayPhone, downVotedRestaurant.display_phone);
         newRestaurant.put(RestaurantDatabase.image_url, downVotedRestaurant.image_url);
@@ -118,7 +122,9 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
-        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
+        int restaurantId = Integer.parseInt(restaurant.id);
+
+        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {Integer.toString(restaurantId)} );
 
     }
 
