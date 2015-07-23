@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -73,6 +74,8 @@ public class MapsActivity extends ActionBarActivity {
     private final static String LOG_TAG = "FlashLight";
     final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
+    private Vibrator myVib;
+
 //    private void registerLocationChangeCallback() {
 //        if (_locationChangeCallBack == null) {
 //            _locationChangeCallBack = new LocationRunnable() {
@@ -108,6 +111,8 @@ public class MapsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_maps);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         setUpMapIfNeeded();
 
         Button boton = (Button) findViewById(R.id.blacklistbutton);
@@ -158,6 +163,8 @@ public class MapsActivity extends ActionBarActivity {
                     public void run() {
                         MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
                         mp.start();
+
+                        myVib.vibrate(250);
                         if (mCamera != null) {
                             Camera.Parameters params = mCamera.getParameters();
                             params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
