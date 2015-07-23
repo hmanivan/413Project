@@ -39,6 +39,7 @@ public class RestaurantDatabase extends SQLiteOpenHelper {
                 + rating + " REAL,"
                 + reviewCount + " INT" + ")";
         restaurantDb.execSQL(CREATE_DVREST_TABLE);
+        String[] myStringArray={"A","B","C"};
 
     }
 
