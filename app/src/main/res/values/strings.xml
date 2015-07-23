@@ -20,5 +20,5 @@
     <string name="Choose_Yelp_Rating">Choose_Yelp_Rating</string>
     <string name="settingmain">Setting</string>
     <string name="revolverwheel">@string/app_name</string>
-    <string name="message">Sucess!</string>
+    <string name="message">Success!</string>
 </resources>
