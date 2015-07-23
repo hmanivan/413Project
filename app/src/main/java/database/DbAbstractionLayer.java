@@ -82,6 +82,7 @@ public class DbAbstractionLayer {
         Business[] downVotedList = new Business[numOfRestaurants];
 
         for (int i = 0; i < numOfRestaurants; i++){
+            downVotedList[i] = new Business();
             downVotedList[i].id = restData.getString(idColumn);
             downVotedList[i].name = restData.getString(restNameColumn);
             downVotedList[i].display_phone = restData.getString(dispPhoneColumn);

@@ -22,16 +22,26 @@ import database.DbAbstractionLayer;
 
 public class DownVotedList extends ActionBarActivity {
 
-    String[] mResturantNames = {"one", "two", "three", "four", "five"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_down_voted_list);
-        DownVotedList data = new DownVotedList();
-        DownVotedListAdaptor adapter = new DownVotedListAdaptor(this, data);
+        Business[] downVotedRestaurants = DbAbstractionLayer.getDownVotedList(this);
+        String[] restaurantNames = new String[downVotedRestaurants.length];
 
-        ListView listView = (ListView) findViewById(R.id.mResturantNames);
+        for(int i = 0; i < downVotedRestaurants.length; i++){
+            restaurantNames[i] = downVotedRestaurants[i].name;
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, restaurantNames);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
+
+
+
     }
 }

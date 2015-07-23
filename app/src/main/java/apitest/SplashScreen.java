@@ -47,7 +47,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
 
-        Cursor restData =restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
+        Cursor restData = restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
 
         if (!(restData.getCount() > 0)){
 
@@ -70,6 +70,8 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
             for(int i = 2; i < tableColumns.length; i++){
                 dummyRestaurant.put(tableColumns[i], "");
             }
+
+            restaurantDb.insert(RestaurantDatabase.dbResTable, null, dummyRestaurant);
 
             showEULAmessage();
 

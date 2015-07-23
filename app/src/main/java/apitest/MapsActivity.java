@@ -94,7 +94,7 @@ public class MapsActivity extends ActionBarActivity {
         setUpMapIfNeeded();
 
         Button boton = (Button) findViewById(R.id.blacklistbutton);
-
+        Button booton = (Button) findViewById(R.id.button);
         final int singleShot = R.raw.single_shot;
         final Context finalThis = this;
 
@@ -114,6 +114,15 @@ public class MapsActivity extends ActionBarActivity {
                 }
             }.start();
         }
+        booton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent myIntent = new Intent(MapsActivity.this, DownVotedList.class);
+//        myIntent.putExtra("key", value); //Optional parameters
+                MapsActivity.this.startActivity(myIntent);
+            }
+
+        });
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,13 +146,13 @@ public class MapsActivity extends ActionBarActivity {
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
-                                Business downVoted=new Business();
+                                Business downVoted = new Business();
 
-                                downVoted.id="100";
-                              /*  downVoted.name=" ";
+                                downVoted.id = "100";
+                                downVoted.name="Times House`";
                                 downVoted.display_phone=" ";
                                 downVoted.image_url=" ";
                                 downVoted.mobile_url=" ";
@@ -151,17 +160,15 @@ public class MapsActivity extends ActionBarActivity {
                                 downVoted.rating=0;
                                 downVoted.review_count=0;
 
-*/
 
-                                if(DbAbstractionLayer.isRestaurantInBlockedList("100", MapsActivity.this))
-                                {
+
+                                if (DbAbstractionLayer.isRestaurantInBlockedList("100", MapsActivity.this)) {
                                     Dialog d = new Dialog(MapsActivity.this);
                                     d.setContentView(R.layout.popupview);
-                                    TextView txt = (TextView)d.findViewById(R.id.editText);
+                                    TextView txt = (TextView) d.findViewById(R.id.editText);
                                     txt.setText(getString(R.string.message));
                                     d.show();
-                                }
-                                else {
+                                } else {
 
                                     DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
                                 }
@@ -271,7 +278,7 @@ public class MapsActivity extends ActionBarActivity {
 //                fetchBusinessData();
 
                 //display our location
-                updateMarker(37.721627,-122.4750291);
+                updateMarker(37.721627, -122.4750291);
                 setupBusinessDataCallbacks();
             }
         }
