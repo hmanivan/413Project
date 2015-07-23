@@ -152,19 +152,19 @@ public class MapsActivity extends ActionBarActivity {
                                 downVoted.review_count=0;
 
 */
-                                DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
-                                /*if(DbAbstractionLayer.isRestaurantInBlockedList(100, MapsActivity.this))
+
+                                if(DbAbstractionLayer.isRestaurantInBlockedList(100, MapsActivity.this))
                                 {
-
-                                }
-                                else {
-
                                     Dialog d = new Dialog(MapsActivity.this);
                                     d.setContentView(R.layout.popupview);
                                     TextView txt = (TextView)d.findViewById(R.id.editText);
                                     txt.setText(getString(R.string.message));
                                     d.show();
-                                }*/
+                                }
+                                else {
+
+                                    DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
+                                }
                                 break;
                             case DialogInterface.BUTTON_NEGATIVE:
                                 //No button clicked

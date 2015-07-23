@@ -49,7 +49,7 @@ public class DbAbstractionLayer {
                 restaurantDatabase.id + " = ?",
                 new String[] {Integer.toString(restaurantId)},
                 null, null, null);
-        if (!(restaurantData.getCount() > 0)){
+        if ((restaurantData.getCount() > 0)){
             return true;
         }else {
             return false;
@@ -57,12 +57,12 @@ public class DbAbstractionLayer {
     }
 
     public static Business[] getDownVotedList(){
-        
+
 
         Cursor restData =restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
         restData.moveToFirst();
         int numOfRestaurants = restData.getCount();
-        
+
         int idColumn = restData.getColumnIndex(RestaurantDatabase.id);
         int restNameColumn = restData.getColumnIndex(RestaurantDatabase.resaurantName);
         int dispPhoneColumn = restData.getColumnIndex(RestaurantDatabase.displayPhone);
@@ -71,8 +71,8 @@ public class DbAbstractionLayer {
         int phoneColumn = restData.getColumnIndex(RestaurantDatabase.phone);
         int rateColumn = restData.getColumnIndex(RestaurantDatabase.rating);
         int revColumn = restData.getColumnIndex(RestaurantDatabase.reviewCount);
-        
-        
+
+
         Business[] downVotedList = new Business[numOfRestaurants];
 
         for (int i = 0; i < numOfRestaurants; i++){
