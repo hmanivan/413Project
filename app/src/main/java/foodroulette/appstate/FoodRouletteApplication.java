@@ -31,7 +31,7 @@ public class FoodRouletteApplication extends Application {
 
     //Create a concurrent list of location callbacks
     //This list is thread-safe, and can be accessed and manipulated from any thread
-    //This list comtains the subscriobers to location data, who should be updated when location changes
+    //This list contains the subscriobers to location data, who should be updated when location changes
     private Queue<LocationRunnable> _locationChangedCallbacks = new ConcurrentLinkedQueue<LocationRunnable>();
 
     //create list of business runnables for batching yelp calls
@@ -128,7 +128,6 @@ public class FoodRouletteApplication extends Application {
     public double latitude;
     public double longitude;
 
-    public int rouletteSelection = -1;
 }
 
 

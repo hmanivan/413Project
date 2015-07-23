@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
         LocationTools.checkLocationServicesEnabled(this);
 
         //get current location, with runnable to execute code on completion
-        LocationTools.getLastKnownLocation(_appState, new LocationRunnable()
+        LocationTools.getCurrentLocation(_appState, new LocationRunnable()
         {
             @Override
             public void runWithLocation(final double latitude, final double longitude)
