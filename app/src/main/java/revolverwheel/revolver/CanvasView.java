@@ -7,12 +7,16 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 import com.example.ozzca_000.myapplication.R;
+
+import java.util.concurrent.LinkedBlockingQueue;
 
 import apitest.MapsActivity;
 import foodroulette.appstate.FoodRouletteApplication;
@@ -55,6 +59,10 @@ public class CanvasView extends SurfaceView
     //for click detection
     float angleTurned = 0;
 
+
+    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
+    private Camera mCamera;
+    private final static String LOG_TAG = "FlashLight";
 
     public void setSamBitmap(Bitmap bitmap)
     {
@@ -219,6 +227,8 @@ public class CanvasView extends SurfaceView
         if (touchTime < 200 && angleTurned < 10)
         {
             rouletteClickHandler();
+
+            startSoundThread();
         }
     }
 
@@ -236,17 +246,6 @@ public class CanvasView extends SurfaceView
         //begin button click listeners. Insert appropriate button onClick equivalent code within
         if (adjustedAngle <= 120 && adjustedAngle > 60)
         {
-
-            //Set MediaPlayer object to gunshot sound
-            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
-            //play gunshot sound from mediaPlayer object
-            mediaPlayer.start();
-            try {
-                Thread.sleep(1429);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.release();
             //run code for option 1
             _appstate.rouletteSelection = 0;
 
@@ -254,16 +253,6 @@ public class CanvasView extends SurfaceView
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 180 && adjustedAngle > 120)
         {
-            //Set MediaPlayer object to gunshot sound
-            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
-            //play gunshot sound from mediaPlayer object
-            mediaPlayer.start();
-            try {
-                Thread.sleep(1429);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.release();
             //run code for option 2
             _appstate.rouletteSelection = 1;
 
@@ -271,16 +260,6 @@ public class CanvasView extends SurfaceView
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 240 && adjustedAngle > 180)
         {
-            //Set MediaPlayer object to gunshot sound
-            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
-            //play gunshot sound from mediaPlayer object
-            mediaPlayer.start();
-            try {
-                Thread.sleep(1429);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.release();
             //run code for option 3
             _appstate.rouletteSelection = 2;
 
@@ -288,16 +267,6 @@ public class CanvasView extends SurfaceView
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 300 && adjustedAngle > 240)
         {
-            //Set MediaPlayer object to gunshot sound
-            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
-            //play gunshot sound from mediaPlayer object
-            mediaPlayer.start();
-            try {
-                Thread.sleep(1429);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.release();
             //run code for option 4
             _appstate.rouletteSelection = 3;
 
@@ -305,16 +274,6 @@ public class CanvasView extends SurfaceView
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 360 && adjustedAngle > 300)
         {
-            //Set MediaPlayer object to gunshot sound
-            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
-            //play gunshot sound from mediaPlayer object
-            mediaPlayer.start();
-            try {
-                Thread.sleep(1429);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.release();
             //run code for option 5
             _appstate.rouletteSelection = 4;
 
@@ -322,16 +281,6 @@ public class CanvasView extends SurfaceView
             ((Activity) getContext()).startActivity(intent);
         } else if (adjustedAngle <= 60 && adjustedAngle > 0)
         {
-            //Set MediaPlayer object to gunshot sound
-            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
-            //play gunshot sound from mediaPlayer object
-            mediaPlayer.start();
-            try {
-                Thread.sleep(1429);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.release();
             //run code for option 6
             _appstate.rouletteSelection = 5;
 
@@ -379,5 +328,58 @@ public class CanvasView extends SurfaceView
 
 
         return true;
+    }
+
+    public void startSoundThread() {
+
+//        final Context finalThis = this;
+        for (int i = 0; i < 50; i++) {
+            new Thread() {
+                public void run() {
+                    while (true) {
+                        try {
+                            Runnable task = shotQ.take();
+                            task.run();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }.start();
+        }
+        Runnable task = new Runnable() {
+            public void run() {
+                MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.single_shot);
+                try{
+                    mCamera = Camera.open();
+                } catch( Exception e ){
+                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+                }
+                mp.start();
+
+                if (mCamera != null) {
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    mCamera.release();
+                    mCamera = null;
+                }
+                try {
+                    Thread.sleep(1429);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mp.release();
+//                        shot.onGunshot();
+            }
+        };
+        shotQ.add(task);
     }
 }

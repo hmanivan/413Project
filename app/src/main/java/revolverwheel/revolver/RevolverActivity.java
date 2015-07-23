@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.hardware.Camera;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.example.ozzca_000.myapplication.R;
+
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static revolverwheel.imageJoinerUtils.CombinePNG.PNGCombiner;
 
@@ -21,7 +26,6 @@ public class RevolverActivity extends AppCompatActivity {
     private CanvasView RevolverCanvas;
     private Context mContext;
     private ImageView combinedRevolverImage;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,4 +91,7 @@ public class RevolverActivity extends AppCompatActivity {
 
 //-------------------------------------------------------------------------------------------//
 //-------------------------------------------------------------------------------------------//
+
+
+
 }
