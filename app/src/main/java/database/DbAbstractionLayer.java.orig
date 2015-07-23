@@ -52,23 +52,32 @@ public class DbAbstractionLayer {
                 restaurantDatabase.id + " = ?",
                 new String[] {Integer.toString(restaurantId)},
                 null, null, null);
+<<<<<<< HEAD
+        if ((restaurantData.getCount() > 0)){
+=======
         if (restaurantData.getCount() > 0){
+>>>>>>> team1/devDbAndAbstractionLayer
             return true;
         }else {
             return false;
         }
     }
 
+<<<<<<< HEAD
+    public static Business[] getDownVotedList(){
+
+=======
     public static Business[] getDownVotedList(Context context){
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
         
+>>>>>>> team1/devDbAndAbstractionLayer
 
         Cursor restData =restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
         restData.moveToFirst();
         int numOfRestaurants = restData.getCount();
-        
+
         int idColumn = restData.getColumnIndex(RestaurantDatabase.id);
         int restNameColumn = restData.getColumnIndex(RestaurantDatabase.resaurantName);
         int dispPhoneColumn = restData.getColumnIndex(RestaurantDatabase.displayPhone);
@@ -77,8 +86,8 @@ public class DbAbstractionLayer {
         int phoneColumn = restData.getColumnIndex(RestaurantDatabase.phone);
         int rateColumn = restData.getColumnIndex(RestaurantDatabase.rating);
         int revColumn = restData.getColumnIndex(RestaurantDatabase.reviewCount);
-        
-        
+
+
         Business[] downVotedList = new Business[numOfRestaurants];
 
         for (int i = 0; i < numOfRestaurants; i++){
@@ -100,9 +109,12 @@ public class DbAbstractionLayer {
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
+<<<<<<< HEAD
+=======
 
         int restaurantId = Integer.parseInt(downVotedRestaurant.id);
 
+>>>>>>> team1/devDbAndAbstractionLayer
         ContentValues newRestaurant = new ContentValues();
 
         newRestaurant.put(RestaurantDatabase.id, restaurantId);
@@ -119,6 +131,13 @@ public class DbAbstractionLayer {
     }
 
     public static void removeRestaurant(Business restaurant, Context context){
+<<<<<<< HEAD
+
+        mContext = context;
+        restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
+        restaurantDb = restaurantDatabase.getWritableDatabase();
+        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
+=======
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
@@ -126,6 +145,7 @@ public class DbAbstractionLayer {
         int restaurantId = Integer.parseInt(restaurant.id);
 
         restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {Integer.toString(restaurantId)} );
+>>>>>>> team1/devDbAndAbstractionLayer
 
     }
 

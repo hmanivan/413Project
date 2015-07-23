@@ -1,6 +1,9 @@
 package apitest;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,11 +26,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import YelpData.Business;
 import YelpData.BusinessData;
 import apitest.settings.SettingsActivity;
+import database.DbAbstractionLayer;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.asynctasks.YelpSearchAsyncTask;
 import foodroulette.callbacks.BusinessRunnable;
@@ -36,6 +42,8 @@ import foodroulette.callbacks.LocationRunnable;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import YelpData.Business;
+
+import static database.DbAbstractionLayer.addRestaurant;
 
 public class MapsActivity extends ActionBarActivity {
 
@@ -119,11 +127,56 @@ public class MapsActivity extends ActionBarActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+
                         mp.release();
                     }
                 };
                 shotQ.add(task);
-            }
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Yes button clicked
+                                Business downVoted=new Business();
+
+                                downVoted.id="100";
+                              /*  downVoted.name=" ";
+                                downVoted.display_phone=" ";
+                                downVoted.image_url=" ";
+                                downVoted.mobile_url=" ";
+                                downVoted.phone="";
+                                downVoted.rating=0;
+                                downVoted.review_count=0;
+
+*/
+
+                                if(DbAbstractionLayer.isRestaurantInBlockedList(100, MapsActivity.this))
+                                {
+                                    Dialog d = new Dialog(MapsActivity.this);
+                                    d.setContentView(R.layout.popupview);
+                                    TextView txt = (TextView)d.findViewById(R.id.editText);
+                                    txt.setText(getString(R.string.message));
+                                    d.show();
+                                }
+                                else {
+
+                                    DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
+                                }
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+            } //end onClick
         });
     }
 

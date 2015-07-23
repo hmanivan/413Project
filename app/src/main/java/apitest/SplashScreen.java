@@ -127,6 +127,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
                 }.start();
             }
         });
+
     }
 
     public void onRestart()
