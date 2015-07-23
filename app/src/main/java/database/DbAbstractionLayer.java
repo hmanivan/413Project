@@ -90,8 +90,10 @@ public class DbAbstractionLayer {
         return downVotedList;
     }
 
-    public static void addRestaurant(Business downVotedRestaurant){
-
+    public static void addRestaurant(Business downVotedRestaurant, Context context){
+        mContext = context;
+        restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
+        restaurantDb = restaurantDatabase.getWritableDatabase();
         ContentValues newRestaurant = new ContentValues();
 
         newRestaurant.put(RestaurantDatabase.id, downVotedRestaurant.id);
@@ -107,8 +109,11 @@ public class DbAbstractionLayer {
 
     }
 
-    public static void removeRestaurant(Business restaurant){
+    public static void removeRestaurant(Business restaurant, Context context){
 
+        mContext = context;
+        restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
+        restaurantDb = restaurantDatabase.getWritableDatabase();
         restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
 
     }
