@@ -15,16 +15,17 @@ import android.view.SurfaceView;
 import com.example.ozzca_000.myapplication.R;
 
 import apitest.MapsActivity;
+import foodroulette.appstate.FoodRouletteApplication;
 
 /**
  * Created by Sam on 7/6/2015.
  */
 public class CanvasView extends SurfaceView
 {
-
     private Bitmap mBitmap;
     private Bitmap samBetterBitmap;
 
+    FoodRouletteApplication _appstate;
     Context context;
     private Paint mPaint;
     private long timeStamp = 0;
@@ -65,6 +66,7 @@ public class CanvasView extends SurfaceView
     {
         super(c, attrs);
         context = c;
+        _appstate = ((FoodRouletteApplication) (context.getApplicationContext()));
 
         // and we set a new Paint with the desired attributes
         mPaint = new Paint();
@@ -182,7 +184,8 @@ public class CanvasView extends SurfaceView
             if (angleDiff > 180)
             {
                 angleDiff -= 360;
-            } else if (angleDiff < -180)
+            }
+            else if (angleDiff < -180)
             {
                 angleDiff += 360;
             }
@@ -219,6 +222,7 @@ public class CanvasView extends SurfaceView
 
     private void rouletteClickHandler()
     {
+
         // this math takes into account the current angle of the wheel to create a corrected touch angle
         double adjustedAngle = (angleToTouch + 180) - degToSpin;
 
@@ -236,88 +240,129 @@ public class CanvasView extends SurfaceView
             MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
             //play gunshot sound from mediaPlayer object
             mediaPlayer.start();
-            try {
+            try
+            {
                 Thread.sleep(1429);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             mediaPlayer.release();
             //run code for option 1
+
+            //set flag for roulette selection
+            _appstate.rouletteSelection = 0;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 180 && adjustedAngle > 120)
+        }
+        else if (adjustedAngle <= 180 && adjustedAngle > 120)
         {
             //Set MediaPlayer object to gunshot sound
             MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
             //play gunshot sound from mediaPlayer object
             mediaPlayer.start();
-            try {
+            try
+            {
                 Thread.sleep(1429);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             mediaPlayer.release();
             //run code for option 2
+
+            //set flag for roulette selection
+            _appstate.rouletteSelection = 1;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 240 && adjustedAngle > 180)
+        }
+        else if (adjustedAngle <= 240 && adjustedAngle > 180)
         {
             //Set MediaPlayer object to gunshot sound
             MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
             //play gunshot sound from mediaPlayer object
             mediaPlayer.start();
-            try {
+            try
+            {
                 Thread.sleep(1429);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             mediaPlayer.release();
             //run code for option 3
+
+            //set flag for roulette selection
+            _appstate.rouletteSelection = 2;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 300 && adjustedAngle > 240)
+        }
+        else if (adjustedAngle <= 300 && adjustedAngle > 240)
         {
             //Set MediaPlayer object to gunshot sound
             MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
             //play gunshot sound from mediaPlayer object
             mediaPlayer.start();
-            try {
+            try
+            {
                 Thread.sleep(1429);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             mediaPlayer.release();
             //run code for option 4
+
+            //set flag for roulette selection
+            _appstate.rouletteSelection = 3;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 360 && adjustedAngle > 300)
+        }
+        else if (adjustedAngle <= 360 && adjustedAngle > 300)
         {
             //Set MediaPlayer object to gunshot sound
             MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
             //play gunshot sound from mediaPlayer object
             mediaPlayer.start();
-            try {
+            try
+            {
                 Thread.sleep(1429);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             mediaPlayer.release();
             //run code for option 5
+
+            //set flag for roulette selection
+            _appstate.rouletteSelection = 4;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 60 && adjustedAngle > 0)
+        }
+        else if (adjustedAngle <= 60 && adjustedAngle > 0)
         {
             //Set MediaPlayer object to gunshot sound
             MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.single_shot);
             //play gunshot sound from mediaPlayer object
             mediaPlayer.start();
-            try {
+            try
+            {
                 Thread.sleep(1429);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             mediaPlayer.release();
             //run code for option 6
+
+            //set flag for roulette selection
+            _appstate.rouletteSelection = 5;
+
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
         }
