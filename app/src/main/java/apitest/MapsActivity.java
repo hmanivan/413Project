@@ -5,12 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,6 +68,10 @@ public class MapsActivity extends ActionBarActivity {
     private int businessIndex = 0;
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
+
+    private Camera mCamera;
+    private final static String LOG_TAG = "FlashLight";
+    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
 //    private void registerLocationChangeCallback() {
 //        if (_locationChangeCallBack == null) {
@@ -136,19 +142,32 @@ public class MapsActivity extends ActionBarActivity {
         });
 
         boton.setOnClickListener(new View.OnClickListener() {
+        try{
+            mCamera = Camera.open();
+        } catch( Exception e ){
+            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+        }
             @Override
             public void onClick(View v)
             {
                 //code to run when click is on blacklist button
                 nextBusiness();
 
-
-                Runnable task = new Runnable()
-                {
-                    public void run()
-                    {
-                        MediaPlayer mp = MediaPlayer.create(finalThis, singleShot);
+                Runnable task = new Runnable() {
+                    public void run() {
+                        MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
                         mp.start();
+                        if (mCamera != null) {
+                            Camera.Parameters params = mCamera.getParameters();
+                            params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
+                            mCamera.setParameters( params );
+                        }
+                        if( mCamera != null ){
+                            Camera.Parameters params = mCamera.getParameters();
+                            params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                            mCamera.setParameters( params );
+                        }
+
                         try {
                             Thread.sleep(1429);
                         } catch (InterruptedException e) {
@@ -201,6 +220,10 @@ public class MapsActivity extends ActionBarActivity {
                         .setNegativeButton("No", dialogClickListener).show();
             } //end onClick
         });
+        if( mCamera != null ){
+            mCamera.release();
+            mCamera = null;
+        }
     }
 
     //-------------------------------------------------------------------------------------------//
@@ -290,19 +313,6 @@ public class MapsActivity extends ActionBarActivity {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null)
-            {
-                //display our location
-                updateMarker(37.721627, -122.4750291);
-                setupBusinessDataCallbacks();
-            }
-        }
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
             if (mMap != null) {
 //                fetchBusinessData();
 
@@ -333,6 +343,8 @@ public class MapsActivity extends ActionBarActivity {
 
                 int businessCount = businessData.businesses.size();
 
+                List<Business> businessByDistance = new ArrayList<>();
+
                 for (int j = 0; j < businessCount; j++)
                 {
                     Business business = businessData.businesses.get(j);
@@ -345,11 +357,16 @@ public class MapsActivity extends ActionBarActivity {
 
                     //add business to array
                     businessByDistance.add(business);
+
+                    //old code which displays all businesses in category
+                    mMap.addMarker(new MarkerOptions()
+                            .title(business.name)
+                            .position(position)
+                            .icon(BitmapDescriptorFactory.defaultMarker(color)));
                 }
 
                 //Custom sorting class which compares businesses by distance to user
-                class BusinessComparator implements Comparator<Business>
-                {
+                class BusinessComparator implements Comparator<Business> {
                     @Override
                     public int compare(Business o1, Business o2)
                     {
