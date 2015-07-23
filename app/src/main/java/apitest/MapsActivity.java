@@ -2,12 +2,14 @@ package apitest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +56,10 @@ public class MapsActivity extends ActionBarActivity
 
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
+
+    private Camera mCamera;
+    private final static String LOG_TAG = "FlashLight";
+    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
 //    private void registerLocationChangeCallback() {
 //        if (_locationChangeCallBack == null) {
@@ -119,31 +125,52 @@ public class MapsActivity extends ActionBarActivity
                 }
             }.start();
         }
-
+        try{
+            mCamera = Camera.open();
+        } catch( Exception e ){
+            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+        }
         boton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Runnable task = new Runnable()
-                {
-                    public void run()
-                    {
-                        MediaPlayer mp = MediaPlayer.create(finalThis, singleShot);
+//                shotThread();
+                Runnable task = new Runnable() {
+                    public void run() {
+                        MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+
+
+
+
                         mp.start();
-                        try
-                        {
+                        if (mCamera != null) {
+                            Camera.Parameters params = mCamera.getParameters();
+                            params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
+                            mCamera.setParameters( params );
+                        }
+                        if( mCamera != null ){
+                            Camera.Parameters params = mCamera.getParameters();
+                            params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                            mCamera.setParameters( params );
+                        }
+
+                        try {
                             Thread.sleep(1429);
-                        } catch (InterruptedException e)
-                        {
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         mp.release();
+//                        shot.onGunshot();
                     }
                 };
                 shotQ.add(task);
             }
         });
+        if( mCamera != null ){
+            mCamera.release();
+            mCamera = null;
+        }
     }
 
     //-------------------------------------------------------------------------------------------//
@@ -364,5 +391,44 @@ public class MapsActivity extends ActionBarActivity
             mMarker.setPosition(new LatLng(latitude, longitude));
             //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12.0f));
         }
+    }
+
+    public void shotThread(){
+        Runnable task = new Runnable() {
+            public void run() {
+                MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+
+                try{
+                    mCamera = Camera.open();
+                } catch( Exception e ){
+                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+                }
+
+
+                mp.start();
+                if (mCamera != null) {
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_OFF );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    mCamera.release();
+                    mCamera = null;
+                }
+                try {
+                    Thread.sleep(1429);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mp.release();
+//                        shot.onGunshot();
+            }
+        };
+        shotQ.add(task);
     }
 }
