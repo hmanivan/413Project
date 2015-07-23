@@ -4,13 +4,18 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.hardware.Camera;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import java.util.concurrent.LinkedBlockingQueue;
 
 import YelpData.BusinessData;
 import database.DbAbstractionLayer;
@@ -28,12 +33,17 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
     private FoodRouletteApplication _appState;
     private RestaurantDatabase restaurantDatabase;
     private SQLiteDatabase restaurantDb;
+    private Camera mCamera;
+    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
+    private final static String LOG_TAG = "FlashLight";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        shotThread();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.jacksplash);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         // setting the reference to global appstate
@@ -87,29 +97,22 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
         LocationTools.checkLocationServicesEnabled(this);
 
         //get current location, with runnable to execute code on completion
-        LocationTools.getCurrentLocation(_appState, new LocationRunnable()
-        {
+        LocationTools.getCurrentLocation(_appState, new LocationRunnable() {
             @Override
-            public void runWithLocation(final double latitude, final double longitude)
-            {
+            public void runWithLocation(final double latitude, final double longitude) {
                 //run this code once location data comes in
-                new Thread()
-                {
+                new Thread() {
 
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         String[] terms = new String[]{"American", "Mexican", "Italian", "Chinese", "Japanese", "Breakfast"};
-                        for (int i = 0; i < 6; i++)
-                        {
+                        for (int i = 0; i < 6; i++) {
                             //create index for when callback comes back
                             final int callbackIndex = i;
 
-                            new YelpSearchAsyncTask(new BusinessRunnable()
-                            {
+                            new YelpSearchAsyncTask(new BusinessRunnable() {
                                 @Override
-                                public void runWithBusiness(BusinessData business)
-                                {
+                                public void runWithBusiness(BusinessData business) {
                                     _appState.onBusinessDataReceived(business, callbackIndex);
                                 }
                             }).execute(terms[i], Double.toString(latitude), Double.toString(longitude));
@@ -122,6 +125,8 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
                         //Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
 
                         SplashScreen.this.startActivity(intent);
+
+                        SplashScreen.this.finish();
                     }
 
                 }.start();
@@ -174,5 +179,56 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
     private void showEULAmessage(){
         //TODO
+    }
+
+    public void shotThread(){
+        new Thread() {
+            public void run() {
+                while (true) {
+                    try {
+                        Runnable task = shotQ.take();
+                        task.run();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+        Runnable task = new Runnable() {
+            public void run() {
+                MediaPlayer mp = MediaPlayer.create(SplashScreen.this, R.raw.single_shot);
+
+                try{
+                    mCamera = Camera.open();
+                } catch( Exception e ){
+                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+                }
+
+
+                mp.start();
+                if (mCamera != null) {
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_OFF );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    mCamera.release();
+                    mCamera = null;
+                }
+                try {
+                    Thread.sleep(1429);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mp.release();
+//                        shot.onGunshot();
+            }
+        };
+        shotQ.add(task);
     }
 }
