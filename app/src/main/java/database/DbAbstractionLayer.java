@@ -45,13 +45,14 @@ public class DbAbstractionLayer {
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
+
         Cursor restaurantData = restaurantDb.query(
                 restaurantDatabase.dbResTable,
                 tableColumns,
                 restaurantDatabase.id + " = ?",
                 new String[] {Integer.toString(restaurantId)},
                 null, null, null);
-        if (!(restaurantData.getCount() > 0)){
+        if (restaurantData.getCount() > 0){
             return true;
         }else {
             return false;
