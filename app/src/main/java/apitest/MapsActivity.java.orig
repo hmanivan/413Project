@@ -27,12 +27,15 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+<<<<<<< HEAD
 import java.util.Map;
+=======
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+>>>>>>> devrevolver
 import java.util.concurrent.LinkedBlockingQueue;
 
 import YelpData.Business;
@@ -49,9 +52,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import YelpData.Business;
 
+<<<<<<< HEAD
 import static database.DbAbstractionLayer.addRestaurant;
 
 public class MapsActivity extends ActionBarActivity {
+=======
+public class MapsActivity extends ActionBarActivity
+{
+>>>>>>> devrevolver
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LocationListener mLocationListener;
@@ -111,14 +119,20 @@ public class MapsActivity extends ActionBarActivity {
 
         final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
-        for (int i = 0; i < 50; i++) {
-            new Thread() {
-                public void run() {
-                    while (true) {
-                        try {
+        for (int i = 0; i < 50; i++)
+        {
+            new Thread()
+            {
+                public void run()
+                {
+                    while (true)
+                    {
+                        try
+                        {
                             Runnable task = shotQ.take();
                             task.run();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException e)
+                        {
                             e.printStackTrace();
                         }
                     }
@@ -135,7 +149,8 @@ public class MapsActivity extends ActionBarActivity {
 
         });
 
-        boton.setOnClickListener(new View.OnClickListener() {
+        boton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v)
             {
@@ -149,11 +164,15 @@ public class MapsActivity extends ActionBarActivity {
                     {
                         MediaPlayer mp = MediaPlayer.create(finalThis, singleShot);
                         mp.start();
-                        try {
+                        try
+                        {
                             Thread.sleep(1429);
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException e)
+                        {
                             e.printStackTrace();
                         }
+
+
                         mp.release();
                     }
                 };
@@ -208,21 +227,24 @@ public class MapsActivity extends ActionBarActivity {
     //-------------------------------------------------------------------------------------------//
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             Intent myIntent = new Intent(MapsActivity.this, SettingsActivity.class);
 //        myIntent.putExtra("key", value); //Optional parameters
             MapsActivity.this.startActivity(myIntent);
@@ -236,34 +258,39 @@ public class MapsActivity extends ActionBarActivity {
     //-------------------------------------------------------------------------------------------//
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
 //        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
 //        unregisterLocationChangeCallback();
     }
 
     @Override
-    protected void onRestart() {
+    protected void onRestart()
+    {
         super.onRestart();
 //        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
 //        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
 //        unregisterLocationChangeCallback();
     }
@@ -283,9 +310,11 @@ public class MapsActivity extends ActionBarActivity {
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded()
+    {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (mMap == null)
+        {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
@@ -298,12 +327,14 @@ public class MapsActivity extends ActionBarActivity {
             }
         }
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (mMap == null)
+        {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (mMap != null)
+            {
 //                fetchBusinessData();
 
                 //display our location
@@ -313,10 +344,6 @@ public class MapsActivity extends ActionBarActivity {
         }
     }
 
-    /*private void setupBusinessDataCallbacks() {
-        for (int i = 0; i < 6; i++) {
-            //create random color
-            final float color = 51f + (51f * (float) i);*/
     private void setupBusinessDataCallbacks()
     {
         int selectedCategory = _appState.rouletteSelection;
@@ -416,8 +443,10 @@ public class MapsActivity extends ActionBarActivity {
 //        }).execute("dildo", "San Francisco, CA");
 //
 //    }
-    private void updateMarker(double latitude, double longitude) {
-        if (mMarker == null) {
+    private void updateMarker(double latitude, double longitude)
+    {
+        if (mMarker == null)
+        {
             MarkerOptions options = new MarkerOptions();
             options.title("You are here");
             options.position(new LatLng(latitude, longitude));
@@ -431,6 +460,11 @@ public class MapsActivity extends ActionBarActivity {
         }
     }
 
+<<<<<<< HEAD
+    public void goToDownVoteActivity(View view) {
+        Intent goToDownVoteActivity = new Intent(this, DownVotedList.class);
+        startActivity(goToDownVoteActivity);
+=======
     public LatLngBounds getLatLngBounds(double lat1, double long1, double lat2, double long2)
     {
         LatLng latLng1, latLng2;
@@ -472,5 +506,6 @@ public class MapsActivity extends ActionBarActivity {
                 ((findViewById(R.id.map).getWidth()) / 3),
                 ((findViewById(R.id.map).getHeight()) / 3),
                 0));
+>>>>>>> devrevolver
     }
 }
