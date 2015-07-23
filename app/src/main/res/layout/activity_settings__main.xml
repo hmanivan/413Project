@@ -27,15 +27,6 @@
         android:id="@+id/button_Category"
         android:onClick="onButton_Category" />
 
-    <Button
-        android:text="Database"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:id="@+id/button_DB"
-        android:onClick="onButton_DB" />
-
     <!--<Button-->
         <!--android:text="Go Back"-->
         <!--android:layout_width="wrap_content"-->

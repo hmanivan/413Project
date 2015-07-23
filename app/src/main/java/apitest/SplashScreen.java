@@ -1,27 +1,33 @@
 package apitest;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.ozzca_000.myapplication.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
+import YelpData.BusinessData;
+import database.DbAbstractionLayer;
+import database.RestaurantDatabase;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.asynctasks.YelpSearchAsyncTask;
 import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationTools;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import YelpData.BusinessData;
 
 public class SplashScreen extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
 
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
+    private RestaurantDatabase restaurantDatabase;
+    private SQLiteDatabase restaurantDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +38,45 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
+
+
+
+        DbAbstractionLayer dbAbstractionLayer = DbAbstractionLayer.getDbAbstractionLayer();
+
+        restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(this);
+        restaurantDb = restaurantDatabase.getWritableDatabase();
+
+
+        Cursor restData =restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
+
+        if (!(restData.getCount() > 0)){
+
+            String[] tableColumns = new String[]{
+                    restaurantDatabase.id,
+                    restaurantDatabase.resaurantName,
+                    restaurantDatabase.displayPhone,
+                    restaurantDatabase.image_url,
+                    restaurantDatabase.mobile_url,
+                    restaurantDatabase.phone,
+                    restaurantDatabase.rating,
+                    restaurantDatabase.reviewCount,
+            };
+
+            ContentValues dummyRestaurant = new ContentValues();
+
+            dummyRestaurant.put(tableColumns[0], -1);
+            dummyRestaurant.put(tableColumns[1], "dummyRestaurant");
+
+            for(int i = 2; i < tableColumns.length; i++){
+                dummyRestaurant.put(tableColumns[i], "");
+            }
+
+            showEULAmessage();
+
+        }
+        restaurantDb.close();
+        restaurantDatabase.close();
+        restData.close();
 
     }
 
@@ -125,5 +170,9 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
     public void onConnectionFailed(ConnectionResult connectionResult)
     {
 
+    }
+
+    private void showEULAmessage(){
+        //TODO
     }
 }

@@ -24,10 +24,5 @@ public class Settings_Main extends ActionBarActivity {
         startActivity(intent);
 
     }
-    public void onButton_DB(View view){
-        Intent intent = new Intent(this, database.DatabaseActivity.class);
-        startActivity(intent);
-
-    }
 
 }

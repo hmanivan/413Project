@@ -23,7 +23,8 @@ public class Business {
     public int review_count;
 
     public List<Deal> deals;
-    public List<List<String>> caetgories;
+    public List<List<String>> categories;
 
     public Location location;
 }
+
