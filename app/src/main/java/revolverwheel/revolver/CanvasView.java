@@ -9,10 +9,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
+
 
 import com.example.ozzca_000.myapplication.R;
 
@@ -27,6 +30,7 @@ import foodroulette.appstate.FoodRouletteApplication;
 public class CanvasView extends SurfaceView
 {
 
+    private View myView;
     private Bitmap mBitmap;
     private Bitmap samBetterBitmap;
 
@@ -220,6 +224,7 @@ public class CanvasView extends SurfaceView
     // when ACTION_UP stop touch
     private void upTouch()
     {
+//        Vibrator myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         isBeingTouched = false;
         long touchTime = System.currentTimeMillis() - startTouchTimeStamp;
 
@@ -229,6 +234,8 @@ public class CanvasView extends SurfaceView
             rouletteClickHandler();
 
             startSoundThread();
+
+            RevolverActivity.myVib.vibrate(250);
         }
     }
 

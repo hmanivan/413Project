@@ -18,6 +18,8 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+
     <application
         android:name="foodroulette.appstate.FoodRouletteApplication"
         android:allowBackup="true"

@@ -26,8 +26,13 @@ import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationTools;
 
+import android.view.View;
+import android.os.Vibrator;
+
 public class SplashScreen extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
+//    private View myView;
+    private Vibrator myVib;
 
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
@@ -41,8 +46,11 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState)
     {
 
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
         shotThread();
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.jacksplash);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -210,6 +218,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
 
                 mp.start();
+                myVib.vibrate(250);
                 if (mCamera != null) {
                     Camera.Parameters params = mCamera.getParameters();
                     params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );

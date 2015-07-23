@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -27,12 +28,15 @@ public class RevolverActivity extends AppCompatActivity {
     private Context mContext;
     private ImageView combinedRevolverImage;
 
+    public static Vibrator myVib;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.revolver_wheel);
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
+//
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         //get current display size in pixels
         Display display = getWindowManager().getDefaultDisplay();
