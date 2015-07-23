@@ -27,7 +27,7 @@ public class DownVotedListAdaptor extends BaseAdapter {
 
         mContext= context;
         DbAbstractionLayer.getDbAbstractionLayer();
-        Business[] downVotedBussiness = DbAbstractionLayer.getDownVotedList();
+        Business[] downVotedBussiness = DbAbstractionLayer.getDownVotedList(context);
 
     }
 

@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <application
+    <activity
         android:name="foodroulette.appstate.FoodRouletteApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -104,6 +104,14 @@
                 android:value="apitest.settings.Setting_Main" />
         </activity>
 
-    </application>
+        <activity
+            android:name="apitest.DownVotedList"
+            android:label="activity_down_voted_list">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="apitest.MapsActivity"/>
+            </activity>
+
+    </activity>
 
 </manifest>

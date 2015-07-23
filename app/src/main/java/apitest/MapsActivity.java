@@ -153,7 +153,7 @@ public class MapsActivity extends ActionBarActivity {
 
 */
 
-                                if(DbAbstractionLayer.isRestaurantInBlockedList(100, MapsActivity.this))
+                                if(DbAbstractionLayer.isRestaurantInBlockedList("100", MapsActivity.this))
                                 {
                                     Dialog d = new Dialog(MapsActivity.this);
                                     d.setContentView(R.layout.popupview);
@@ -341,5 +341,10 @@ public class MapsActivity extends ActionBarActivity {
             mMarker.setPosition(new LatLng(latitude, longitude));
             //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12.0f));
         }
+    }
+
+    public void goToDownVoteActivity(View view) {
+        Intent goToDownVoteActivity = new Intent(this, DownVotedList.class);
+        startActivity(goToDownVoteActivity);
     }
 }
