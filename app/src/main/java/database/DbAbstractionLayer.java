@@ -39,30 +39,36 @@ public class DbAbstractionLayer {
 
     private DbAbstractionLayer(){}
 
-    public static boolean isRestaurantInBlockedList(int restaurantId, Context context){
+    public static boolean isRestaurantInBlockedList(String restaurantIdStr, Context context){
+
+        int restaurantId = Integer.parseInt(restaurantIdStr);
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
+
         Cursor restaurantData = restaurantDb.query(
                 restaurantDatabase.dbResTable,
                 tableColumns,
                 restaurantDatabase.id + " = ?",
                 new String[] {Integer.toString(restaurantId)},
                 null, null, null);
-        if ((restaurantData.getCount() > 0)){
+        if (restaurantData.getCount() > 0){
             return true;
         }else {
             return false;
         }
     }
 
-    public static Business[] getDownVotedList(){
-
+    public static Business[] getDownVotedList(Context context){
+        mContext = context;
+        restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
+        restaurantDb = restaurantDatabase.getWritableDatabase();
+        
 
         Cursor restData =restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
         restData.moveToFirst();
         int numOfRestaurants = restData.getCount();
-
+        
         int idColumn = restData.getColumnIndex(RestaurantDatabase.id);
         int restNameColumn = restData.getColumnIndex(RestaurantDatabase.resaurantName);
         int dispPhoneColumn = restData.getColumnIndex(RestaurantDatabase.displayPhone);
@@ -71,8 +77,8 @@ public class DbAbstractionLayer {
         int phoneColumn = restData.getColumnIndex(RestaurantDatabase.phone);
         int rateColumn = restData.getColumnIndex(RestaurantDatabase.rating);
         int revColumn = restData.getColumnIndex(RestaurantDatabase.reviewCount);
-
-
+        
+        
         Business[] downVotedList = new Business[numOfRestaurants];
 
         for (int i = 0; i < numOfRestaurants; i++){
@@ -94,9 +100,12 @@ public class DbAbstractionLayer {
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
+
+        int restaurantId = Integer.parseInt(downVotedRestaurant.id);
+
         ContentValues newRestaurant = new ContentValues();
 
-        newRestaurant.put(RestaurantDatabase.id, downVotedRestaurant.id);
+        newRestaurant.put(RestaurantDatabase.id, restaurantId);
         newRestaurant.put(RestaurantDatabase.resaurantName, downVotedRestaurant.name);
         newRestaurant.put(RestaurantDatabase.displayPhone, downVotedRestaurant.display_phone);
         newRestaurant.put(RestaurantDatabase.image_url, downVotedRestaurant.image_url);
@@ -110,11 +119,13 @@ public class DbAbstractionLayer {
     }
 
     public static void removeRestaurant(Business restaurant, Context context){
-
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
-        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
+
+        int restaurantId = Integer.parseInt(restaurant.id);
+
+        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {Integer.toString(restaurantId)} );
 
     }
 
