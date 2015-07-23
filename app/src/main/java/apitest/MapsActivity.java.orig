@@ -131,6 +131,7 @@ public class MapsActivity extends ActionBarActivity {
                 }
             }.start();
         }
+<<<<<<< HEAD
         booton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -142,20 +143,38 @@ public class MapsActivity extends ActionBarActivity {
         });
 
         boton.setOnClickListener(new View.OnClickListener() {
-        try{
-            mCamera = Camera.open();
-        } catch( Exception e ){
-            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
-        }
             @Override
             public void onClick(View v)
             {
                 //code to run when click is on blacklist button
                 nextBusiness();
 
+
+                Runnable task = new Runnable()
+                {
+                    public void run()
+                    {
+                        MediaPlayer mp = MediaPlayer.create(finalThis, singleShot);
+                        mp.start();
+=======
+        try{
+            mCamera = Camera.open();
+        } catch( Exception e ){
+            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+        }
+        boton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+//                shotThread();
                 Runnable task = new Runnable() {
                     public void run() {
                         MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+
+
+
+
                         mp.start();
                         if (mCamera != null) {
                             Camera.Parameters params = mCamera.getParameters();
@@ -168,12 +187,14 @@ public class MapsActivity extends ActionBarActivity {
                             mCamera.setParameters( params );
                         }
 
+>>>>>>> team1/development
                         try {
                             Thread.sleep(1429);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         mp.release();
+//                        shot.onGunshot();
                     }
                 };
                 shotQ.add(task);
@@ -313,6 +334,19 @@ public class MapsActivity extends ActionBarActivity {
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
+            if (mMap != null)
+            {
+                //display our location
+                updateMarker(37.721627, -122.4750291);
+                setupBusinessDataCallbacks();
+            }
+        }
+        // Do a null check to confirm that we have not already instantiated the map.
+        if (mMap == null) {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMap();
+            // Check if we were successful in obtaining the map.
             if (mMap != null) {
 //                fetchBusinessData();
 
@@ -343,8 +377,6 @@ public class MapsActivity extends ActionBarActivity {
 
                 int businessCount = businessData.businesses.size();
 
-                List<Business> businessByDistance = new ArrayList<>();
-
                 for (int j = 0; j < businessCount; j++)
                 {
                     Business business = businessData.businesses.get(j);
@@ -357,16 +389,11 @@ public class MapsActivity extends ActionBarActivity {
 
                     //add business to array
                     businessByDistance.add(business);
-
-                    //old code which displays all businesses in category
-                    mMap.addMarker(new MarkerOptions()
-                            .title(business.name)
-                            .position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(color)));
                 }
 
                 //Custom sorting class which compares businesses by distance to user
-                class BusinessComparator implements Comparator<Business> {
+                class BusinessComparator implements Comparator<Business>
+                {
                     @Override
                     public int compare(Business o1, Business o2)
                     {
@@ -448,6 +475,7 @@ public class MapsActivity extends ActionBarActivity {
         }
     }
 
+<<<<<<< HEAD
     public LatLngBounds getLatLngBounds(double lat1, double long1, double lat2, double long2)
     {
         LatLng latLng1, latLng2;
@@ -489,5 +517,44 @@ public class MapsActivity extends ActionBarActivity {
                 ((findViewById(R.id.map).getWidth()) / 3),
                 ((findViewById(R.id.map).getHeight()) / 3),
                 0));
+=======
+    public void shotThread(){
+        Runnable task = new Runnable() {
+            public void run() {
+                MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+
+                try{
+                    mCamera = Camera.open();
+                } catch( Exception e ){
+                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+                }
+
+
+                mp.start();
+                if (mCamera != null) {
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode( Camera.Parameters.FLASH_MODE_OFF );
+                    mCamera.setParameters( params );
+                }
+                if( mCamera != null ){
+                    mCamera.release();
+                    mCamera = null;
+                }
+                try {
+                    Thread.sleep(1429);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mp.release();
+//                        shot.onGunshot();
+            }
+        };
+        shotQ.add(task);
+>>>>>>> team1/development
     }
 }

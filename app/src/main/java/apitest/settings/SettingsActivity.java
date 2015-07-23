@@ -147,7 +147,7 @@ public class SettingsActivity extends PreferenceActivity {
     public void onCatButton(View view) {
         //update view to activity_maps (for testing purposes)
 //        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(SettingsActivity.this, apitest.CheckBoxActivity.class);
+        Intent myIntent = new Intent(SettingsActivity.this, apitest.settings.Setting_Category.class);
 //        myIntent.putExtra("key", value); //Optional parameters
         SettingsActivity.this.startActivity(myIntent);
     }
