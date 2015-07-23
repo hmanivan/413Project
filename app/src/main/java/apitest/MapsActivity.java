@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -253,8 +254,6 @@ public class MapsActivity extends ActionBarActivity
             // Check if we were successful in obtaining the map.
             if (mMap != null)
             {
-//                fetchBusinessData();
-
                 //display our location
                 updateMarker(37.721627, -122.4750291);
                 setupBusinessDataCallbacks();
@@ -328,6 +327,7 @@ public class MapsActivity extends ActionBarActivity
                         .position(position)
                         .icon(BitmapDescriptorFactory.defaultMarker(color)));
                 businessMarker.isVisible();
+                //setMapCameraPosition(position.latitude, position.longitude);
             }
         }, selectedCategory);
 
@@ -346,13 +346,18 @@ public class MapsActivity extends ActionBarActivity
     public void nextBusiness()
     {
         //blacklist current business
-
+        //TODO: put blacklist code <HERE>
 
         if (businessIndex < businessByDistance.size())
         {
+            //update marker with information for next business
+            Business business = businessByDistance.get(businessIndex);
             businessIndex++;
-            LatLng position = new LatLng(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
+            LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
             businessMarker.setPosition(position);
+            businessMarker.setTitle(business.name);
+
+            setMapCameraPosition(position.latitude, position.longitude);
         }
     }
 
@@ -376,16 +381,58 @@ public class MapsActivity extends ActionBarActivity
         if (mMarker == null)
         {
             MarkerOptions options = new MarkerOptions();
-            options.title("SamPlace");
+            options.title("You are here");
             options.position(new LatLng(latitude, longitude));
             mMarker = mMap.addMarker(options);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12.0f));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
         }
         else
         {
-            //If you move and the marker already exists, update your position and move the map
+            //If you move and the marker already exists, update your position
             mMarker.setPosition(new LatLng(latitude, longitude));
-            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12.0f));
         }
+    }
+
+    public LatLngBounds getLatLngBounds(double lat1, double long1, double lat2, double long2)
+    {
+        LatLng latLng1, latLng2;
+
+        if (lat1 < lat2)
+        {
+            if (long1 < long2)
+            {
+                latLng1 = new LatLng(lat1, long1);
+                latLng2 = new LatLng(lat2, long2);
+            }
+            else
+            {
+                latLng1 = new LatLng(lat1, long2);
+                latLng2 = new LatLng(lat2, long1);
+            }
+        }
+        else
+        {
+            if (long1 < long2)
+            {
+                latLng1 = new LatLng(lat2, long1);
+                latLng2 = new LatLng(lat1, long2);
+            }
+            else
+            {
+                latLng1 = new LatLng(lat2, long2);
+                latLng2 = new LatLng(lat1, long1);
+            }
+        }
+        return new LatLngBounds(latLng1, latLng2);
+    }
+
+    public void setMapCameraPosition(double latitude, double longitude)
+    {
+        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                .getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(
+                getLatLngBounds(_appState.latitude, _appState.longitude, latitude, longitude),
+                ((findViewById(R.id.map).getWidth()) / 3),
+                ((findViewById(R.id.map).getHeight()) / 3),
+                0));
     }
 }
