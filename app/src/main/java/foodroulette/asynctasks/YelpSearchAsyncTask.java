@@ -18,6 +18,7 @@ public class YelpSearchAsyncTask extends AsyncTask<String, Void, Object> {
         _callback = callback;
     }
 
+
     @Override
     protected Object doInBackground(String... params) {
         //android.os.Debug.waitForDebugger();
