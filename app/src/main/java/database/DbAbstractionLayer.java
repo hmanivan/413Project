@@ -14,10 +14,10 @@ public class DbAbstractionLayer {
 
     private static DbAbstractionLayer dbAbstractionLayer = null;
     private static Context mContext;
-    private RestaurantDatabase restaurantDatabase;
-    private SQLiteDatabase restaurantDb;
+    private static RestaurantDatabase restaurantDatabase;
+    private static SQLiteDatabase restaurantDb;
 
-    private String[] tableColumns = new String[]{
+    private static String[] tableColumns = new String[]{
             restaurantDatabase.id,
             restaurantDatabase.resaurantName,
             restaurantDatabase.displayPhone,
@@ -39,7 +39,7 @@ public class DbAbstractionLayer {
 
     private DbAbstractionLayer(){}
 
-    public boolean isRestaurantInBlockedList(int restaurantId, Context context){
+    public static boolean isRestaurantInBlockedList(int restaurantId, Context context){
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
@@ -56,7 +56,7 @@ public class DbAbstractionLayer {
         }
     }
 
-    public Business[] getDownVotedList(){
+    public static Business[] getDownVotedList(){
         
 
         Cursor restData =restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
@@ -90,7 +90,7 @@ public class DbAbstractionLayer {
         return downVotedList;
     }
 
-    public void addRestaurant(Business downVotedRestaurant){
+    public static void addRestaurant(Business downVotedRestaurant){
 
         ContentValues newRestaurant = new ContentValues();
 
@@ -107,7 +107,7 @@ public class DbAbstractionLayer {
 
     }
 
-    public void removeRestaurant(Business restaurant){
+    public static void removeRestaurant(Business restaurant){
 
         restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
 
