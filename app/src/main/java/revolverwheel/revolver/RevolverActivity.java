@@ -13,8 +13,6 @@ import android.widget.ImageView;
 
 import com.example.ozzca_000.myapplication.R;
 
-import foodroulette.appstate.FoodRouletteApplication;
-
 import static revolverwheel.imageJoinerUtils.CombinePNG.PNGCombiner;
 
 
@@ -29,7 +27,6 @@ public class RevolverActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.revolver_wheel);
-
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
 
