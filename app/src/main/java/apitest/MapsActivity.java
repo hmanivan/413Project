@@ -142,14 +142,15 @@ public class MapsActivity extends ActionBarActivity {
         });
 
         boton.setOnClickListener(new View.OnClickListener() {
-        try{
-            mCamera = Camera.open();
-        } catch( Exception e ){
-            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
-        }
+
             @Override
             public void onClick(View v)
             {
+                try{
+                    mCamera = Camera.open();
+                } catch( Exception e ){
+                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+                }
                 //code to run when click is on blacklist button
                 nextBusiness();
 
@@ -226,37 +227,37 @@ public class MapsActivity extends ActionBarActivity {
         }
     }
 
-    //-------------------------------------------------------------------------------------------//
-    //  This is for the settings fragment tab that we want to implement (following 2 methods)    //
-    //-------------------------------------------------------------------------------------------//
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent myIntent = new Intent(MapsActivity.this, SettingsActivity.class);
-//        myIntent.putExtra("key", value); //Optional parameters
-            MapsActivity.this.startActivity(myIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    //-------------------------------------------------------------------------------------------//
-    //-------------------------------------------------------------------------------------------//
+//    //-------------------------------------------------------------------------------------------//
+//    //  This is for the settings fragment tab that we want to implement (following 2 methods)    //
+//    //-------------------------------------------------------------------------------------------//
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            Intent myIntent = new Intent(MapsActivity.this, SettingsActivity.class);
+////        myIntent.putExtra("key", value); //Optional parameters
+//            MapsActivity.this.startActivity(myIntent);
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+//
+//    //-------------------------------------------------------------------------------------------//
+//    //-------------------------------------------------------------------------------------------//
 
     @Override
     protected void onResume() {
