@@ -49,9 +49,13 @@ public class MapsActivity extends ActionBarActivity
     private LocationListener mLocationListener;
     private LocationManager mLocationManager;
     private Marker mMarker;
+    private Marker businessMarker;
 
     private LocationRunnable _locationChangeCallBack;
 
+    //list of businesses to sort
+    private List<Business> businessByDistance = new ArrayList<>();
+    private int businessIndex = 0;
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
 
@@ -125,6 +129,10 @@ public class MapsActivity extends ActionBarActivity
             @Override
             public void onClick(View v)
             {
+                //code to run when click is on blacklist button
+                nextBusiness();
+
+
                 Runnable task = new Runnable()
                 {
                     public void run()
@@ -286,8 +294,6 @@ public class MapsActivity extends ActionBarActivity
 
                 int businessCount = businessData.businesses.size();
 
-                List<Business> businessByDistance = new ArrayList<>();
-
                 for (int j = 0; j < businessCount; j++)
                 {
                     Business business = businessData.businesses.get(j);
@@ -300,16 +306,11 @@ public class MapsActivity extends ActionBarActivity
 
                     //add business to array
                     businessByDistance.add(business);
-
-                    //old code which displays all businesses in category
-                    mMap.addMarker(new MarkerOptions()
-                            .title(business.name)
-                            .position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(color)));
                 }
 
                 //Custom sorting class which compares businesses by distance to user
-                class BusinessComparator implements Comparator<Business> {
+                class BusinessComparator implements Comparator<Business>
+                {
                     @Override
                     public int compare(Business o1, Business o2)
                     {
@@ -319,6 +320,14 @@ public class MapsActivity extends ActionBarActivity
 
                 //sort list of businesses by distance to user
                 Collections.sort(businessByDistance, new BusinessComparator());
+
+                //old code which displays all businesses in category
+                LatLng position = new LatLng(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
+                businessMarker = mMap.addMarker(new MarkerOptions()
+                        .title(businessByDistance.get(businessIndex).name)
+                        .position(position)
+                        .icon(BitmapDescriptorFactory.defaultMarker(color)));
+                businessMarker.isVisible();
             }
         }, selectedCategory);
 
@@ -329,10 +338,24 @@ public class MapsActivity extends ActionBarActivity
     {
         double retVal = 0;
 
-        retVal = Math.sqrt((X-x)*(X-x) + (Y-y)*(Y-y));
+        retVal = Math.sqrt((X - x) * (X - x) + (Y - y) * (Y - y));
 
         return retVal;
     }
+
+    public void nextBusiness()
+    {
+        //blacklist current business
+
+
+        if (businessIndex < businessByDistance.size())
+        {
+            businessIndex++;
+            LatLng position = new LatLng(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
+            businessMarker.setPosition(position);
+        }
+    }
+
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
