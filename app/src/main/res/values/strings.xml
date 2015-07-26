@@ -21,4 +21,6 @@
     <string name="settingmain">Setting</string>
     <string name="revolverwheel">@string/app_name</string>
     <string name="message">Success!</string>
+
+    <string name="title_activity_dblist">db list</string>
 </resources>
