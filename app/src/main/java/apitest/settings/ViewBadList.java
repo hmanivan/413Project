@@ -42,12 +42,14 @@ public class ViewBadList extends Activity{
 
     public void updateBadList()
     {
+        badList = DbAbstractionLayer.getDownVotedList(this);
+
         String [] bizName = new String[badList.length];
 
         for(int i=0;i<badList.length;i++)
         {
             bizName[i]=badList[i].name;
-          //  System.out.println("BIZZNAME=========== " +bizName[i]);
+           System.out.println("BIZZNAME=========== " +bizName[i]);
         }
 
 
@@ -67,10 +69,10 @@ public class ViewBadList extends Activity{
         badList = DbAbstractionLayer.getDownVotedList(this);
        if(badList.length!=0)
        {
-           for (int i = badList.length-1; i >=0; i--) {
+
                //DbAbstractionLayer.deleteAllData();
-               DbAbstractionLayer.removeRestaurant(badList[i],this);
-           }
+               DbAbstractionLayer.removeRestaurant(badList[badList.length-1],this);
+
 
        }
         Intent intent = getIntent();

@@ -91,7 +91,7 @@ public class DbAbstractionLayer {
             downVotedList[i].phone = restData.getString(phoneColumn);
             downVotedList[i].rating = restData.getFloat(rateColumn);
             downVotedList[i].review_count = restData.getInt(revColumn);
-
+            restData.moveToNext();
         }
         restData.close();
         return downVotedList;
