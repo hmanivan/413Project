@@ -545,6 +545,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import YelpData.Business;
 import YelpData.BusinessData;
 import apitest.settings.SettingsActivity;
+import apitest.settings.ViewBadList;
 import database.DbAbstractionLayer;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.asynctasks.YelpSearchAsyncTask;
@@ -568,6 +569,7 @@ public class MapsActivity extends ActionBarActivity {
     private Marker mMarker;
     private Marker businessMarker;
 
+
     //private TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 
     private LocationRunnable _locationChangeCallBack;
@@ -577,6 +579,8 @@ public class MapsActivity extends ActionBarActivity {
     private int businessIndex = 0;
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
+
+    //private Business downVoted;
 
 //    private void registerLocationChangeCallback() {
 //        if (_locationChangeCallBack == null) {
@@ -616,8 +620,9 @@ public class MapsActivity extends ActionBarActivity {
 
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
-        Button boton = (Button) findViewById(R.id.blacklistbutton);
-        Button booton = (Button) findViewById(R.id.button);
+        Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
+        Button skip = (Button) findViewById(R.id.button);  //skip button
+
         final int singleShot = R.raw.single_shot;
         final Context finalThis = this;
 
@@ -637,17 +642,15 @@ public class MapsActivity extends ActionBarActivity {
                 }
             }.start();
         }
-        booton.setOnClickListener(new View.OnClickListener() {
+        skip.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(MapsActivity.this, DownVotedList.class);
-//        myIntent.putExtra("key", value); //Optional parameters
-                MapsActivity.this.startActivity(myIntent);
+            public void onClick(View v) { //skip button, goes to next business when pressed
+                nextBusiness();
             }
 
         });
 
-        boton.setOnClickListener(new View.OnClickListener() {
+        blacklist.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -686,46 +689,26 @@ public class MapsActivity extends ActionBarActivity {
                 };
                 shotQ.add(task);
 
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Yes button clicked
-                                Business downVoted = new Business();
+                //dummy business object
+               Business downVoted = new Business();
 
-                                downVoted.id = "100";
-                                downVoted.name = "Times House`";
-                                downVoted.display_phone = " ";
-                                downVoted.image_url = " ";
-                                downVoted.mobile_url = " ";
-                                downVoted.phone = "";
-                                downVoted.rating = 0;
-                                downVoted.review_count = 0;
+                //dummy business object variable initializations
+                downVoted.id = "205";
+                downVoted.name = "newres";
+                downVoted.display_phone = "408..";
+                downVoted.image_url = " ";
+                downVoted.mobile_url = " ";
+                downVoted.phone = "";
+                downVoted.rating = 0;
+                downVoted.review_count = 0;
 
+                //adding business to database
+                DbAbstractionLayer.addRestaurant(downVoted,MapsActivity.this);
 
-                                if (DbAbstractionLayer.isRestaurantInBlockedList("100", MapsActivity.this)) {
-                                    Dialog d = new Dialog(MapsActivity.this);
-                                    d.setContentView(R.layout.popupview);
-                                    TextView txt = (TextView) d.findViewById(R.id.editText);
-                                    txt.setText(getString(R.string.message));
-                                    d.show();
-                                } else {
-
-                                    DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
-                                }
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //No button clicked
-                                break;
-                        }
-                    }
                 };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener).show();
-            } //end onClick
+
+
         });
         if (mCamera != null) {
             mCamera.release();
@@ -741,7 +724,7 @@ public class MapsActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.maps_badlist, menu);
         return true;
     }
 
@@ -753,8 +736,8 @@ public class MapsActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent myIntent = new Intent(MapsActivity.this, SettingsActivity.class);
+        if (id == R.id.action_badList) {
+            Intent myIntent = new Intent(MapsActivity.this, ViewBadList.class);
 //        myIntent.putExtra("key", value); //Optional parameters
             MapsActivity.this.startActivity(myIntent);
             return true;
@@ -823,7 +806,8 @@ public class MapsActivity extends ActionBarActivity {
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 //display our location
-                updateMarker(37.721627, -122.4750291);
+//                updateMarker(37.721627, -122.4750291);
+                updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
             }
         }

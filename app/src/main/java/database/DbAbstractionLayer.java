@@ -50,7 +50,7 @@ public class DbAbstractionLayer {
                 restaurantDatabase.dbResTable,
                 tableColumns,
                 restaurantDatabase.id + " = ?",
-                new String[] {Integer.toString(restaurantId)},
+                new String[] {restaurantIdStr},
                 null, null, null);
         if (restaurantData.getCount() > 0){
             return true;
@@ -124,9 +124,9 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
-        int restaurantId = Integer.parseInt(restaurant.id);
+        //int restaurantId = Integer.parseInt(restaurant.id);
 
-        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {Integer.toString(restaurantId)} );
+        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
 
     }
 

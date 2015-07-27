@@ -53,11 +53,11 @@ public class DownVotedListAdaptor extends BaseAdapter {
         ImageView imageView;
         if(convertView == null){
             imageView = new ImageView(mContext);
-            ListView mResturantNames = (ListView) convertView.findViewById(R.id.mResturantNames);
+            ListView mResturantNames = (ListView) convertView.findViewById(R.id.listView2);
         }
         else{
             imageView = (ImageView) convertView;
-            ListView mResturantNames = (ListView) convertView.findViewById(R.id.mResturantNames);
+            ListView mResturantNames = (ListView) convertView.findViewById(R.id.listView2);
         }
         return convertView;
 
