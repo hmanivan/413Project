@@ -80,16 +80,16 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
                     restaurantDatabase.reviewCount,
             };
 
-            ContentValues dummyRestaurant = new ContentValues();
-
-            dummyRestaurant.put(tableColumns[0], -1);
-            dummyRestaurant.put(tableColumns[1], "dummyRestaurant");
-
-            for(int i = 2; i < tableColumns.length; i++){
-                dummyRestaurant.put(tableColumns[i], "");
-            }
-
-            restaurantDb.insert(RestaurantDatabase.dbResTable, null, dummyRestaurant);
+//            ContentValues dummyRestaurant = new ContentValues();
+//
+//            dummyRestaurant.put(tableColumns[0], -1);
+//            dummyRestaurant.put(tableColumns[1], "dummyRestaurant");
+//
+//            for(int i = 2; i < tableColumns.length; i++){
+//                dummyRestaurant.put(tableColumns[i], "");
+//            }
+//
+//            restaurantDb.insert(RestaurantDatabase.dbResTable, null, dummyRestaurant);
 
             showEULAmessage();
 

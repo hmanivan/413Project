@@ -667,21 +667,7 @@ public class MapsActivity extends ActionBarActivity {
                 };
                 shotQ.add(task);
 
-                //dummy business object
-               Business downVoted = new Business();
 
-                //dummy business object variable initializations
-                downVoted.id = "205";
-                downVoted.name = "newres";
-                downVoted.display_phone = "408..";
-                downVoted.image_url = " ";
-                downVoted.mobile_url = " ";
-                downVoted.phone = "";
-                downVoted.rating = 0;
-                downVoted.review_count = 0;
-
-                //adding business to database
-                DbAbstractionLayer.addRestaurant(downVoted,MapsActivity.this);
 
                 };
 

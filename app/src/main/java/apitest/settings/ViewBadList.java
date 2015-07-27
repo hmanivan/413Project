@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.example.ozzca_000.myapplication.R;
 
@@ -21,7 +23,7 @@ public class ViewBadList extends Activity{
 
     LinearLayout linearMain;
     CheckBox checkBox;
-    Business [] badList;
+    Business [] badList = DbAbstractionLayer.getDownVotedList(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -30,9 +32,9 @@ public class ViewBadList extends Activity{
          */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.badlistview);
-        linearMain = (LinearLayout) findViewById(R.id.blocked_checklist);
+        linearMain = (LinearLayout) findViewById(R.id.blocked);
 
-        badList = DbAbstractionLayer.getDownVotedList(getApplicationContext());
+
 
         String [] bizName = new String[badList.length];
 
@@ -41,14 +43,15 @@ public class ViewBadList extends Activity{
             bizName[i]=badList[i].name;
         }
 
-        ViewGroup checkboxContainer= (ViewGroup) findViewById(R.id.blocked_checklist);
+        ViewGroup checkboxContainer= (ViewGroup) findViewById(R.id.blocked);
 
-        for(int i=0;i<bizName.length;i++)
-        {
-            CheckBox checkBox= new CheckBox(this);
-            checkBox.setText(bizName[i]);
-            checkboxContainer.addView(checkBox);
-        }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, android.R.id.text1,  bizName);
+
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(adapter);
+
 
 
 

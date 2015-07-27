@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/haricode.iml" filepath="$PROJECT_DIR$/haricode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/badList.iml" filepath="$PROJECT_DIR$/badList.iml" />
     </modules>
   </component>
 </project>
