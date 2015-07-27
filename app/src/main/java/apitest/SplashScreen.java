@@ -31,8 +31,11 @@ import android.os.Vibrator;
 
 public class SplashScreen extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
-//    private View myView;
+    //    private View myView;
     private Vibrator myVib;
+
+    //create a runnable that allows us to come back after user enables location date
+    private Runnable _locationEnableCallback;
 
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
@@ -42,6 +45,7 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
     final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
     private final static String LOG_TAG = "FlashLight";
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,7 +62,6 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
         _appState = ((FoodRouletteApplication) getApplicationContext());
 
 
-
         DbAbstractionLayer dbAbstractionLayer = DbAbstractionLayer.getDbAbstractionLayer();
 
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(this);
@@ -67,7 +70,8 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
         Cursor restData = restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
 
-        if (!(restData.getCount() > 0)){
+        if (!(restData.getCount() > 0))
+        {
 
             String[] tableColumns = new String[]{
                     restaurantDatabase.id,
@@ -85,7 +89,8 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
             dummyRestaurant.put(tableColumns[0], -1);
             dummyRestaurant.put(tableColumns[1], "dummyRestaurant");
 
-            for(int i = 2; i < tableColumns.length; i++){
+            for (int i = 2; i < tableColumns.length; i++)
+            {
                 dummyRestaurant.put(tableColumns[i], "");
             }
 
@@ -103,47 +108,62 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
     public void onStart()
     {
         super.onStart();
-        //check to see if location services are enabled
-        LocationTools.checkLocationServicesEnabled(this);
 
-        //get current location, with runnable to execute code on completion
-        LocationTools.getCurrentLocation(_appState, new LocationRunnable() {
+        _locationEnableCallback = new Runnable()
+        {
             @Override
-            public void runWithLocation(final double latitude, final double longitude) {
-                //run this code once location data comes in
-                new Thread() {
-
+            public void run()
+            {
+                //get current location, with runnable to execute code on completion
+                LocationTools.getCachedLocation(_appState, new LocationRunnable()
+                {
                     @Override
-                    public void run()
+                    public void runWithLocation(final double latitude, final double longitude)
                     {
-                        String[] terms = new String[]{"Indian", "American", "Chinese", "Italian", "Japanese", "Mexican"};
-                        for (int i = 0; i < 6; i++)
+                        //run this code once location data comes in
+                        new Thread()
                         {
-                            //create index for when callback comes back
-                            final int callbackIndex = i;
 
-                            new YelpSearchAsyncTask(new BusinessRunnable() {
-                                @Override
-                                public void runWithBusiness(BusinessData business) {
-                                    _appState.onBusinessDataReceived(business, callbackIndex);
+                            @Override
+                            public void run()
+                            {
+                                String[] terms = new String[]{"Indian", "American", "Chinese", "Italian", "Japanese", "Mexican"};
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    //create index for when callback comes back
+                                    final int callbackIndex = i;
+
+                                    new YelpSearchAsyncTask(new BusinessRunnable()
+                                    {
+                                        @Override
+                                        public void runWithBusiness(BusinessData business)
+                                        {
+                                            _appState.onBusinessDataReceived(business, callbackIndex);
+                                        }
+                                    }).execute(terms[i], Double.toString(latitude), Double.toString(longitude));
                                 }
-                            }).execute(terms[i], Double.toString(latitude), Double.toString(longitude));
-                        }
 
-                        //go to roulette screen when position data comes back
-                        Intent intent = new Intent(SplashScreen.this, revolverwheel.revolver.RevolverActivity.class);
+                                //go to roulette screen when position data comes back
+                                Intent intent = new Intent(SplashScreen.this, revolverwheel.revolver.RevolverActivity.class);
 
-                        //alt intent to go straight to post-roulette
-                        //Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
+                                //alt intent to go straight to post-roulette
+                                //Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
 
-                        SplashScreen.this.startActivity(intent);
+                                SplashScreen.this.startActivity(intent);
 
-                        SplashScreen.this.finish();
+                                SplashScreen.this.finish();
+                            }
+
+                        }.start();
                     }
-
-                }.start();
+                });
             }
-        });
+        };
+
+        //check to see if location services are enabled
+        LocationTools.checkLocationServicesEnabled(this, _locationEnableCallback);
+
+
     }
 
     public void onRestart()
@@ -171,6 +191,14 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
         super.onDestroy();
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == 1000 && resultCode == RESULT_OK)
+        {
+        _locationEnableCallback.run();
+        }
+    }
+
     @Override
     public void onConnected(Bundle bundle)
     {
@@ -189,53 +217,69 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
-    private void showEULAmessage(){
+    private void showEULAmessage()
+    {
         //TODO
     }
 
-    public void shotThread(){
-        new Thread() {
-            public void run() {
-                while (true) {
-                    try {
+    public void shotThread()
+    {
+        new Thread()
+        {
+            public void run()
+            {
+                while (true)
+                {
+                    try
+                    {
                         Runnable task = shotQ.take();
                         task.run();
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException e)
+                    {
                         e.printStackTrace();
                     }
                 }
             }
         }.start();
-        Runnable task = new Runnable() {
-            public void run() {
+        Runnable task = new Runnable()
+        {
+            public void run()
+            {
                 MediaPlayer mp = MediaPlayer.create(SplashScreen.this, R.raw.single_shot);
 
-                try{
+                try
+                {
                     mCamera = Camera.open();
-                } catch( Exception e ){
+                } catch (Exception e)
+                {
                     Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
                 }
 
 
                 mp.start();
                 myVib.vibrate(250);
-                if (mCamera != null) {
+                if (mCamera != null)
+                {
                     Camera.Parameters params = mCamera.getParameters();
-                    params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
-                    mCamera.setParameters( params );
+                    params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    mCamera.setParameters(params);
                 }
-                if( mCamera != null ){
+                if (mCamera != null)
+                {
                     Camera.Parameters params = mCamera.getParameters();
-                    params.setFlashMode( Camera.Parameters.FLASH_MODE_OFF );
-                    mCamera.setParameters( params );
+                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    mCamera.setParameters(params);
                 }
-                if( mCamera != null ){
+                if (mCamera != null)
+                {
                     mCamera.release();
                     mCamera = null;
                 }
-                try {
+                try
+                {
                     Thread.sleep(1429);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
                 mp.release();

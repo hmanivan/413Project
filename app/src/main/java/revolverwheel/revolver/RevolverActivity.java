@@ -19,6 +19,8 @@ import com.example.ozzca_000.myapplication.R;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import revolverwheel.revolvercategories.FoodCategory;
+
 import static revolverwheel.imageJoinerUtils.CombinePNG.PNGCombiner;
 
 
@@ -35,8 +37,6 @@ public class RevolverActivity extends AppCompatActivity {
         setContentView(R.layout.revolver_wheel);
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
-//
-        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         //get current display size in pixels
         Display display = getWindowManager().getDefaultDisplay();
@@ -46,17 +46,95 @@ public class RevolverActivity extends AppCompatActivity {
         int height = size.y;
 
         //decide which dimension is smaller, set edgelength for cylinder
-        int cylinderEdgeLength;
-        if (width <= height) {
-            cylinderEdgeLength = width;
-        } else {
-            cylinderEdgeLength = height;
-        }
+        final int cylinderEdgeLength = width <= height ?  width : height;
 
-        Bitmap bm = PNGCombiner(getApplicationContext(), cylinderEdgeLength);
-        RevolverCanvas.setSamBitmap(bm);
+        //create a background thread that will populate the wheel with categories over time
+        final CanvasView hardRevolverCanvas = RevolverCanvas;
+        final Context hardContext = mContext;
+        new Thread(){
+            public void run() {
+                Bitmap bitmap;
+                //amount of time to wait between loading categories
+                int sleepTime = 250;
+
+                FoodCategory[] categories = new FoodCategory[]{FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None};
+
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+
+                try
+                {
+                    //set first sleep separately, seems to help with feel
+                    Thread.sleep(150);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                categories[0] = FoodCategory.Indian;
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+
+                try
+                {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                categories[1] = FoodCategory.American;
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+
+                try
+                {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                categories[2] = FoodCategory.Chinese;
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+
+                try
+                {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                categories[3] = FoodCategory.Italian;
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+
+                try
+                {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                categories[4] = FoodCategory.Japanese;
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+
+                try
+                {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                categories[5] = FoodCategory.Mexican;
+                bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
+                hardRevolverCanvas.setSamBitmap(bitmap);
+            }
+        }.start();
 
         RevolverCanvas.startRotationThread();
+
+        //Start service for phone vibrator
+        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
     }
 
     //-------------------------------------------------------------------------------------------//

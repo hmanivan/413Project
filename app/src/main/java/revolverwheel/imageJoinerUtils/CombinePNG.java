@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 
 import com.example.ozzca_000.myapplication.R;
 
+import revolverwheel.revolvercategories.FoodCategory;
+
 import static java.lang.Integer.parseInt;
 import static revolverwheel.imagecropper.ImageCropperUtils.getCroppedBitmap;
 
@@ -15,7 +17,7 @@ import static revolverwheel.imagecropper.ImageCropperUtils.getCroppedBitmap;
  */
 public class CombinePNG
 {
-    public static Bitmap PNGCombiner(Context context, int cylinderEdgeLength)
+    public static Bitmap PNGCombiner(Context context, int cylinderEdgeLength, FoodCategory[] categories)
     {
 
         //turn off bitmap scaling
@@ -32,26 +34,51 @@ public class CombinePNG
         //draw the cylinder
         comboImage.drawBitmap(combinedImage, 0f, 0f, null);
 
-        Bitmap[] imageToAdd = {BitmapFactory.decodeResource(context.getResources(), R.drawable.indian, o),
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.american, o),
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.chinese, o),
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.italian, o),
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.japanese, o),
-                BitmapFactory.decodeResource(context.getResources(), R.drawable.mexican, o),
-        };
+        Bitmap[] imageToAdd = {null, null, null, null, null, null};
 
-        for (int i = 0; i < 6; i++){
-            imageToAdd[i] = Bitmap.createScaledBitmap(imageToAdd[i], 244, 244, false);
-            imageToAdd[i] = getCroppedBitmap(imageToAdd[i]);
-            imageToAdd[i].setDensity(Bitmap.DENSITY_NONE);
+        for (int i = 0; i < 6; i++)
+        {
+            int categoryImageResource = categories[i].getDrawableResource();
+
+            imageToAdd[i] = categoryImageResource != -1 ?
+                    BitmapFactory.decodeResource(context.getResources(), categoryImageResource, o) :
+                    null;
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (imageToAdd[i] != null)
+            {
+                imageToAdd[i] = Bitmap.createScaledBitmap(imageToAdd[i], 244, 244, false);
+                imageToAdd[i] = getCroppedBitmap(imageToAdd[i]);
+                imageToAdd[i].setDensity(Bitmap.DENSITY_NONE);
+            }
         }
         // populate the cylinders, 1-6
-        comboImage.drawBitmap(imageToAdd[0], 390f, 97f, null);
-        comboImage.drawBitmap(imageToAdd[1], 642f, 250f, null);
-        comboImage.drawBitmap(imageToAdd[2], 634f, 547f, null);
-        comboImage.drawBitmap(imageToAdd[3], 373f, 689f, null);
-        comboImage.drawBitmap(imageToAdd[4], 121f, 533f, null);
-        comboImage.drawBitmap(imageToAdd[5], 131f, 238f, null);
+        if (imageToAdd[0] != null)
+        {
+            comboImage.drawBitmap(imageToAdd[0], 390f, 97f, null);
+        }
+        if (imageToAdd[1] != null)
+        {
+            comboImage.drawBitmap(imageToAdd[1], 642f, 250f, null);
+        }
+        if (imageToAdd[2] != null)
+        {
+            comboImage.drawBitmap(imageToAdd[2], 634f, 547f, null);
+        }
+        if (imageToAdd[3] != null)
+        {
+            comboImage.drawBitmap(imageToAdd[3], 373f, 689f, null);
+        }
+        if (imageToAdd[4] != null)
+        {
+            comboImage.drawBitmap(imageToAdd[4], 121f, 533f, null);
+        }
+        if (imageToAdd[5] != null)
+        {
+            comboImage.drawBitmap(imageToAdd[5], 131f, 238f, null);
+        }
 
         //try scaling image for test
         bitmapCreate = Bitmap.createScaledBitmap(bitmapCreate, cylinderEdgeLength, cylinderEdgeLength, false);
