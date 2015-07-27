@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id ="@+id/blocked_checklist"
+    android:id ="@+id/blocked"
     tools:context=".ViewBadList"
     android:weightSum="1"
     android:orientation="horizontal">
-
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -17,4 +16,10 @@
         android:id="@+id/button3"
         android:layout_gravity="bottom"
         android:onClick="onRemove"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="439dp"
+        android:id="@+id/listView"
+        android:layout_weight="0.73" />
 </LinearLayout>

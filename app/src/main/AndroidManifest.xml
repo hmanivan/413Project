@@ -92,13 +92,7 @@
                 android:value="apitest.settings.Setting_Main" />
         </activity>
 
-        <activity
-            android:name="apitest.DownVotedList"
-            android:label="activity_down_voted_list">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="apitest.MapsActivity"/>
-            </activity>
+
 
         <activity
             android:name="apitest.settings.ViewBadList"
