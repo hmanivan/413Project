@@ -581,28 +581,6 @@ public class MapsActivity extends ActionBarActivity {
     private FoodRouletteApplication _appState;
     final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
-    //private Business downVoted;
-
-//    private void registerLocationChangeCallback() {
-//        if (_locationChangeCallBack == null) {
-//            _locationChangeCallBack = new LocationRunnable() {
-//                @Override
-//                public void runWithLocation(double latitude, double longitude) {
-//                    updateMarker(latitude, longitude);
-//                }
-//            };
-//            //register callback with appstate
-//            _appState.addLocationChangedCallback(_locationChangeCallBack);
-//        }
-//        LocationService.startLocationService(_appState);
-//    }
-//
-//    private void unregisterLocationChangeCallback() {
-//        if (_locationChangeCallBack != null) {
-//            _appState.removeLocationChangedCallback(_locationChangeCallBack);
-//            _locationChangeCallBack = null;
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -656,7 +634,7 @@ public class MapsActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 //code to run when click is on blacklist button
-                nextBusiness();
+                downVoteBusiness();
 
                 shotThread();
 
@@ -861,13 +839,38 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     public void nextBusiness() {
-        //blacklist current business
-        //TODO: put blacklist code <HERE>
 
-        if (businessIndex < businessByDistance.size()) {
+        if (businessIndex < businessByDistance.size())
+        {
             //update marker with information for next business
-            Business business = businessByDistance.get(businessIndex);
             businessIndex++;
+            Business business = businessByDistance.get(businessIndex);
+            LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
+            businessMarker.setPosition(position);
+            businessMarker.setTitle(business.name);
+
+            setMapCameraPosition(position.latitude, position.longitude);
+            TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+            businessTitleTextView.setText(business.name);
+        }
+    }
+
+    public void downVoteBusiness()
+    {
+        //get current business
+        Business business = businessByDistance.get(businessIndex);
+        //add current business to blacklist
+        DbAbstractionLayer.addRestaurant(business, this);
+
+        if (businessIndex < businessByDistance.size())
+        {
+            //update marker with information for next business
+            businessIndex++;
+
+            //get the next business out
+            business = businessByDistance.get(businessIndex);
+
+            //get the position and title of the next business to update the marker
             LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
             businessMarker.setPosition(position);
             businessMarker.setTitle(business.name);
