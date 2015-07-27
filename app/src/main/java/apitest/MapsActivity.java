@@ -579,6 +579,7 @@ public class MapsActivity extends ActionBarActivity {
     private int businessIndex = 0;
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
+    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
     //private Business downVoted;
 
@@ -626,22 +627,21 @@ public class MapsActivity extends ActionBarActivity {
         final int singleShot = R.raw.single_shot;
         final Context finalThis = this;
 
-        final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
 
-        for (int i = 0; i < 50; i++) {
-            new Thread() {
-                public void run() {
-                    while (true) {
-                        try {
-                            Runnable task = shotQ.take();
-                            task.run();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }.start();
-        }
+//        for (int i = 0; i < 50; i++) {
+//            new Thread() {
+//                public void run() {
+//                    while (true) {
+//                        try {
+//                            Runnable task = shotQ.take();
+//                            task.run();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }.start();
+//        }
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //skip button, goes to next business when pressed
@@ -654,43 +654,14 @@ public class MapsActivity extends ActionBarActivity {
 
             @Override
             public void onClick(View v) {
-                try {
-                    mCamera = Camera.open();
-                } catch (Exception e) {
-                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
-                }
+
                 //code to run when click is on blacklist button
                 nextBusiness();
 
-                Runnable task = new Runnable() {
-                    public void run() {
-                        MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
-                        mp.start();
-
-                        myVib.vibrate(250);
-                        if (mCamera != null) {
-                            Camera.Parameters params = mCamera.getParameters();
-                            params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                            mCamera.setParameters(params);
-                        }
-                        if (mCamera != null) {
-                            Camera.Parameters params = mCamera.getParameters();
-                            params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                            mCamera.setParameters(params);
-                        }
-
-                        try {
-                            Thread.sleep(1429);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        mp.release();
-                    }
-                };
-                shotQ.add(task);
+                shotThread();
 
                 //dummy business object
-               Business downVoted = new Business();
+                Business downVoted = new Business();
 
                 //dummy business object variable initializations
                 downVoted.id = "205";
@@ -703,17 +674,15 @@ public class MapsActivity extends ActionBarActivity {
                 downVoted.review_count = 0;
 
                 //adding business to database
-                DbAbstractionLayer.addRestaurant(downVoted,MapsActivity.this);
+                DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
 
-                };
+            }
 
+            ;
 
 
         });
-        if (mCamera != null) {
-            mCamera.release();
-            mCamera = null;
-        }
+
 
     }
 
@@ -786,11 +755,11 @@ public class MapsActivity extends ActionBarActivity {
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever
      * call {@link # setUpMap()} once when {@link #mMap} is not null.
-     * <p>
+     * <p/>
      * If it isn't installed {@link SupportMapFragment} (and
      * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
      * install/update the Google Play services APK on their device.
-     * <p>
+     * <p/>
      * A user can return to this FragmentActivity after following the prompt and correctly
      * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
      * have been completely destroyed during this process (it is likely that it would only be
@@ -912,7 +881,7 @@ public class MapsActivity extends ActionBarActivity {
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
-     * <p>
+     * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
 //    private void fetchBusinessData() {
@@ -967,5 +936,66 @@ public class MapsActivity extends ActionBarActivity {
                 ((findViewById(R.id.map).getWidth()) / 3),
                 ((findViewById(R.id.map).getHeight()) / 3),
                 0));
+    }
+
+    public void shotThread() {
+        try {
+            mCamera = Camera.open();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+        }
+        new Thread() {
+            public void run() {
+                while (true) {
+                    try {
+                        Runnable task = shotQ.take();
+                        task.run();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+        Runnable task = new Runnable() {
+            public void run() {
+                MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+
+                try {
+                    mCamera = Camera.open();
+                } catch (Exception e) {
+                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+                }
+
+
+                mp.start();
+                myVib.vibrate(250);
+                if (mCamera != null) {
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    mCamera.setParameters(params);
+                }
+                if (mCamera != null) {
+                    Camera.Parameters params = mCamera.getParameters();
+                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    mCamera.setParameters(params);
+                }
+                if (mCamera != null) {
+                    mCamera.release();
+                    mCamera = null;
+                }
+                try {
+                    Thread.sleep(1429);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mp.release();
+//                        shot.onGunshot();
+                if (mCamera != null) {
+                    mCamera.release();
+                    mCamera = null;
+                }
+            }
+        };
+        shotQ.add(task);
     }
 }
