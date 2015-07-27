@@ -92,6 +92,7 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
             showEULAmessage();
 
         }
+       // DbAbstractionLayer.deleteAllData();
         restaurantDb.close();
         restaurantDatabase.close();
         restData.close();

@@ -41,7 +41,7 @@
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="346dp"
+            android:layout_height="303dp"
             tools:context=".MapsActivity"
             android:layout_gravity="left|center_vertical"
 
@@ -62,27 +62,33 @@
             android:id="@+id/blacklistbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:onClick="onBlack"
             android:text="Blacklist"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Wheel"
+            android:id="@+id/back"
+            android:layout_gravity="center_horizontal"
+            android:onClick="goToDownVoteActivity"
+            />
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-
-        />
-
-
-
 
 
     <!--<RelativeLayout-->

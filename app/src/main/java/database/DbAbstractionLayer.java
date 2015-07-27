@@ -132,4 +132,11 @@ public class DbAbstractionLayer {
 
     }
 
+    public static void deleteAllData()
+    {
+
+        restaurantDb.delete(RestaurantDatabase.dbResTable, null, null);
+
+    }
+
 }

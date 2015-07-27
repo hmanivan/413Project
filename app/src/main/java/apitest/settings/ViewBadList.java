@@ -21,8 +21,8 @@ import database.DbAbstractionLayer;
  */
 public class ViewBadList extends Activity{
 
-    LinearLayout linearMain;
-    CheckBox checkBox;
+   // LinearLayout linearMain;
+    //CheckBox checkBox;
     Business [] badList = DbAbstractionLayer.getDownVotedList(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,41 +32,49 @@ public class ViewBadList extends Activity{
          */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.badlistview);
-        linearMain = (LinearLayout) findViewById(R.id.blocked);
+       // linearMain = (LinearLayout) findViewById(R.id.blocked);
 
 
+        updateBadList();
 
+    }
+
+
+    public void updateBadList()
+    {
         String [] bizName = new String[badList.length];
 
         for(int i=0;i<badList.length;i++)
         {
             bizName[i]=badList[i].name;
+          //  System.out.println("BIZZNAME=========== " +bizName[i]);
         }
 
-        ViewGroup checkboxContainer= (ViewGroup) findViewById(R.id.blocked);
 
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1,  bizName);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
+                android.R.layout.simple_list_item_1, android.R.id.text1,  bizName);
 
-            ListView listView = (ListView) findViewById(R.id.listView);
-            listView.setAdapter(adapter);
-
-
-
-
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
 
     }
 
+
+    //removes element from badlist and refreshes the page
     public void onRemove(View view)
     {
+        badList = DbAbstractionLayer.getDownVotedList(this);
        if(badList.length!=0)
        {
-           for (int i = 0; i < badList.length; i++)
-               DbAbstractionLayer.removeRestaurant(badList[i], this);
+           for (int i = badList.length-1; i >=0; i--) {
+               //DbAbstractionLayer.deleteAllData();
+               DbAbstractionLayer.removeRestaurant(badList[i],this);
+           }
 
        }
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = getIntent();
+        finish();
         startActivity(intent);
     }
 }

@@ -556,6 +556,7 @@ import foodroulette.callbacks.LocationRunnable;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import YelpData.Business;
+import revolverwheel.revolver.RevolverActivity;
 
 import static database.DbAbstractionLayer.addRestaurant;
 
@@ -601,6 +602,7 @@ public class MapsActivity extends ActionBarActivity {
 
         Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
         Button skip = (Button) findViewById(R.id.button);  //skip button
+        Button back= (Button) findViewById(R.id.back);
 
         final int singleShot = R.raw.single_shot;
         final Context finalThis = this;
@@ -638,17 +640,23 @@ public class MapsActivity extends ActionBarActivity {
 
                 shotThread();
 
-                //dummy business object
-                Business downVoted = new Business();
 
 
-                //adding business to database
-                DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
+
 
             }
 
             ;
 
+
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //back button, goes back to revolver wheel
+                Intent intent = new Intent(MapsActivity.this, RevolverActivity.class);
+                startActivity(intent);
+            }
 
         });
 
