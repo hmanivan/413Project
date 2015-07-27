@@ -102,11 +102,13 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
-        int restaurantId = Integer.parseInt(downVotedRestaurant.id);
+        //removing string to int parsing, which causes program crash
+        //TODO: Tim Bauer - please remove all unnessary type conversions
+        //int restaurantId = Integer.parseInt(downVotedRestaurant.id);
 
         ContentValues newRestaurant = new ContentValues();
 
-        newRestaurant.put(RestaurantDatabase.id, restaurantId);
+        newRestaurant.put(RestaurantDatabase.id, downVotedRestaurant.id);
         newRestaurant.put(RestaurantDatabase.resaurantName, downVotedRestaurant.name);
         newRestaurant.put(RestaurantDatabase.displayPhone, downVotedRestaurant.display_phone);
         newRestaurant.put(RestaurantDatabase.image_url, downVotedRestaurant.image_url);
