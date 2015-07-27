@@ -1,5 +1,6 @@
 package apitest;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -29,7 +30,7 @@ import foodroulette.locationutils.LocationTools;
 import android.view.View;
 import android.os.Vibrator;
 
-public class SplashScreen extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+public class SplashScreen extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
 //    private View myView;
     private Vibrator myVib;
@@ -51,19 +52,16 @@ public class SplashScreen extends AppCompatActivity implements GoogleApiClient.C
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.jacksplash);
+        setContentView(R.layout.sploosh);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
 
-
-
         DbAbstractionLayer dbAbstractionLayer = DbAbstractionLayer.getDbAbstractionLayer();
 
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(this);
         restaurantDb = restaurantDatabase.getWritableDatabase();
-
 
         Cursor restData = restaurantDb.rawQuery("SELECT * FROM " + restaurantDatabase.dbResTable, null);
 
