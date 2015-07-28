@@ -102,6 +102,23 @@
                 android:value="apitest.settings.Setting_Main" />
         </activity>
 
+        <activity
+            android:name="database.DatabaseActivity"
+            android:label="@string/title_activity_database">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name="database.DBListActivity"
+            android:label="@string/title_activity_dblist">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
     </application>
 
 </manifest>

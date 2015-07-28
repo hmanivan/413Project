@@ -29,11 +29,11 @@ Thumbs.db
 .project
 
 # Android Studio
+app/app.iml
 *.iml
-.idea
+.idea/
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle/
-build/
+.gradle
 src/main/java/APIKeys/AuthKeys.java
 
 #mergetools
@@ -44,3 +44,8 @@ src/main/java/APIKeys/AuthKeys.java
 .idea/tasks.xml
 .idea/datasources.xml
 .idea/dataSources.ids
+.idea/libraries
+/local.properties
+/.idea/workspace.xml
+
+/build
