@@ -22,7 +22,7 @@ local.properties
 Thumbs.db
 
 # OSX files
-.DS_Store
+*.DS_Store
 
 # Eclipse project files
 .classpath
@@ -32,6 +32,15 @@ Thumbs.db
 *.iml
 .idea
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle
+.gradle/
 build/
 src/main/java/APIKeys/AuthKeys.java
+
+#mergetools
+.orig
+
+# Intellij IDEA (see https://intellij-support.jetbrains.com/entries/23393067)
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/datasources.xml
+.idea/dataSources.ids

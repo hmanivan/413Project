@@ -556,11 +556,16 @@ import foodroulette.callbacks.LocationRunnable;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import YelpData.Business;
+<<<<<<< .merge_file_a05692
 import revolverwheel.revolver.RevolverActivity;
+=======
+import foodroulette.locationutils.LocationTools;
+>>>>>>> .merge_file_a05048
 
 import static database.DbAbstractionLayer.addRestaurant;
 
-public class MapsActivity extends ActionBarActivity {
+public class MapsActivity extends ActionBarActivity
+{
     private Camera mCamera;
     private final static String LOG_TAG = "FlashLight";
     private Vibrator myVib;
@@ -584,7 +589,8 @@ public class MapsActivity extends ActionBarActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         // setting the reference to global appstate
@@ -604,9 +610,19 @@ public class MapsActivity extends ActionBarActivity {
         Button skip = (Button) findViewById(R.id.button);  //skip button
         Button back= (Button) findViewById(R.id.back);
 
+        //start up the camera
+        try
+        {
+            mCamera = Camera.open();
+        } catch (Exception e)
+        {
+            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+        }
+
         final int singleShot = R.raw.single_shot;
         final Context finalThis = this;
 
+<<<<<<< .merge_file_a05692
 
 //        for (int i = 0; i < 50; i++) {
 //            new Thread() {
@@ -623,25 +639,98 @@ public class MapsActivity extends ActionBarActivity {
 //            }.start();
 //        }
         skip.setOnClickListener(new View.OnClickListener() {
+=======
+        final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
+
+        for (int i = 0; i < 50; i++)
+        {
+            new Thread()
+            {
+                public void run()
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            Runnable task = shotQ.take();
+                            task.run();
+                        } catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }.start();
+        }
+        skip.setOnClickListener(new View.OnClickListener()
+        {
+>>>>>>> .merge_file_a05048
             @Override
-            public void onClick(View v) { //skip button, goes to next business when pressed
+            public void onClick(View v)
+            { //skip button, goes to next business when pressed
                 nextBusiness();
             }
 
         });
 
-        blacklist.setOnClickListener(new View.OnClickListener() {
+        blacklist.setOnClickListener(new View.OnClickListener()
+        {
 
             @Override
+<<<<<<< .merge_file_a05692
             public void onClick(View v) {
+=======
+            public void onClick(View v)
+            {
+
+>>>>>>> .merge_file_a05048
 
                 //code to run when click is on blacklist button
                 downVoteBusiness();
 
+<<<<<<< .merge_file_a05692
                 shotThread();
 
+=======
+                Runnable task = new Runnable()
+                {
+                    public void run()
+                    {
+                        MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+                        mp.start();
+
+                        myVib.vibrate(250);
+                        if (mCamera != null)
+                        {
+                            Camera.Parameters params = mCamera.getParameters();
+                            params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                            mCamera.setParameters(params);
+                        }
+                        if (mCamera != null)
+                        {
+                            Camera.Parameters params = mCamera.getParameters();
+                            params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                            mCamera.setParameters(params);
+                        }
+
+                        try
+                        {
+                            Thread.sleep(1429);
+                        } catch (InterruptedException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        mp.release();
+                    }
+                };
+                shotQ.add(task);
+
+                //dummy business object
+                Business downVoted = new Business();
+>>>>>>> .merge_file_a05048
 
 
+<<<<<<< .merge_file_a05692
 
 
             }
@@ -660,6 +749,18 @@ public class MapsActivity extends ActionBarActivity {
 
         });
 
+=======
+                //adding business to database
+                DbAbstractionLayer.addRestaurant(downVoted, MapsActivity.this);
+
+            }
+
+            ;
+
+
+        });
+
+>>>>>>> .merge_file_a05048
 
     }
 
@@ -668,21 +769,24 @@ public class MapsActivity extends ActionBarActivity {
     //-------------------------------------------------------------------------------------------//
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.maps_badlist, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_badList) {
+        if (id == R.id.action_badList)
+        {
             Intent myIntent = new Intent(MapsActivity.this, ViewBadList.class);
 //        myIntent.putExtra("key", value); //Optional parameters
             MapsActivity.this.startActivity(myIntent);
@@ -696,36 +800,63 @@ public class MapsActivity extends ActionBarActivity {
     //-------------------------------------------------------------------------------------------//
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
 //        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
 //        unregisterLocationChangeCallback();
+
+        //release the camera
+        if (mCamera != null)
+        {
+            mCamera.release();
+            mCamera = null;
+        }
     }
 
     @Override
-    protected void onRestart() {
+    protected void onRestart()
+    {
         super.onRestart();
 //        registerLocationChangeCallback();
         setUpMapIfNeeded();
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
 //        registerLocationChangeCallback();
         setUpMapIfNeeded();
+
+        //start up the camera
+        try
+        {
+            mCamera = Camera.open();
+        } catch (Exception e)
+        {
+            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+        }
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
-//        unregisterLocationChangeCallback();
+
+        //release the camera
+        if (mCamera != null)
+        {
+            mCamera.release();
+            mCamera = null;
+        }
     }
 
     /**
@@ -743,27 +874,31 @@ public class MapsActivity extends ActionBarActivity {
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded()
+    {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (mMap == null)
+        {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (mMap != null)
+            {
                 //display our location
-//                updateMarker(37.721627, -122.4750291);
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
             }
         }
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (mMap == null)
+        {
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (mMap != null)
+            {
 //                fetchBusinessData();
 
                 //display our location
@@ -773,25 +908,28 @@ public class MapsActivity extends ActionBarActivity {
 
                 TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
                 businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
-
             }
         }
     }
 
-    private void setupBusinessDataCallbacks() {
+    private void setupBusinessDataCallbacks()
+    {
         int selectedCategory = _appState.rouletteSelection;
         //choose different color for each category
         final float color = 51f + (51f * (float) selectedCategory);
-        _appState.addBusinessDataCallback(new BusinessRunnable() {
+        _appState.addBusinessDataCallback(new BusinessRunnable()
+        {
             @Override
-            public void runWithBusiness(BusinessData businessData) {
+            public void runWithBusiness(BusinessData businessData)
+            {
                 //store users location for comparison
                 double userLat = _appState.latitude;
                 double userLong = _appState.longitude;
 
                 int businessCount = businessData.businesses.size();
 
-                for (int j = 0; j < businessCount; j++) {
+                for (int j = 0; j < businessCount; j++)
+                {
                     Business business = businessData.businesses.get(j);
 
                     //get location of business
@@ -805,9 +943,11 @@ public class MapsActivity extends ActionBarActivity {
                 }
 
                 //Custom sorting class which compares businesses by distance to user
-                class BusinessComparator implements Comparator<Business> {
+                class BusinessComparator implements Comparator<Business>
+                {
                     @Override
-                    public int compare(Business o1, Business o2) {
+                    public int compare(Business o1, Business o2)
+                    {
                         return Double.compare(o1.distanceToUser, o2.distanceToUser);
                     }
                 }
@@ -829,7 +969,8 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     //a faster hypot function
-    public double offsetHypot(double X, double x, double Y, double y) {
+    public double offsetHypot(double X, double x, double Y, double y)
+    {
         double retVal = 0;
 
         retVal = Math.sqrt((X - x) * (X - x) + (Y - y) * (Y - y));
@@ -837,20 +978,29 @@ public class MapsActivity extends ActionBarActivity {
         return retVal;
     }
 
-    public void nextBusiness() {
+    public void nextBusiness()
+    {
 
-        if (businessIndex < businessByDistance.size())
+        if (businessIndex < businessByDistance.size() - 1)
         {
             //update marker with information for next business
             businessIndex++;
             Business business = businessByDistance.get(businessIndex);
-            LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
-            businessMarker.setPosition(position);
-            businessMarker.setTitle(business.name);
 
-            setMapCameraPosition(position.latitude, position.longitude);
-            TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-            businessTitleTextView.setText(business.name);
+            if (business != null)
+            {
+                LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
+                businessMarker.setPosition(position);
+                businessMarker.setTitle(business.name);
+
+                setMapCameraPosition(position.latitude, position.longitude);
+                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+                businessTitleTextView.setText(business.name);
+            }
+        }
+        else
+        {
+            businessIndex = 0;
         }
     }
 
@@ -859,27 +1009,36 @@ public class MapsActivity extends ActionBarActivity {
         //get current business
         Business business = businessByDistance.get(businessIndex);
         //add current business to blacklist
-        DbAbstractionLayer.addRestaurant(business, this);
 
-        if (businessIndex < businessByDistance.size())
+        if (business != null)
         {
-            //update marker with information for next business
-            businessIndex++;
+            DbAbstractionLayer.addRestaurant(business, this);
 
-            //get the next business out
-            business = businessByDistance.get(businessIndex);
+            if (businessIndex < businessByDistance.size() - 1)
+            {
+                //update marker with information for next business
+                businessIndex++;
 
-            //get the position and title of the next business to update the marker
-            LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
-            businessMarker.setPosition(position);
-            businessMarker.setTitle(business.name);
+                //get the next business out
+                business = businessByDistance.get(businessIndex);
 
-            setMapCameraPosition(position.latitude, position.longitude);
-            TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-            businessTitleTextView.setText(business.name);
+                //get the position and title of the next business to update the marker
+                LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
+                businessMarker.setPosition(position);
+                businessMarker.setTitle(business.name);
+
+                setMapCameraPosition(position.latitude, position.longitude);
+                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+                businessTitleTextView.setText(business.name);
+            }
+            else
+            {
+                businessIndex = 0;
+            }
         }
     }
 
+<<<<<<< .merge_file_a05692
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
@@ -897,33 +1056,59 @@ public class MapsActivity extends ActionBarActivity {
 //    }
     private void updateMarker(double latitude, double longitude) {
         if (mMarker == null) {
+=======
+    private void updateMarker(double latitude, double longitude)
+    {
+        if (mMarker == null)
+        {
+>>>>>>> .merge_file_a05048
             MarkerOptions options = new MarkerOptions();
             options.title("You are here");
             options.position(new LatLng(latitude, longitude));
             mMarker = mMap.addMarker(options);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
-        } else {
+        }
+        else
+        {
             //If you move and the marker already exists, update your position
             mMarker.setPosition(new LatLng(latitude, longitude));
         }
+        LocationTools.getCurrentLocation(_appState, new LocationRunnable()
+        {
+            @Override
+            public void runWithLocation(double latitude, double longitude)
+            {
+                mMarker.setPosition(new LatLng(latitude, longitude));
+            }
+        });
     }
 
-    public LatLngBounds getLatLngBounds(double lat1, double long1, double lat2, double long2) {
+    public LatLngBounds getLatLngBounds(double lat1, double long1, double lat2, double long2)
+    {
         LatLng latLng1, latLng2;
 
-        if (lat1 < lat2) {
-            if (long1 < long2) {
+        if (lat1 < lat2)
+        {
+            if (long1 < long2)
+            {
                 latLng1 = new LatLng(lat1, long1);
                 latLng2 = new LatLng(lat2, long2);
-            } else {
+            }
+            else
+            {
                 latLng1 = new LatLng(lat1, long2);
                 latLng2 = new LatLng(lat2, long1);
             }
-        } else {
-            if (long1 < long2) {
+        }
+        else
+        {
+            if (long1 < long2)
+            {
                 latLng1 = new LatLng(lat2, long1);
                 latLng2 = new LatLng(lat1, long2);
-            } else {
+            }
+            else
+            {
                 latLng1 = new LatLng(lat2, long2);
                 latLng2 = new LatLng(lat1, long1);
             }
@@ -931,7 +1116,8 @@ public class MapsActivity extends ActionBarActivity {
         return new LatLngBounds(latLng1, latLng2);
     }
 
-    public void setMapCameraPosition(double latitude, double longitude) {
+    public void setMapCameraPosition(double latitude, double longitude)
+    {
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(
                 getLatLngBounds(_appState.latitude, _appState.longitude, latitude, longitude),
