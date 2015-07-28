@@ -88,7 +88,8 @@ public class MapsActivity extends ActionBarActivity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setUpMapIfNeeded();
-
+        TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+        businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
