@@ -50,7 +50,7 @@ public class DbAbstractionLayer {
                 restaurantDatabase.dbResTable,
                 tableColumns,
                 restaurantDatabase.id + " = ?",
-                new String[] {Integer.toString(restaurantId)},
+                new String[] {restaurantIdStr},
                 null, null, null);
         if (restaurantData.getCount() > 0){
             return true;
@@ -91,7 +91,7 @@ public class DbAbstractionLayer {
             downVotedList[i].phone = restData.getString(phoneColumn);
             downVotedList[i].rating = restData.getFloat(rateColumn);
             downVotedList[i].review_count = restData.getInt(revColumn);
-
+            restData.moveToNext();
         }
         restData.close();
         return downVotedList;
@@ -102,11 +102,13 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
-        int restaurantId = Integer.parseInt(downVotedRestaurant.id);
+        //removing string to int parsing, which causes program crash
+        //TODO: Tim Bauer - please remove all unnessary type conversions
+        //int restaurantId = Integer.parseInt(downVotedRestaurant.id);
 
         ContentValues newRestaurant = new ContentValues();
 
-        newRestaurant.put(RestaurantDatabase.id, restaurantId);
+        newRestaurant.put(RestaurantDatabase.id, downVotedRestaurant.id);
         newRestaurant.put(RestaurantDatabase.resaurantName, downVotedRestaurant.name);
         newRestaurant.put(RestaurantDatabase.displayPhone, downVotedRestaurant.display_phone);
         newRestaurant.put(RestaurantDatabase.image_url, downVotedRestaurant.image_url);
@@ -124,9 +126,16 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
-        int restaurantId = Integer.parseInt(restaurant.id);
+        //int restaurantId = Integer.parseInt(restaurant.id);
 
-        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {Integer.toString(restaurantId)} );
+        restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
+
+    }
+
+    public static void deleteAllData()
+    {
+
+        restaurantDb.delete(RestaurantDatabase.dbResTable, null, null);
 
     }
 

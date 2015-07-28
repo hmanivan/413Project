@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/workingdev.iml" filepath="$PROJECT_DIR$/workingdev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/developmentmerge.iml" filepath="$PROJECT_DIR$/developmentmerge.iml" />
     </modules>
   </component>
 </project>

@@ -23,6 +23,9 @@ import com.example.ozzca_000.myapplication.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import YelpData.Business;
+import database.DbAbstractionLayer;
+
 
 public class Setting_Main extends ActionBarActivity {
 
@@ -37,6 +40,7 @@ public class Setting_Main extends ActionBarActivity {
     private double progressValue;
     final private List<String> list=new ArrayList<String>();
 
+    private Business[] bizzlist;
 
 
     @Override
@@ -146,6 +150,14 @@ public class Setting_Main extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "Saving New Price Range: "+editText.getText().toString(),
                 Toast.LENGTH_LONG).show();
     }
+
+//    public void onBadList(View view)
+//    {
+//
+//        Intent intent = new Intent(this, ViewBadList.class);
+//        startActivity(intent);
+//
+//    }
 
     public void onClear(View view) {
         prefs2.edit().remove("SEEKPROG").commit();

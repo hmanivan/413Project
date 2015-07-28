@@ -41,7 +41,9 @@ public class CanvasView extends SurfaceView
     private Paint mPaint;
     private long timeStamp = 0;
     private float degToSpin = 0;
-    private float angularV = 0;
+
+    //initialize angular velocity and set initial velocity of wheel
+    private float angularV = 1;
 
     private static float cylinderCenterX = 504;
     private static float cylinderCenterY = 515;
@@ -75,6 +77,7 @@ public class CanvasView extends SurfaceView
         //auto scaled center of the cylinder (actually works, cannot believe it)
         cylinderCenterX = (bitmap.getWidth() / 2) - ((8 * bitmap.getWidth()) / 1024);
         cylinderCenterY = (bitmap.getHeight() / 2) + ((3 * bitmap.getHeight()) / 1024);
+        this.postInvalidate();
     }
 
     public CanvasView(final Context c, AttributeSet attrs)
