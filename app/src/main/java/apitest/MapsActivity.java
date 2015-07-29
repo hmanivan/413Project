@@ -8,10 +8,13 @@ package apitest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ozzca_000.myapplication.R;
@@ -34,6 +38,17 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -98,6 +113,13 @@ public class MapsActivity extends ActionBarActivity
 
 	//businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
         currentBusiness = yelpResults.get(businessIndex);
+
+      //  DISPLAYING rating
+        ImageView img = (ImageView) findViewById(R.id.rating);
+        new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
+        //img.setImageBitmap(getBitmapFromURL(yelpResults.get(businessIndex).rating_img_url_large));
+
+
         //businessTitleTextView.setText(currentBusiness.name);
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
@@ -346,7 +368,12 @@ public class MapsActivity extends ActionBarActivity
 
 //                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 //                businessTitleTextView.setText(yelpResults.get(businessIndex).name);
+
                 setTitle(yelpResults.get(businessIndex).name);
+
+                //  DISPLAYING rating
+                ImageView img = (ImageView) findViewById(R.id.rating);
+                new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
             }
         }
     }
@@ -436,6 +463,9 @@ public class MapsActivity extends ActionBarActivity
 //                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 //                businessTitleTextView.setText(business.name);
                 setTitle(yelpResults.get(businessIndex).name);
+                //  DISPLAYING rating
+                ImageView img = (ImageView) findViewById(R.id.rating);
+                new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
 
             }
         }
@@ -449,6 +479,7 @@ public class MapsActivity extends ActionBarActivity
     {
         //get current business
         Business business = yelpResults.get(businessIndex);
+
 
         if (business != null)
         {
@@ -468,10 +499,14 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setPosition(position);
                 businessMarker.setTitle(business.name);
 
+
                 setMapCameraPosition(position.latitude, position.longitude);
 //                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 //                businessTitleTextView.setText(business.name);
                 setTitle(yelpResults.get(businessIndex).name);
+                //  DISPLAYING rating
+                ImageView img = (ImageView) findViewById(R.id.rating);
+                new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
             }
             else
             {
@@ -636,4 +671,7 @@ public class MapsActivity extends ActionBarActivity
                         Double.toString(currentBusiness.location.coordinate.longitude)));
         startActivity(intent);
     }
+
+
+
 }

@@ -7,7 +7,7 @@
     tools:context=".ViewBadList"
     android:weightSum="1"
     android:orientation="vertical"
-    android:background="#b8362f"
+    android:background="@drawable/applicationbackgroundsmall"
     android:textSize="25sp"
     android:gravity="bottom">
 
