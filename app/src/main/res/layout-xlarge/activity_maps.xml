@@ -1,23 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/postroulette"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center|top"
+    android:background="@drawable/applicationbackgroundsmall"
+    android:columnCount="1"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:background="#f00000"
-    tools:context=".MainActivity"
-    android:id="@+id/postroulette"
     android:rowCount="4"
-    android:columnCount="1">
+    android:weightSum="1"
+    tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/restname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:id="@+id/restname">
+        tools:context=".MainActivity">
 
         <TextView
             android:id="@+id/businessTitle"
@@ -27,7 +27,7 @@
             android:layout_margin="10dp"
             android:textColor="#ffffff"
 
-            android:textSize="25sp" />
+            android:textSize="25sp"/>
     </LinearLayout>
 
 
@@ -42,8 +42,8 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="815dp"
-            tools:context=".MapsActivity"
             android:layout_gravity="left|center_vertical"
+            tools:context=".MapsActivity"
 
             />
 
@@ -51,55 +51,56 @@
 
 
     <LinearLayout
+        android:id="@+id/blacklist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:id="@+id/blacklist">
+        tools:context=".MainActivity">
 
         <Button
             android:id="@+id/blacklistbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:onClick="onBlack"
-            android:text="Block"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:onClick="onBlack"
+            android:text="Block"/>
 
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skip"
         android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="goToDownVoteActivity"
-        />
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Wheel"
-        android:id="@+id/back"
         android:layout_gravity="center_horizontal"
         android:onClick="goToDownVoteActivity"
+        android:text="Skip"
+        />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="goToDownVoteActivity"
+        android:text="Back to Wheel"
         />
 
 
     <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:weightSum="3"-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:background="#000000"-->
-        <!--tools:context=".RevolverActivity"-->
-        <!--android:id="@+id/uber">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:weightSum="3"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:background="#000000"-->
+    <!--tools:context=".RevolverActivity"-->
+    <!--android:id="@+id/uber">-->
 
     <!--<TextView-->
     <!--android:layout_width="wrap_content"-->
