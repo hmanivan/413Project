@@ -136,15 +136,10 @@
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
-            <!--<Button-->
-                <!--style="?android:attr/buttonStyleSmall"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Bad List"-->
-                <!--android:id="@+id/button2"-->
-                <!--android:onClick="onBadList"-->
-                <!--/>-->
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
             <Button
                 android:text="Clear Preferences"
                 android:layout_width="185dp"
@@ -153,6 +148,16 @@
                 android:id="@+id/button_clear_preferences"
                 android:onClick="onClear"
                 android:layout_gravity="center_horizontal" />
+            <Button
+                android:text="View Blocked Restaurants"
+                android:layout_width="185dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:id="@+id/button_go_to_downvote_screen"
+                android:onClick="goToDownVote"
+                android:layout_gravity="center_horizontal" /></LinearLayout>
+
+
 
         </LinearLayout>
     </ScrollView>
