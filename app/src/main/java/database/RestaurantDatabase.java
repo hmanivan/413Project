@@ -30,7 +30,7 @@ public class RestaurantDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase restaurantDb) {
         String CREATE_DVREST_TABLE = "CREATE TABLE " + dbResTable + "("
-                + id + " INT PRIMARY KEY,"
+                + id + " TEXT PRIMARY KEY,"
                 + resaurantName + " TEXT,"
                 + displayPhone + " TEXT,"
                 + phone + " TEXT,"
@@ -39,8 +39,6 @@ public class RestaurantDatabase extends SQLiteOpenHelper {
                 + rating + " REAL,"
                 + reviewCount + " INT" + ")";
         restaurantDb.execSQL(CREATE_DVREST_TABLE);
-        String[] myStringArray={"A","B","C"};
-
     }
 
     @Override

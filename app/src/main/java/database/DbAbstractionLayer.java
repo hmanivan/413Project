@@ -39,9 +39,9 @@ public class DbAbstractionLayer {
 
     private DbAbstractionLayer(){}
 
-    public static boolean isRestaurantInBlockedList(String restaurantIdStr, Context context){
+    public static boolean isRestaurantInBlockedList(String restaurantId, Context context){
 
-        int restaurantId = Integer.parseInt(restaurantIdStr);
+
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
@@ -50,7 +50,7 @@ public class DbAbstractionLayer {
                 restaurantDatabase.dbResTable,
                 tableColumns,
                 restaurantDatabase.id + " = ?",
-                new String[] {restaurantIdStr},
+                new String[] {restaurantId},
                 null, null, null);
         if (restaurantData.getCount() > 0){
             return true;
@@ -102,10 +102,6 @@ public class DbAbstractionLayer {
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
 
-        //removing string to int parsing, which causes program crash
-        //TODO: Tim Bauer - please remove all unnessary type conversions
-        //int restaurantId = Integer.parseInt(downVotedRestaurant.id);
-
         ContentValues newRestaurant = new ContentValues();
 
         newRestaurant.put(RestaurantDatabase.id, downVotedRestaurant.id);
@@ -125,8 +121,6 @@ public class DbAbstractionLayer {
         mContext = context;
         restaurantDatabase = RestaurantDatabase.getRestaurantDatabase(mContext);
         restaurantDb = restaurantDatabase.getWritableDatabase();
-
-        //int restaurantId = Integer.parseInt(restaurant.id);
 
         restaurantDb.delete(RestaurantDatabase.dbResTable, RestaurantDatabase.id + " = ?", new String[] {restaurant.id} );
 
