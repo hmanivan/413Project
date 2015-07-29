@@ -275,4 +275,9 @@ public class Setting_Main extends ActionBarActivity {
 
 
     }
+
+    public void goToDownVote(View view) {
+        Intent goToDownVoteScreen = new Intent(this, ViewBadList.class);
+        startActivity(goToDownVoteScreen);
+    }
 }
