@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id ="@+id/blocked"
     tools:context=".ViewBadList"
     android:weightSum="1"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:background="#b8362f"
+    android:textSize="25sp"
+    android:gravity="bottom">
 
+    <TextView
+        android:id="@+id/blacklistTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:layout_margin="10dp"
+        android:textColor="#ffffffff"
+        android:textSize="55sp"
+        android:textStyle="bold"/>
+    <ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="315dp"
+        android:orientation="vertical"
+        android:id="@+id/checkList"
+        android:gravity="top|left"
+        tools:context=".ViewBadList"
+        android:layout_weight="1">
+
+    </LinearLayout>
+    </ScrollView>
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Select All/ Deselect All"
+        android:id="@+id/selectAll"
+        android:layout_row="7"
+        android:layout_column="0" />/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="74dp"
         android:text="remove"
-        android:id="@+id/button3"
-        android:layout_gravity="bottom"
-        android:onClick="onRemove"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="439dp"
-        android:id="@+id/listView"
-        android:layout_weight="0.73" />
-
-</LinearLayout>
+        android:id="@+id/remove"
+        android:onClick="onRemove"
+        android:layout_gravity="right"
+        android:layout_row="8"
+        android:layout_column="0" />
+</GridLayout>

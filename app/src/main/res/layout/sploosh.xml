@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:theme="@style/NoActionBar">
+    android:theme="@style/NoActionBar"
+    android:background="#b8362f">
 
     <ImageView
         android:id="@+id/splashscreen"

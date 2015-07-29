@@ -9,30 +9,12 @@
     android:columnCount="1"
     android:orientation="vertical"
     android:rowCount="4"
-    android:weightSum="1"
-    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/restname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/businessTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_margin="10dp"
-            android:text=""
-            android:textColor="#ffffff"
-            android:textSize="25sp"/>
-    </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainActivity">
@@ -42,64 +24,104 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="303dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             tools:context=".MapsActivity"
+            android:layout_gravity="left|center_vertical"
+
             />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:id="@+id/blacklist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        tools:context=".MainActivity">
-
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="Meh..."/>
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        android:id="@+id/blacklist">
 
         <Button
             android:id="@+id/blacklistbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:onClick="onBlack"
+            android:text="Block"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:onClick="onBlack"
-
-            android:text="Bleh!!!"/>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:onClick="getDirections"
-            android:text="Yes!!!"
+            android:text="Skip"
+            android:id="@+id/button"
+            android:layout_gravity="center_horizontal"
+
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Wheel"
+            android:id="@+id/back"
+            android:layout_gravity="center_horizontal"
+            android:onClick="goToDownVoteActivity"
             />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginTop="20dp"
-        android:onClick="goToDownVoteActivity"
-        android:text="Back to Wheel"
-        />
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:weightSum="3"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:background="#000000"-->
+        <!--tools:context=".RevolverActivity"-->
+        <!--android:id="@+id/uber">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:text="UBER"-->
+    <!--android:textSize="25sp"-->
+    <!--android:id="@+id/textView"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentStart="true" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/B2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:onClick="onB2"-->
+    <!--android:text="Go"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_centerHorizontal="true" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_gravity="right"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:text="IN 4 MIN"-->
+    <!--android:textSize="25sp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_alignTop="@+id/textView"-->
+    <!--android:layout_alignParentEnd="true" />-->
+    <!--</RelativeLayout>-->
+
 </LinearLayout>
