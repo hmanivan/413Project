@@ -8,7 +8,7 @@
     android:background="@drawable/applicationbackgroundsmall"
     android:columnCount="1"
     android:orientation="vertical"
-    android:rowCount="4"
+    android:rowCount="4">
 
 
 
@@ -57,9 +57,7 @@
             android:layout_height="wrap_content"
             android:text="Skip"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal"
-
-            />
+            android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="wrap_content"
@@ -67,8 +65,7 @@
             android:text="Back to Wheel"
             android:id="@+id/back"
             android:layout_gravity="center_horizontal"
-            android:onClick="goToDownVoteActivity"
-            />
+            android:onClick="goToDownVoteActivity" />
 
     </LinearLayout>
 

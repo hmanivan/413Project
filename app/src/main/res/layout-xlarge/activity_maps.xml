@@ -12,13 +12,8 @@
     android:weightSum="1"
     tools:context=".MainActivity">
 
-<<<<<<< HEAD
-    <LinearLayout
-        android:id="@+id/restname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+
+
 
 
 
@@ -34,9 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="815dp"
             android:layout_gravity="left|center_vertical"
-            tools:context=".MapsActivity"
-
-            />
+            tools:context=".MapsActivity" />
 
     </LinearLayout>
 
@@ -69,8 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="goToDownVoteActivity"
-        android:text="Skip"
-        />
+        android:text="Skip" />
 
     <Button
         android:id="@+id/back"
@@ -78,8 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="goToDownVoteActivity"
-        android:text="Back to Wheel"
-        />
+        android:text="Back to Wheel" />
 
 
     <!--<RelativeLayout-->

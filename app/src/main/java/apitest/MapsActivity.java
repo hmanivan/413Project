@@ -435,7 +435,7 @@ public class MapsActivity extends ActionBarActivity
                 setMapCameraPosition(position.latitude, position.longitude);
 //                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 //                businessTitleTextView.setText(business.name);
-                setTitle(businessByDistance.get(businessIndex).name);
+                setTitle(yelpResults.get(businessIndex).name);
 
             }
         }
