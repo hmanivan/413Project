@@ -88,8 +88,12 @@ public class MapsActivity extends ActionBarActivity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setUpMapIfNeeded();
-        TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-        businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+
+        //needed for displaying first business's name on maps activity
+        //TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+       // businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+        setTitle(businessByDistance.get(businessIndex).name);
+
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
@@ -335,8 +339,9 @@ public class MapsActivity extends ActionBarActivity
                 setupBusinessDataCallbacks();
                 setMapCameraPosition(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
 
-                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-                businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+//                businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+                setTitle(businessByDistance.get(businessIndex).name);
             }
         }
     }
@@ -423,8 +428,10 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-                businessTitleTextView.setText(business.name);
+//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+//                businessTitleTextView.setText(business.name);
+                setTitle(businessByDistance.get(businessIndex).name);
+
             }
         }
         else
@@ -457,8 +464,9 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-                businessTitleTextView.setText(business.name);
+//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+//                businessTitleTextView.setText(business.name);
+                setTitle(businessByDistance.get(businessIndex).name);
             }
             else
             {

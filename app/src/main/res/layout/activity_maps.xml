@@ -6,33 +6,17 @@
     android:layout_gravity="center|top"
     android:orientation="vertical"
     android:weightSum="1"
-    android:background="#f00000"
+    android:background="#d55b54"
     tools:context=".MainActivity"
     android:id="@+id/postroulette"
     android:rowCount="4"
     android:columnCount="1">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:id="@+id/restname">
 
-        <TextView
-            android:id="@+id/businessTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_margin="10dp"
-            android:textColor="#ffffff"
-
-            android:textSize="25sp" />
-    </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainActivity">
@@ -63,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onBlack"
-            android:text="Block Restrauant"
+            android:text="Block"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_alignParentTop="true"

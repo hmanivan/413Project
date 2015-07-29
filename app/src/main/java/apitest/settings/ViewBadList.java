@@ -2,13 +2,17 @@ package apitest.settings;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.ozzca_000.myapplication.R;
 
@@ -21,9 +25,10 @@ import database.DbAbstractionLayer;
  */
 public class ViewBadList extends Activity{
 
-   // LinearLayout linearMain;
-    //CheckBox checkBox;
+   LinearLayout linearMain;
+    CheckBox []checkBox;
     Business [] badList = DbAbstractionLayer.getDownVotedList(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,51 +37,86 @@ public class ViewBadList extends Activity{
          */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.badlistview);
-       // linearMain = (LinearLayout) findViewById(R.id.blocked);
+        //displaying title on top of the page
+        TextView blockTitle = (TextView) findViewById(R.id.blacklistTitle);
+        blockTitle.setText("Blocked List");
+       linearMain = (LinearLayout) findViewById(R.id.checkList);
 
-
-        updateBadList();
-
-    }
-
-
-    public void updateBadList()
-    {
+    //getting downvoted list from database
         badList = DbAbstractionLayer.getDownVotedList(this);
 
+        //getting business name and setting to bizName[]
         String [] bizName = new String[badList.length];
 
         for(int i=0;i<badList.length;i++)
         {
             bizName[i]=badList[i].name;
-           System.out.println("BIZZNAME=========== " +bizName[i]);
+
+        }
+
+        //creating checkbox for each blocked restraunt
+        checkBox=new CheckBox[bizName.length];
+        for(int i=0;i<bizName.length;i++)
+        {
+            checkBox[i]=new CheckBox(this);
+            checkBox[i].setId(i);
+            checkBox[i].setText(bizName[i]);
+            checkBox[i].setTextSize(25);
+            checkBox[i].setTextColor(Color.parseColor("#FFFFFF"));
+
+            linearMain.addView(checkBox[i]);
         }
 
 
+        Button selectall=(Button) findViewById(R.id.selectAll);
+        Button remove=(Button) findViewById(R.id.remove);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
-                android.R.layout.simple_list_item_1, android.R.id.text1,  bizName);
+        //button that selects all or deselects all
+        selectall.setOnClickListener(new View.OnClickListener() {
 
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+            public void onClick(View v) {
+
+                for(int i=0;i<checkBox.length;i++)
+                {
+                    if(checkBox[i].isChecked()==false)
+                    checkBox[i].setChecked(true);
+                    else
+                        checkBox[i].setChecked(false);
+                }
+
+            }
+        });
+
+        //remove button that removed selected checkboxes
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //skip button, goes to next business when pressed
+
+                int id=0;
+                for(int i=0;i<checkBox.length;i++)
+                {
+                    if(checkBox[i].isChecked()&&badList.length!=0)
+                    {
+                        id=i;
+                        DbAbstractionLayer.removeRestaurant(badList[checkBox[id].getId()], getApplicationContext());
+
+                    }
+                }
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+
+//
+
+            }
+
+        });
+
+
+
 
     }
 
 
-    //removes element from badlist and refreshes the page
-    public void onRemove(View view)
-    {
-        badList = DbAbstractionLayer.getDownVotedList(this);
-       if(badList.length!=0)
-       {
 
-               //DbAbstractionLayer.deleteAllData();
-               DbAbstractionLayer.removeRestaurant(badList[badList.length-1],this);
-
-
-       }
-        Intent intent = getIntent();
-        finish();
-        startActivity(intent);
-    }
 }
