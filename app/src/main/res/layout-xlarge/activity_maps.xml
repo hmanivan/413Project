@@ -12,23 +12,9 @@
     android:weightSum="1"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/restname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/businessTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_margin="10dp"
-            android:textColor="#ffffff"
 
-            android:textSize="25sp"/>
-    </LinearLayout>
+
 
 
     <LinearLayout
@@ -43,9 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="815dp"
             android:layout_gravity="left|center_vertical"
-            tools:context=".MapsActivity"
-
-            />
+            tools:context=".MapsActivity" />
 
     </LinearLayout>
 
@@ -62,13 +46,13 @@
             android:id="@+id/blacklistbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:onClick="onBlack"
+            android:text="Block"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:onClick="onBlack"
-            android:text="Block"/>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
     </LinearLayout>
 
@@ -78,8 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="goToDownVoteActivity"
-        android:text="Skip"
-        />
+        android:text="Skip" />
 
     <Button
         android:id="@+id/back"
@@ -87,8 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="goToDownVoteActivity"
-        android:text="Back to Wheel"
-        />
+        android:text="Back to Wheel" />
 
 
     <!--<RelativeLayout-->

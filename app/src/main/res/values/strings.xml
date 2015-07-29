@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Food Roulette</string>
-    <!-- Hall of Flame text as a placeholder. to fix, use title_activity_maps somewhere -->
-    <string name="title_activity_maps">Food Roulette</string>
 
-    <string name="title_activity_splash_screen">Food Roulette</string>
+    <string name="title_activity_maps"> </string>
+
+    <string name="title_activity_splash_screen"></string>
     <string name="title_activity_check_box_activity">Checkbox Activity</string>
 
     <string name="action_settings">Settings</string>
@@ -20,7 +20,7 @@
     <string name="title_activity_setting__category">Categories</string>
     <string name="Choose_Yelp_Rating">Choose_Yelp_Rating</string>
     <string name="settingmain">Setting</string>
-    <string name="revolverwheel">@string/app_name</string>
+    <string name="revolverwheel"> </string>
     <string name="message">Already in list!</string>
     <string name="title_activity_dblist">db list</string>
 </resources>

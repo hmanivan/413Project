@@ -61,7 +61,8 @@ public class MapsActivity extends ActionBarActivity
     private Marker mMarker;
     private Marker businessMarker;
 
-    private TextView businessTitleTextView;
+
+    //private TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 
     private LocationRunnable _locationChangeCallBack;
 
@@ -89,9 +90,15 @@ public class MapsActivity extends ActionBarActivity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setUpMapIfNeeded();
-        businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+
+        //needed for displaying first business's name on maps activity
+        //TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+       // businessTitleTextView.setText(yelpResults.get(businessIndex).name);
+        setTitle(yelpResults.get(businessIndex).name);
+
+	//businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
         currentBusiness = yelpResults.get(businessIndex);
-        businessTitleTextView.setText(currentBusiness.name);
+        //businessTitleTextView.setText(currentBusiness.name);
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
@@ -335,9 +342,11 @@ public class MapsActivity extends ActionBarActivity
                 //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
-                currentBusiness = yelpResults.get(businessIndex);
-                setMapCameraPosition(currentBusiness.location.coordinate.latitude, currentBusiness.location.coordinate.longitude);
-                businessTitleTextView.setText(currentBusiness.name);
+                setMapCameraPosition(yelpResults.get(businessIndex).location.coordinate.latitude, yelpResults.get(businessIndex).location.coordinate.longitude);
+
+//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+//                businessTitleTextView.setText(yelpResults.get(businessIndex).name);
+                setTitle(yelpResults.get(businessIndex).name);
             }
         }
     }
@@ -424,7 +433,10 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-                businessTitleTextView.setText(business.name);
+//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+//                businessTitleTextView.setText(business.name);
+                setTitle(yelpResults.get(businessIndex).name);
+
             }
         }
         else
@@ -457,7 +469,9 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-                businessTitleTextView.setText(business.name);
+//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+//                businessTitleTextView.setText(business.name);
+                setTitle(yelpResults.get(businessIndex).name);
             }
             else
             {
