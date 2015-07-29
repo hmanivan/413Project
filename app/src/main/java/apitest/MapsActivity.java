@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
@@ -60,13 +61,13 @@ public class MapsActivity extends ActionBarActivity
     private Marker mMarker;
     private Marker businessMarker;
 
-
-    //private TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+    private TextView businessTitleTextView;
 
     private LocationRunnable _locationChangeCallBack;
 
     //list of businesses to sort
-    private List<Business> businessByDistance = new ArrayList<>();
+    private List<Business> yelpResults = new ArrayList<>();
+    private Business currentBusiness;
     private int businessIndex = 0;
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
@@ -88,8 +89,9 @@ public class MapsActivity extends ActionBarActivity
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setUpMapIfNeeded();
-        TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-        businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+        businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+        currentBusiness = yelpResults.get(businessIndex);
+        businessTitleTextView.setText(currentBusiness.name);
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
         Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
@@ -333,10 +335,9 @@ public class MapsActivity extends ActionBarActivity
                 //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
-                setMapCameraPosition(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
-
-                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-                businessTitleTextView.setText(businessByDistance.get(businessIndex).name);
+                currentBusiness = yelpResults.get(businessIndex);
+                setMapCameraPosition(currentBusiness.location.coordinate.latitude, currentBusiness.location.coordinate.longitude);
+                businessTitleTextView.setText(currentBusiness.name);
             }
         }
     }
@@ -368,7 +369,7 @@ public class MapsActivity extends ActionBarActivity
                     business.distanceToUser = offsetHypot(position.latitude, userLat, position.longitude, userLong);
 
                     //add business to array
-                    businessByDistance.add(business);
+                    yelpResults.add(business);
                 }
 
 //Custom sorting class which compares businesses by distance to user
@@ -382,12 +383,12 @@ public class MapsActivity extends ActionBarActivity
                 }
 
 //sort list of businesses by distance to user
-                Collections.sort(businessByDistance, new BusinessComparator());
-
+                Collections.sort(yelpResults, new BusinessComparator());
+                currentBusiness = yelpResults.get(businessIndex);
                 //old code which displays all businesses in category
-                LatLng position = new LatLng(businessByDistance.get(businessIndex).location.coordinate.latitude, businessByDistance.get(businessIndex).location.coordinate.longitude);
+                LatLng position = new LatLng(currentBusiness.location.coordinate.latitude, currentBusiness.location.coordinate.longitude);
                 businessMarker = mMap.addMarker(new MarkerOptions()
-                        .title(businessByDistance.get(businessIndex).name)
+                        .title(currentBusiness.name)
                         .position(position)
                         .icon(BitmapDescriptorFactory.defaultMarker(color)));
                 businessMarker.isVisible();
@@ -410,11 +411,11 @@ public class MapsActivity extends ActionBarActivity
     public void nextBusiness()
     {
 
-        if (businessIndex < businessByDistance.size() - 1)
+        if (businessIndex < yelpResults.size() - 1)
         {
             //update marker with information for next business
             businessIndex++;
-            Business business = businessByDistance.get(businessIndex);
+            Business business = yelpResults.get(businessIndex);
 
             if (business != null)
             {
@@ -423,7 +424,6 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
                 businessTitleTextView.setText(business.name);
             }
         }
@@ -436,20 +436,20 @@ public class MapsActivity extends ActionBarActivity
     public void downVoteBusiness()
     {
         //get current business
-        Business business = businessByDistance.get(businessIndex);
+        Business business = yelpResults.get(businessIndex);
 
         if (business != null)
         {
             //add current business to blacklist
             DbAbstractionLayer.addRestaurant(business, this);
 
-            if (businessIndex < businessByDistance.size() - 1)
+            if (businessIndex < yelpResults.size() - 1)
             {
                 //update marker with information for next business
                 businessIndex++;
 
                 //get the next business out
-                business = businessByDistance.get(businessIndex);
+                business = yelpResults.get(businessIndex);
 
                 //get the position and title of the next business to update the marker
                 LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
@@ -457,7 +457,6 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
                 businessTitleTextView.setText(business.name);
             }
             else
@@ -612,5 +611,15 @@ public class MapsActivity extends ActionBarActivity
             }
         };
         shotQ.add(task);
+    }
+
+    //launches Google maps for selected restaurant
+    public void getDirections(View view) {
+        currentBusiness = yelpResults.get(businessIndex);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?daddr=" +
+                        Double.toString(currentBusiness.location.coordinate.latitude) + "," +
+                        Double.toString(currentBusiness.location.coordinate.longitude)));
+        startActivity(intent);
     }
 }
