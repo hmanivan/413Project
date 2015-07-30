@@ -156,6 +156,8 @@
                 android:layout_margin="10dp"
                 android:id="@+id/button_go_to_downvote_screen"
                 android:onClick="goToDownVote"
+                android:background="#6a0500"
+                android:textColor="#ffffff"
                 android:layout_gravity="center_horizontal" />
 
     <Button
@@ -164,7 +166,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:id="@+id/backtowheel"
-        android:onClick="goToDownVote"
+        android:background="#6a0500"
+        android:textColor="#ffffff"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

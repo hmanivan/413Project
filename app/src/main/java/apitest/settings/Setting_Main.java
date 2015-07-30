@@ -113,7 +113,7 @@ public class Setting_Main extends ActionBarActivity {
 
     public void seekbarRadius(){
         text_radius = (TextView) findViewById(R.id.text_radius);
-        text_radius.setText("Radius: " + ((double) seekbar_radius.getProgress() / 10));
+        text_radius.setText("Radius: " + ((double) seekbar_radius.getProgress() / 10)  + " Miles");
 
         seekbar_radius.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
@@ -123,7 +123,7 @@ public class Setting_Main extends ActionBarActivity {
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                         progressValue = ((double) progress / 10);
-                        text_radius.setText("Radius: " + progressValue);
+                        text_radius.setText("Radius: " + progressValue + " Miles");
 
 
                     }
@@ -137,7 +137,7 @@ public class Setting_Main extends ActionBarActivity {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         newProgress = seekbar_radius.getProgress();
                         currentProgress = newProgress;
-                        text_radius.setText("Radius: " + progressValue);
+                        text_radius.setText("Radius: " + progressValue + " Miles");
                         SharedPreferences.Editor editor = prefs2.edit();
                         editor.putInt("SEEKPROG", newProgress);
                         editor.commit();
@@ -264,7 +264,7 @@ public class Setting_Main extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 // TODO Auto-generated method stub
 
-                prefs = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
+                prefs = getSharedPreferences(prefName, MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 //---save the values in the EditText view to preferences---
                 editor.putInt("last_val", pos);

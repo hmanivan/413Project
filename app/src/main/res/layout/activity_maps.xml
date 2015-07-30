@@ -128,7 +128,6 @@
         android:background="#6a0500"
         android:id="@+id/back"
         android:layout_gravity="center_horizontal|bottom"
-        android:onClick="goToDownVoteActivity"
         android:layout_marginTop="20dp"
         android:layout_weight="0.31" />
 </LinearLayout>

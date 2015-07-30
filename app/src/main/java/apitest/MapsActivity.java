@@ -129,7 +129,15 @@ public class MapsActivity extends ActionBarActivity
 //            Intent intent = new Intent(context, Setting_Main.class);
 //            startActivity(intent);
 //        }
+        Button back = (Button) findViewById(R.id.back);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { //back button, goes back to revolver wheel
+                Intent intent = new Intent(MapsActivity.this, RevolverActivity.class);
+                startActivity(intent);
+            }
+        });
         if (yelpResults.size() != 0) {
             setTitle(yelpResults.get(businessIndex).name);
 
@@ -147,7 +155,7 @@ public class MapsActivity extends ActionBarActivity
 
             Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
             Button skip = (Button) findViewById(R.id.button);  //skip button
-            Button back = (Button) findViewById(R.id.back);
+
             ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
 
             //start up the camera
@@ -232,20 +240,11 @@ public class MapsActivity extends ActionBarActivity
                     shotQ.add(task);
                 }
             });
-
-            back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) { //back button, goes back to revolver wheel
-                    Intent intent = new Intent(MapsActivity.this, RevolverActivity.class);
-                    startActivity(intent);
-                }
-            });
-
         }
         else
         {
             Context context = MapsActivity.this;
-        CharSequence text = "RESET SETTINGS OR CLEAR BLACKLIST, NO RESTRAUNTS FOUND WITH SPECIFIED SETTINGS";
+        CharSequence text = "RESET SETTINGS OR CLEAR BLACKLIST, NO BUSINESSES FOUND WITH SPECIFIED SETTINGS";
             int duration = Toast.LENGTH_LONG;
 
             Toast toast = Toast.makeText(context, text, duration);
@@ -396,6 +395,7 @@ public class MapsActivity extends ActionBarActivity
                 //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
+
                 if(yelpResults.size()!=0) {
                     setMapCameraPosition(yelpResults.get(businessIndex).location.coordinate.latitude, yelpResults.get(businessIndex).location.coordinate.longitude);
 
@@ -449,10 +449,10 @@ public class MapsActivity extends ActionBarActivity
                         LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
 
                         //get distance from business to user
-                        business.distanceToUser = offsetHypot(position.latitude, userLat, position.longitude, userLong);
+                      business.distanceToUser = offsetHypot(position.latitude, userLat, position.longitude, userLong);
 
                         //add business to array if business rating >= settings rating && business radius <= settings radius && Business isnt in blockedlist
-                    if(business.rating>=rating&&business.distanceToUser<=radius&& !DbAbstractionLayer.isRestaurantInBlockedList(business.id,getApplicationContext())) {
+                    if(business.rating>=rating && business.distanceToUser<=radius && !DbAbstractionLayer.isRestaurantInBlockedList(business.id,getApplicationContext())) {
 
                         yelpResults.add(business);
 
@@ -461,7 +461,7 @@ public class MapsActivity extends ActionBarActivity
 
 
 
-               // System.out.println("YELPSIZE===============" + yelpResults.size()+"RATINGSETTINGS========"+rating+"RADIUSSETTINGS========="+radius);
+              System.out.println("YELPSIZE===============" + yelpResults.size()+"RATINGSETTINGS========"+rating+"RADIUSSETTINGS========="+radius);
 //
 
 //Custom sorting class which compares businesses by distance to user
