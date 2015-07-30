@@ -55,7 +55,7 @@ public class RevolverActivity extends AppCompatActivity {
             public void run() {
                 Bitmap bitmap;
                 //amount of time to wait between loading categories
-                int sleepTime = 250;
+                int sleepTime = 200;
 
                 FoodCategory[] categories = new FoodCategory[]{FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None};
 
