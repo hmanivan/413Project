@@ -59,12 +59,16 @@ public class ViewBadList extends Activity{
         for(int i=0;i<bizName.length;i++)
         {
             checkBox[i]=new CheckBox(this);
+            checkBox[i].setButtonDrawable(R.drawable.custom_checkbox_design);
+
             checkBox[i].setId(i);
+
             checkBox[i].setText(bizName[i]);
             checkBox[i].setTextSize(25);
             checkBox[i].setTextColor(Color.parseColor("#FFFFFF"));
 
             linearMain.addView(checkBox[i]);
+
         }
 
 
