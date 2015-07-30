@@ -122,7 +122,7 @@ public class SettingsActivity extends PreferenceActivity {
             return true;
         }
     };
-
+}
     /**
      * Binds a preference's summary to its value. More specifically, when the
      * preference's value is changed, its summary (line of text below the
@@ -144,13 +144,4 @@ public class SettingsActivity extends PreferenceActivity {
 //                        .getString(preference.getKey(), ""));
 //    }
 
-    public void onCatButton(View view) {
-        //update view to activity_maps (for testing purposes)
-//        setContentView(R.layout.activity_maps);
-        Intent myIntent = new Intent(SettingsActivity.this, apitest.settings.Setting_Category.class);
-//        myIntent.putExtra("key", value); //Optional parameters
-        SettingsActivity.this.startActivity(myIntent);
-    }
 
-
-}

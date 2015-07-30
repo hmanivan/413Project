@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.ozzca_000.myapplication.R;
@@ -135,6 +137,7 @@ public class RevolverActivity extends AppCompatActivity {
 
         //Start service for phone vibrator
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+
     }
 
     //-------------------------------------------------------------------------------------------//

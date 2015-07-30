@@ -9,6 +9,7 @@ package apitest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -20,8 +21,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +65,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import YelpData.Business;
 import YelpData.BusinessData;
+import apitest.settings.Setting_Main;
 import apitest.settings.ViewBadList;
 import database.DbAbstractionLayer;
 import foodroulette.appstate.FoodRouletteApplication;
@@ -82,6 +86,7 @@ public class MapsActivity extends ActionBarActivity
     private Marker businessMarker;
 
 
+
     //private TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 
     private LocationRunnable _locationChangeCallBack;
@@ -96,8 +101,7 @@ public class MapsActivity extends ActionBarActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // setting the reference to global appstate
@@ -109,142 +113,148 @@ public class MapsActivity extends ActionBarActivity
         setContentView(R.layout.activity_maps);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         setUpMapIfNeeded();
 
-        //needed for displaying first business's name on maps activity
-        //TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-       // businessTitleTextView.setText(yelpResults.get(businessIndex).name);
-        setTitle(yelpResults.get(businessIndex).name);
-
-	//businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-        currentBusiness = yelpResults.get(businessIndex);
-
-      //  DISPLAYING rating
-        ImageView img = (ImageView) findViewById(R.id.rating);
-        new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
-        //img.setImageBitmap(getBitmapFromURL(yelpResults.get(businessIndex).rating_img_url_large));
-
-
-        //businessTitleTextView.setText(currentBusiness.name);
-        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
-
-        Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
-        Button skip = (Button) findViewById(R.id.button);  //skip button
-        Button back = (Button) findViewById(R.id.back);
-        ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
-
-        //start up the camera
-        try
-        {
-            mCamera = Camera.open();
-        } catch (Exception e)
-        {
-            Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
-        }
-
-        final int singleShot = R.raw.single_shot;
-        final Context finalThis = this;
-
-        for (int i = 0; i < 50; i++)
-        {
-            new Thread()
-            {
-                public void run()
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            Runnable task = shotQ.take();
-                            task.run();
-                        } catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }.start();
-        }
-        skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //skip button, goes to next business when pressed
-                nextBusiness();
-            }
-
-        });
-
-
-    //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
-      yelpButton.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) { //skip button, goes to next business when pressed
-
+        //IF NO RESTRAUNTS FOUND, POP UP TOAST AND GO TO SETTINGS MAIN
+//        if (yelpResults.size() == 0) {
+//            Context context = MapsActivity.this;
+//            CharSequence text = "RESET SETTINGS OR CLEAR BLACKLIST, NO RESTRAUNTS FOUND WITH SPECIFIED SETTINGS";
+//            int duration = Toast.LENGTH_LONG;
 //
-              Intent myIntent = new Intent(MapsActivity.this, YelpWebViewActivity.class);
-              myIntent.putExtra("firstKeyName",yelpResults.get(businessIndex).url);
-              startActivity(myIntent);
+//            Toast toast = Toast.makeText(context, text, duration);
+//            toast.show();
+//            toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
+//
+//            Intent intent = new Intent(context, Setting_Main.class);
+//            startActivity(intent);
+//        }
+        Button back = (Button) findViewById(R.id.back);
 
-          }
-
-      });
-
-
-
-        blacklist.setOnClickListener(new View.OnClickListener()
-        {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                //code to run when click is on blacklist button
-                downVoteBusiness();
-
-                Runnable task = new Runnable()
-                {
-                    public void run()
-                    {
-                        MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
-                        mp.start();
-
-                        myVib.vibrate(250);
-                        if (mCamera != null)
-                        {
-                            Camera.Parameters params = mCamera.getParameters();
-                            params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                            mCamera.setParameters(params);
-                        }
-                        if (mCamera != null)
-                        {
-                            Camera.Parameters params = mCamera.getParameters();
-                            params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                            mCamera.setParameters(params);
-                        }
-
-                        try
-                        {
-                            Thread.sleep(1429);
-                        } catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
-                        mp.release();
-                    }
-                };
-                shotQ.add(task);
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            { //back button, goes back to revolver wheel
+            public void onClick(View v) { //back button, goes back to revolver wheel
                 Intent intent = new Intent(MapsActivity.this, RevolverActivity.class);
                 startActivity(intent);
             }
         });
+        if (yelpResults.size() != 0) {
+            setTitle(yelpResults.get(businessIndex).name);
 
+            //businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
+            currentBusiness = yelpResults.get(businessIndex);
+
+            //  DISPLAYING rating
+            ImageView img = (ImageView) findViewById(R.id.rating);
+            new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
+            //img.setImageBitmap(getBitmapFromURL(yelpResults.get(businessIndex).rating_img_url_large));
+
+
+            //businessTitleTextView.setText(currentBusiness.name);
+            myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+
+            Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
+            Button skip = (Button) findViewById(R.id.button);  //skip button
+
+            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
+
+            //start up the camera
+            try {
+                mCamera = Camera.open();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
+            }
+
+            final int singleShot = R.raw.single_shot;
+            final Context finalThis = this;
+
+            for (int i = 0; i < 50; i++) {
+                new Thread() {
+                    public void run() {
+                        while (true) {
+                            try {
+                                Runnable task = shotQ.take();
+                                task.run();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
+            }
+            skip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { //skip button, goes to next business when pressed
+                    nextBusiness();
+                }
+
+            });
+
+
+            //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
+            yelpButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) { //skip button, goes to next business when pressed
+
+//
+                    Intent myIntent = new Intent(MapsActivity.this, YelpWebViewActivity.class);
+                    myIntent.putExtra("firstKeyName", yelpResults.get(businessIndex).url);
+                    startActivity(myIntent);
+
+                }
+
+            });
+
+
+            blacklist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //code to run when click is on blacklist button
+                    downVoteBusiness();
+
+                    Runnable task = new Runnable() {
+                        public void run() {
+                            MediaPlayer mp = MediaPlayer.create(MapsActivity.this, R.raw.single_shot);
+                            mp.start();
+
+                            myVib.vibrate(250);
+                            if (mCamera != null) {
+                                Camera.Parameters params = mCamera.getParameters();
+                                params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                                mCamera.setParameters(params);
+                            }
+                            if (mCamera != null) {
+                                Camera.Parameters params = mCamera.getParameters();
+                                params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                                mCamera.setParameters(params);
+                            }
+
+                            try {
+                                Thread.sleep(1429);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            mp.release();
+                        }
+                    };
+                    shotQ.add(task);
+                }
+            });
+        }
+        else
+        {
+            Context context = MapsActivity.this;
+        CharSequence text = "RESET SETTINGS OR CLEAR BLACKLIST, NO BUSINESSES FOUND WITH SPECIFIED SETTINGS";
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
+
+//            Intent intent = new Intent(context, Setting_Main.class);
+//            startActivity(intent);
+        }
     }
-
 
 //-------------------------------------------------------------------------------------------//
 //  This is for the settings fragment tab that we want to implement (following 2 methods)    //
@@ -267,9 +277,9 @@ public class MapsActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_badList)
+        if (id == R.id.action_settings)
         {
-            Intent myIntent = new Intent(MapsActivity.this, ViewBadList.class);
+            Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
             MapsActivity.this.startActivity(myIntent);
             return true;
         }
@@ -385,16 +395,19 @@ public class MapsActivity extends ActionBarActivity
                 //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
                 setupBusinessDataCallbacks();
-                setMapCameraPosition(yelpResults.get(businessIndex).location.coordinate.latitude, yelpResults.get(businessIndex).location.coordinate.longitude);
+
+                if(yelpResults.size()!=0) {
+                    setMapCameraPosition(yelpResults.get(businessIndex).location.coordinate.latitude, yelpResults.get(businessIndex).location.coordinate.longitude);
 
 //                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 //                businessTitleTextView.setText(yelpResults.get(businessIndex).name);
 
-                setTitle(yelpResults.get(businessIndex).name);
+                    setTitle(yelpResults.get(businessIndex).name);
 
-                //  DISPLAYING rating
-                ImageView img = (ImageView) findViewById(R.id.rating);
-                new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
+                    //  DISPLAYING rating
+                    ImageView img = (ImageView) findViewById(R.id.rating);
+                    new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
+                }
             }
         }
     }
@@ -413,21 +426,43 @@ public class MapsActivity extends ActionBarActivity
                 double userLat = _appState.latitude;
                 double userLong = _appState.longitude;
 
+
+
+                //FILTERING OUT BUSINESS BY RATINGS IN SETTINGS, ONLY GOING TO DISPLAY BUSINESSES that are >= GIVEN SETTING
+                SharedPreferences ratingPreferences = PreferenceManager.getDefaultSharedPreferences(MapsActivity.this);
+          float rating = (float)ratingPreferences.getInt("last_val", 2) +1;
+
+                //FILTERING OUT BUSINESS BY RADIUS IN SETTINGS, ONLY GOING TO DISPLAY BUSINESSES that are <= GIVEN SETTING
+                SharedPreferences radiusPreferences=PreferenceManager.getDefaultSharedPreferences(MapsActivity.this);
+                float radius=(float)radiusPreferences.getInt("SEEKPROG",20);
+
                 int businessCount = businessData.businesses.size();
+
 
                 for (int j = 0; j < businessCount; j++)
                 {
-                    Business business = businessData.businesses.get(j);
 
-                    //get location of business
-                    LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
+                        Business business = businessData.businesses.get(j);
 
-                    //get distance from business to user
-                    business.distanceToUser = offsetHypot(position.latitude, userLat, position.longitude, userLong);
 
-                    //add business to array
-                    yelpResults.add(business);
+                        //get location of business
+                        LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
+
+                        //get distance from business to user
+                      business.distanceToUser = offsetHypot(position.latitude, userLat, position.longitude, userLong);
+
+                        //add business to array if business rating >= settings rating && business radius <= settings radius && Business isnt in blockedlist
+                    if(business.rating>=rating && business.distanceToUser<=radius && !DbAbstractionLayer.isRestaurantInBlockedList(business.id,getApplicationContext())) {
+
+                        yelpResults.add(business);
+
+                    }
                 }
+
+
+
+              System.out.println("YELPSIZE===============" + yelpResults.size()+"RATINGSETTINGS========"+rating+"RADIUSSETTINGS========="+radius);
+//
 
 //Custom sorting class which compares businesses by distance to user
                 class BusinessComparator implements Comparator<Business>
@@ -440,15 +475,17 @@ public class MapsActivity extends ActionBarActivity
                 }
 
 //sort list of businesses by distance to user
-                Collections.sort(yelpResults, new BusinessComparator());
-                currentBusiness = yelpResults.get(businessIndex);
-                //old code which displays all businesses in category
-                LatLng position = new LatLng(currentBusiness.location.coordinate.latitude, currentBusiness.location.coordinate.longitude);
-                businessMarker = mMap.addMarker(new MarkerOptions()
-                        .title(currentBusiness.name)
-                        .position(position)
-                        .icon(BitmapDescriptorFactory.defaultMarker(color)));
-                businessMarker.isVisible();
+                if(yelpResults.size()!=0) {
+                    Collections.sort(yelpResults, new BusinessComparator());
+                    currentBusiness = yelpResults.get(businessIndex);
+                    //old code which displays all businesses in category
+                    LatLng position = new LatLng(currentBusiness.location.coordinate.latitude, currentBusiness.location.coordinate.longitude);
+                    businessMarker = mMap.addMarker(new MarkerOptions()
+                            .title(currentBusiness.name)
+                            .position(position)
+                            .icon(BitmapDescriptorFactory.defaultMarker(color)));
+                    businessMarker.isVisible();
+                }
                 //setMapCameraPosition(position.latitude, position.longitude);
             }
         }, selectedCategory);
@@ -474,7 +511,7 @@ public class MapsActivity extends ActionBarActivity
             businessIndex++;
             Business business = yelpResults.get(businessIndex);
 
-            if (business != null)
+            if (business != null && !DbAbstractionLayer.isRestaurantInBlockedList(business.id,getApplicationContext()))
             {
                 LatLng position = new LatLng(business.location.coordinate.latitude, business.location.coordinate.longitude);
                 businessMarker.setPosition(position);
@@ -502,7 +539,7 @@ public class MapsActivity extends ActionBarActivity
         Business business = yelpResults.get(businessIndex);
 
 
-        if (business != null)
+        if (business != null&&!DbAbstractionLayer.isRestaurantInBlockedList(business.id,getApplicationContext()))
         {
             //add current business to blacklist
             DbAbstractionLayer.addRestaurant(business, this);
