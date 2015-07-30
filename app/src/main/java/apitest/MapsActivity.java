@@ -6,6 +6,7 @@ package apitest;
 //import android.content.DialogInterface;
 //import android.content.Intent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,9 +25,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -126,6 +131,7 @@ public class MapsActivity extends ActionBarActivity
         Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
         Button skip = (Button) findViewById(R.id.button);  //skip button
         Button back = (Button) findViewById(R.id.back);
+        ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
 
         //start up the camera
         try
@@ -159,15 +165,30 @@ public class MapsActivity extends ActionBarActivity
                 }
             }.start();
         }
-        skip.setOnClickListener(new View.OnClickListener()
-        {
+        skip.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            { //skip button, goes to next business when pressed
+            public void onClick(View v) { //skip button, goes to next business when pressed
                 nextBusiness();
             }
 
         });
+
+
+    //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
+      yelpButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) { //skip button, goes to next business when pressed
+
+//
+              Intent myIntent = new Intent(MapsActivity.this, YelpWebViewActivity.class);
+              myIntent.putExtra("firstKeyName",yelpResults.get(businessIndex).url);
+              startActivity(myIntent);
+
+          }
+
+      });
+
+
 
         blacklist.setOnClickListener(new View.OnClickListener()
         {

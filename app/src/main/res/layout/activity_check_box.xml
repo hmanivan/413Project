@@ -14,6 +14,12 @@
             android:layout_height="fill_parent">
 
             <CheckBox
+                android:id="@+id/customCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/custom_checkbox_design"/>
+
+            <CheckBox
                 android:id="@+id/checkBoxCustomized1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
