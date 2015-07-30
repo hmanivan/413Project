@@ -135,6 +135,7 @@ public class RevolverActivity extends AppCompatActivity {
 
         //Start service for phone vibrator
         myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+
     }
 
     //-------------------------------------------------------------------------------------------//

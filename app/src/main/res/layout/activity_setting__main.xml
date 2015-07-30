@@ -22,7 +22,7 @@
                 android:layout_margin="20dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="#000000"/>
+                android:textColor="#ffffff"/>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -53,34 +53,35 @@
                     android:layout_below="@id/seekbar_radius"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Radius"
-                    android:id="@+id/text_radius"/>
+                    android:id="@+id/text_radius"
+                    android:textColor="#ffffff"/>
                 <requestFocus />
 
             </RelativeLayout>
 
 
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="5dp">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_margin="5dp">-->
 
-                <Button
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
-                    android:text="Categories"
-                    android:layout_margin="10dp"
-                    android:id="@+id/button_Category"
-                    android:onClick="onButton_Category"/>
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/custom_hint_design"
-                    android:onClick="onHintCategory"
-                    android:layout_alignTop="@+id/button_Category"
-                    android:layout_alignParentEnd="true" />
+                <!--&lt;!&ndash;<Button&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="250dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="Categories"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/button_Category"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:onClick="onButton_Category"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<Button&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="50dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:background="@drawable/custom_hint_design"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:onClick="onHintCategory"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignTop="@+id/button_Category"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_alignParentEnd="true" />&ndash;&gt;-->
 
-            </RelativeLayout>
+            <!--</RelativeLayout>-->
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -103,51 +104,51 @@
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_margin="5dp"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal"
-                android:weightSum="1">
+            <!--<RelativeLayout-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:weightSum="1">-->
 
-                <EditText
-                    android:layout_width="120dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/text_priceRange"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:hint="Enter $$$"
-                    android:layout_alignBottom="@+id/button_save" />
-                <Button
-                    android:layout_width="163dp"
-                    android:layout_height="50dp"
-                    android:layout_toLeftOf="@+id/hint"
-                    android:text="Save Input"
-                    android:layout_margin="10dp"
-                    android:id="@+id/button_save"
-                    android:onClick="onSave" />
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/custom_hint_design"
-                    android:id="@+id/hint"
-                    android:onClick="onHintRange"
-                    android:layout_alignTop="@+id/text_priceRange"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
+                <!--<EditText-->
+                    <!--android:layout_width="120dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:id="@+id/text_priceRange"-->
+                    <!--android:inputType="number"-->
+                    <!--android:maxLength="3"-->
+                    <!--android:hint="Enter $$$"-->
+                    <!--android:layout_alignBottom="@+id/button_save" />-->
+                <!--<Button-->
+                    <!--android:layout_width="163dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:layout_toLeftOf="@+id/hint"-->
+                    <!--android:text="Save Input"-->
+                    <!--android:layout_margin="10dp"-->
+                    <!--android:id="@+id/button_save"-->
+                    <!--android:onClick="onSave" />-->
+                <!--<Button-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:background="@drawable/custom_hint_design"-->
+                    <!--android:id="@+id/hint"-->
+                    <!--android:onClick="onHintRange"-->
+                    <!--android:layout_alignTop="@+id/text_priceRange"-->
+                    <!--android:layout_alignParentEnd="true" />-->
+            <!--</RelativeLayout>-->
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-            <Button
-                android:text="Clear Preferences"
-                android:layout_width="185dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:id="@+id/button_clear_preferences"
-                android:onClick="onClear"
-                android:layout_gravity="center_horizontal" />
+            <!--<Button-->
+                <!--android:text="Clear Preferences"-->
+                <!--android:layout_width="185dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:id="@+id/button_clear_preferences"-->
+                <!--android:onClick="onClear"-->
+                <!--android:layout_gravity="center_horizontal" />-->
             <Button
                 android:text="View Blocked Restaurants"
                 android:layout_width="185dp"
@@ -155,7 +156,18 @@
                 android:layout_margin="10dp"
                 android:id="@+id/button_go_to_downvote_screen"
                 android:onClick="goToDownVote"
-                android:layout_gravity="center_horizontal" /></LinearLayout>
+                android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:text="Back To Wheel"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/backtowheel"
+        android:onClick="goToDownVote"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
 
 
 
