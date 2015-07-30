@@ -53,6 +53,7 @@ public class CanvasView extends SurfaceView
     private static long startTouchTimeStamp;
     private static long previousTimeStamp;
     private static Boolean isBeingTouched = false;
+    private static Boolean revolverSelectionEnable = false;
 
     //variables used in rotation function
     float x;
@@ -106,6 +107,7 @@ public class CanvasView extends SurfaceView
             @Override
             public void run()
             {
+                //android.os.Debug.waitForDebugger();
                 while (true)
                 {
                     long currTime = System.currentTimeMillis();
@@ -115,18 +117,40 @@ public class CanvasView extends SurfaceView
                         //when user lifts finger, run this code to decay angular velocity and spin down the wheel
                         long timeDiff = currTime - timeStamp;
                         degToSpin += angularV * timeDiff;
-                        //slow rotation
-                        angularV *= .98;
 
+                        //handle degree to spin overflows over 360, under 0
                         while (degToSpin >= 360f)
                         {
                             degToSpin -= 360f;
                         }
-                        while (degToSpin <= -360f)
+                        while (degToSpin <= 0f)
                         {
                             degToSpin += 360f;
                         }
-                        //canvas.rotate(degToSpin);
+
+                        //centering force
+                        //calculate current offset to nearest selection
+                        float offsetToNearestSelection = degToSpin % 60;
+                        offsetToNearestSelection -= 30;
+                        angularV += (offsetToNearestSelection / 7200);
+
+                        //decay rotational velocity
+                        angularV *= .98;
+
+                        //zero out if we are on a selection
+                        if(Math.abs(offsetToNearestSelection + 30) < .1 && Math.abs(angularV) < 0.05)
+                        {
+                            angularV = 0;
+
+                            //select the top category if revolver select is enabled
+                            if(revolverSelectionEnable)
+                            {
+                                angleToTouch = -90;
+                                rouletteClickHandler();
+                                revolverSelectionEnable = false;
+                            }
+                        }
+
                     }
 
                     timeStamp = currTime;
@@ -188,6 +212,9 @@ public class CanvasView extends SurfaceView
 
         //reset angle-based click lockout
         angleTurned = 0;
+
+        //disable revolver selection mode on touch start
+        revolverSelectionEnable = false;
     }
 
     // when ACTION_MOVE move touch according to the x,y values
@@ -235,15 +262,24 @@ public class CanvasView extends SurfaceView
         if (touchTime < 200 && angleTurned < 10)
         {
             rouletteClickHandler();
+        }
 
-            startSoundThread();
-
-            RevolverActivity.myVib.vibrate(250);
+        //enable the revolver selection if the user spins the cylinder fast enough
+        if(angularV > .75 || angularV < -.75)
+        {
+            revolverSelectionEnable = true;
+        }
+        else
+        {
+            revolverSelectionEnable = false;
         }
     }
 
     private void rouletteClickHandler()
     {
+        //play gunshot noise/effect
+        startSoundThread();
+
         // this math takes into account the current angle of the wheel to create a corrected touch angle
         double adjustedAngle = (angleToTouch + 180) - degToSpin;
 
@@ -309,7 +345,6 @@ public class CanvasView extends SurfaceView
         offsetX = x - cylinderCenterX;
         offsetY = y - cylinderCenterY;
 
-        //TODO: Sam- possibly figure out how to do this with trig
         distanceToCenter = Math.sqrt((offsetX * offsetX) + (offsetY * offsetY));
 
         angleToTouch = (180 / Math.PI) * Math.atan2(offsetY, offsetX);
@@ -391,5 +426,9 @@ public class CanvasView extends SurfaceView
             }
         };
         shotQ.add(task);
+
+        //vibrate the phone for effect
+        RevolverActivity.myVib.vibrate(250);
     }
+
 }
