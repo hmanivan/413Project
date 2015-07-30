@@ -254,7 +254,7 @@ public class Setting_Main extends ActionBarActivity {
         adp.setDropDownViewResource(android.R.layout.simple_spinner_item);
         sp.setAdapter(adp);
 
-        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+        prefs =  getSharedPreferences(prefName, MODE_PRIVATE);
         id=prefs.getInt("last_val", 2);
         sp.setSelection(id);
 
@@ -264,7 +264,8 @@ public class Setting_Main extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 // TODO Auto-generated method stub
 
-                prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+
+                prefs = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
                 SharedPreferences.Editor editor = prefs.edit();
 //---save the values in the EditText view to preferences---
                 editor.putInt("last_val", pos);
