@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
 import android.util.AttributeSet;
@@ -171,6 +174,7 @@ public class CanvasView extends SurfaceView
         rotationThread.start();
     }
 
+    //halt the execution loop of the rotation thread
     public void dispose()
     {
         threadsEnabled = false;
@@ -194,9 +198,28 @@ public class CanvasView extends SurfaceView
             canvas.drawBitmap(samBetterBitmap, matrix, mPaint);
             canvas.restore();
         }
-        //canvas.drawBitmap(samBetterBitmap, new Rect(100, 100, 150, 150), new Rect(0, 0, 50, 50), null);
-    }
 
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setStyle(Paint.Style.FILL);
+        textPaint.setTextSize(64);
+
+        //TODO: SAM fix this shit to conform to Georges mocks
+        //draw the label text around a circle
+        Path path = new Path();
+        //add a circle to the path, centered at 0,0 and radius sufficient to match the revolver
+        path.addCircle(cylinderCenterX, cylinderCenterY, cylinderCenterY, Path.Direction.CW);
+
+        //create a matrix to rotate the path to set the text start point
+        Matrix matrix = new Matrix();
+        matrix.setRotate(90, cylinderCenterX, cylinderCenterY);
+
+        //apply matrix transform to path
+        path.transform(matrix);
+
+        //push text to screen
+        canvas.drawTextOnPath("swipe to spin!", path, 0, 0, textPaint);
+    }
 
     // when ACTION_DOWN start touch according to the x,y values
     private void startTouch(double angle, double radius)
@@ -231,7 +254,6 @@ public class CanvasView extends SurfaceView
             {
                 angleDiff += 360;
             }
-
 
             //rotate the wheel by the difference between the two angles
             degToSpin += angleDiff;
@@ -353,7 +375,6 @@ public class CanvasView extends SurfaceView
 
         angleToTouch = (180 / Math.PI) * Math.atan2(offsetY, offsetX);
 
-
         //check to see if touch event falls within cylinder region
         if (distanceToCenter < cylinderCenterX && distanceToCenter > cylinderCenterX / 3)
         {
@@ -374,7 +395,6 @@ public class CanvasView extends SurfaceView
         {
             upTouch();
         }
-
 
         return true;
     }
