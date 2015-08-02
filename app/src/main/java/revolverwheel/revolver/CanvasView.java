@@ -9,18 +9,17 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.hardware.Camera;
 import android.media.MediaPlayer;
-import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
 
 
 import com.example.ozzca_000.myapplication.R;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import SoundUtils.SoundPlayer;
 import apitest.MapsActivity;
 import foodroulette.appstate.FoodRouletteApplication;
 
@@ -30,8 +29,6 @@ import foodroulette.appstate.FoodRouletteApplication;
 public class CanvasView extends SurfaceView
 {
 
-    private View myView;
-    private Bitmap mBitmap;
     private Bitmap samBetterBitmap;
 
     Context context;
@@ -48,12 +45,12 @@ public class CanvasView extends SurfaceView
     private static float cylinderCenterX = 504;
     private static float cylinderCenterY = 515;
 
-    private static double previousAngle;
-    private static double previousRadius;
-    private static long startTouchTimeStamp;
-    private static long previousTimeStamp;
-    private static Boolean isBeingTouched = false;
-    private static Boolean revolverSelectionEnable = false;
+    private double previousAngle;
+    private double previousRadius;
+    private long startTouchTimeStamp;
+    private long previousTimeStamp;
+    private Boolean isBeingTouched = false;
+    private Boolean revolverSelectionEnable = false;
 
     //variables used in rotation function
     float x;
@@ -63,13 +60,10 @@ public class CanvasView extends SurfaceView
     double distanceToCenter;
     double angleToTouch;
 
+    private Thread rotationThread;
+    private Boolean threadsEnabled = true;
     //for click detection
     float angleTurned = 0;
-
-
-    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
-    private Camera mCamera;
-    private final static String LOG_TAG = "FlashLight";
 
     public void setSamBitmap(Bitmap bitmap)
     {
@@ -94,21 +88,29 @@ public class CanvasView extends SurfaceView
         mPaint.setDither(true);
 
         setWillNotDraw(false);
-
-
     }
 
     //thread which calculates rotation angle for cylinder by measuring how much time has passed
     public void startRotationThread()
     {
+        //reset all the initial values
+        threadsEnabled = true;
+        isBeingTouched = false;
+        revolverSelectionEnable = false;
+        timeStamp = 0;
+        degToSpin = 0;
+        angularV = 1;
+        angleTurned = 0;
+        samBetterBitmap = null;
+
         final CanvasView hardthis = this;
-        new Thread(new Runnable()
+        rotationThread = new Thread(new Runnable()
         {
             @Override
             public void run()
             {
                 //android.os.Debug.waitForDebugger();
-                while (true)
+                while (threadsEnabled)
                 {
                     long currTime = System.currentTimeMillis();
 
@@ -138,12 +140,12 @@ public class CanvasView extends SurfaceView
                         angularV *= .98;
 
                         //zero out if we are on a selection
-                        if(Math.abs(offsetToNearestSelection + 30) < .1 && Math.abs(angularV) < 0.05)
+                        if (Math.abs(offsetToNearestSelection + 30) < .1 && Math.abs(angularV) < 0.05)
                         {
                             angularV = 0;
 
                             //select the top category if revolver select is enabled
-                            if(revolverSelectionEnable)
+                            if (revolverSelectionEnable)
                             {
                                 angleToTouch = -90;
                                 rouletteClickHandler();
@@ -165,17 +167,13 @@ public class CanvasView extends SurfaceView
                     }
                 }
             }
-        }).start();
+        });
+        rotationThread.start();
     }
 
-    // override onSizeChanged
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    public void dispose()
     {
-        super.onSizeChanged(w, h, oldw, oldh);
-
-        // your Canvas will draw onto the defined Bitmap
-        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        threadsEnabled = false;
     }
 
     // override onDraw
@@ -192,7 +190,6 @@ public class CanvasView extends SurfaceView
 
             Matrix matrix = new Matrix();
             matrix.setRotate(degToSpin, cylinderCenterX, cylinderCenterY);
-
 
             canvas.drawBitmap(samBetterBitmap, matrix, mPaint);
             canvas.restore();
@@ -229,7 +226,8 @@ public class CanvasView extends SurfaceView
             if (angleDiff > 180)
             {
                 angleDiff -= 360;
-            } else if (angleDiff < -180)
+            }
+            else if (angleDiff < -180)
             {
                 angleDiff += 360;
             }
@@ -265,7 +263,7 @@ public class CanvasView extends SurfaceView
         }
 
         //enable the revolver selection if the user spins the cylinder fast enough
-        if(angularV > .75 || angularV < -.75)
+        if (angularV > .75 || angularV < -.75)
         {
             revolverSelectionEnable = true;
         }
@@ -278,7 +276,8 @@ public class CanvasView extends SurfaceView
     private void rouletteClickHandler()
     {
         //play gunshot noise/effect
-        startSoundThread();
+        //this is using a much better external static class now
+        SoundPlayer.playGunshot(context);
 
         // this math takes into account the current angle of the wheel to create a corrected touch angle
         double adjustedAngle = (angleToTouch + 180) - degToSpin;
@@ -297,35 +296,40 @@ public class CanvasView extends SurfaceView
 
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 180 && adjustedAngle > 120)
+        }
+        else if (adjustedAngle <= 180 && adjustedAngle > 120)
         {
             //run code for option 2
             _appstate.rouletteSelection = 1;
 
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 240 && adjustedAngle > 180)
+        }
+        else if (adjustedAngle <= 240 && adjustedAngle > 180)
         {
             //run code for option 3
             _appstate.rouletteSelection = 2;
 
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 300 && adjustedAngle > 240)
+        }
+        else if (adjustedAngle <= 300 && adjustedAngle > 240)
         {
             //run code for option 4
             _appstate.rouletteSelection = 3;
 
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 360 && adjustedAngle > 300)
+        }
+        else if (adjustedAngle <= 360 && adjustedAngle > 300)
         {
             //run code for option 5
             _appstate.rouletteSelection = 4;
 
             Intent intent = new Intent().setClass(getContext(), MapsActivity.class);
             ((Activity) getContext()).startActivity(intent);
-        } else if (adjustedAngle <= 60 && adjustedAngle > 0)
+        }
+        else if (adjustedAngle <= 60 && adjustedAngle > 0)
         {
             //run code for option 6
             _appstate.rouletteSelection = 5;
@@ -374,61 +378,4 @@ public class CanvasView extends SurfaceView
 
         return true;
     }
-
-    public void startSoundThread() {
-
-//        final Context finalThis = this;
-        for (int i = 0; i < 50; i++) {
-            new Thread() {
-                public void run() {
-                    while (true) {
-                        try {
-                            Runnable task = shotQ.take();
-                            task.run();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }.start();
-        }
-        Runnable task = new Runnable() {
-            public void run() {
-                MediaPlayer mp = MediaPlayer.create(getContext(), R.raw.single_shot);
-                try{
-                    mCamera = Camera.open();
-                } catch( Exception e ){
-                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
-                }
-                mp.start();
-
-                if (mCamera != null) {
-                    Camera.Parameters params = mCamera.getParameters();
-                    params.setFlashMode( Camera.Parameters.FLASH_MODE_TORCH );
-                    mCamera.setParameters( params );
-                }
-                if( mCamera != null ){
-                    Camera.Parameters params = mCamera.getParameters();
-                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    mCamera.setParameters( params );
-                }
-                if( mCamera != null ){
-                    mCamera.release();
-                    mCamera = null;
-                }
-                try {
-                    Thread.sleep(1429);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mp.release();
-//                        shot.onGunshot();
-            }
-        };
-        shotQ.add(task);
-
-        //vibrate the phone for effect
-        RevolverActivity.myVib.vibrate(250);
-    }
-
 }

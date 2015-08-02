@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import SoundUtils.SoundPlayer;
 import YelpData.BusinessData;
 import database.DbAbstractionLayer;
 import database.RestaurantDatabase;
@@ -32,9 +33,6 @@ import android.os.Vibrator;
 
 public class SplashScreen extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
-    //    private View myView;
-    private Vibrator myVib;
-
     //create a runnable that allows us to come back after user enables location date
     private Runnable _locationEnableCallback;
 
@@ -42,18 +40,10 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
     private FoodRouletteApplication _appState;
     private RestaurantDatabase restaurantDatabase;
     private SQLiteDatabase restaurantDb;
-    private Camera mCamera;
-    final LinkedBlockingQueue<Runnable> shotQ = new LinkedBlockingQueue<>();
-
-    private final static String LOG_TAG = "FlashLight";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
-        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
-        shotThread();
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sploosh);
@@ -61,6 +51,9 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
 
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
+
+        //play the gun effect
+        SoundPlayer.playGunshot(_appState);
 
         DbAbstractionLayer dbAbstractionLayer = DbAbstractionLayer.getDbAbstractionLayer();
 
@@ -212,70 +205,4 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
         //TODO
     }
 
-    public void shotThread()
-    {
-        new Thread()
-        {
-            public void run()
-            {
-                while (true)
-                {
-                    try
-                    {
-                        Runnable task = shotQ.take();
-                        task.run();
-                    } catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-        Runnable task = new Runnable()
-        {
-            public void run()
-            {
-                MediaPlayer mp = MediaPlayer.create(SplashScreen.this, R.raw.single_shot);
-
-                try
-                {
-                    mCamera = Camera.open();
-                } catch (Exception e)
-                {
-                    Log.e(LOG_TAG, "Impossible d'ouvrir la camera");
-                }
-
-
-                mp.start();
-                myVib.vibrate(250);
-                if (mCamera != null)
-                {
-                    Camera.Parameters params = mCamera.getParameters();
-                    params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                    mCamera.setParameters(params);
-                }
-                if (mCamera != null)
-                {
-                    Camera.Parameters params = mCamera.getParameters();
-                    params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    mCamera.setParameters(params);
-                }
-                if (mCamera != null)
-                {
-                    mCamera.release();
-                    mCamera = null;
-                }
-                try
-                {
-                    Thread.sleep(1429);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                mp.release();
-//                        shot.onGunshot();
-            }
-        };
-        shotQ.add(task);
-    }
 }

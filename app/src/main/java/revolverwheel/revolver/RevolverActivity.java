@@ -32,13 +32,17 @@ public class RevolverActivity extends AppCompatActivity {
     private Context mContext;
     private ImageView combinedRevolverImage;
 
-    public static Vibrator myVib;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.revolver_wheel);
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
+    }
+
+    public void onStart()
+    {
+        super.onStart();
 
         //get current display size in pixels
         Display display = getWindowManager().getDefaultDisplay();
@@ -134,10 +138,58 @@ public class RevolverActivity extends AppCompatActivity {
         }.start();
 
         RevolverCanvas.startRotationThread();
+    }
 
-        //Start service for phone vibrator
-        myVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+    public void onRestart()
+    {
+        super.onRestart();
+    }
 
+    public void onResume()
+    {
+        super.onResume();
+    }
+
+    public void onPause()
+    {
+        super.onPause();
+
+        //terminate revolver canvas thread
+        try
+        {
+            RevolverCanvas.dispose();
+        }
+        catch (Exception e)
+        {
+        }
+    }
+
+    public void onStop()
+    {
+        super.onStop();
+
+        //terminate revolver canvas thread
+        try
+        {
+            RevolverCanvas.dispose();
+        }
+        catch (Exception e)
+        {
+        }
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+
+        //terminate revolver canvas thread
+        try
+        {
+            RevolverCanvas.dispose();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     //-------------------------------------------------------------------------------------------//
