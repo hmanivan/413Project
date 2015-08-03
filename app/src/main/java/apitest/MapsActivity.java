@@ -77,6 +77,67 @@ public class MapsActivity extends ActionBarActivity
         setContentView(R.layout.activity_maps);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+    }
+
+//-------------------------------------------------------------------------------------------//
+//  This is for the settings fragment tab that we want to implement (following 2 methods)    //
+//-------------------------------------------------------------------------------------------//
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.maps_badlist, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings)
+        {
+            Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
+            MapsActivity.this.startActivity(myIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+//-------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------//
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+//        registerLocationChangeCallback();
+        setUpMapIfNeeded();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+        setUpMapIfNeeded();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
 
         setUpMapIfNeeded();
 
@@ -175,68 +236,6 @@ public class MapsActivity extends ActionBarActivity
 //            Intent intent = new Intent(context, Setting_Main.class);
 //            startActivity(intent);
         }
-    }
-
-//-------------------------------------------------------------------------------------------//
-//  This is for the settings fragment tab that we want to implement (following 2 methods)    //
-//-------------------------------------------------------------------------------------------//
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.maps_badlist, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
-            MapsActivity.this.startActivity(myIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-//-------------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------------//
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-//        registerLocationChangeCallback();
-        setUpMapIfNeeded();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-    }
-
-    @Override
-    protected void onRestart()
-    {
-        super.onRestart();
-        setUpMapIfNeeded();
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        setUpMapIfNeeded();
     }
 
     @Override

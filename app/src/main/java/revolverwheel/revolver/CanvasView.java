@@ -295,7 +295,7 @@ public class CanvasView extends SurfaceView
         }
 
         //enable the revolver selection if the user spins the cylinder fast enough
-        if (angularV > .75 || angularV < -.75)
+        if (angularV > .50 || angularV < -.50)
         {
             revolverSelectionEnable = true;
         }
