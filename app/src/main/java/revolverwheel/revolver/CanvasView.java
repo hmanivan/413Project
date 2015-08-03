@@ -199,26 +199,36 @@ public class CanvasView extends SurfaceView
             canvas.restore();
         }
 
+        //set text characteristics
+        int textSize = 64;
+        int textPadding = 10;
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
         textPaint.setStyle(Paint.Style.FILL);
-        textPaint.setTextSize(64);
+        textPaint.setTextSize(textSize);
 
         //TODO: SAM fix this shit to conform to Georges mocks
         //draw the label text around a circle
-        Path path = new Path();
-        //add a circle to the path, centered at 0,0 and radius sufficient to match the revolver
-        path.addCircle(cylinderCenterX, cylinderCenterY, cylinderCenterY, Path.Direction.CW);
+        Path pathCW = new Path();
+        Path pathCCW = new Path();
 
         //create a matrix to rotate the path to set the text start point
-        Matrix matrix = new Matrix();
-        matrix.setRotate(90, cylinderCenterX, cylinderCenterY);
+        Matrix pathRotationMatrix = new Matrix();
 
-        //apply matrix transform to path
-        path.transform(matrix);
+        //add a circle to the path, centered at 0,0 and radius sufficient to match the revolver
+        pathCW.addCircle(cylinderCenterX, cylinderCenterY, (cylinderCenterY - (textSize / 4)) + textPadding, Path.Direction.CW);
+        pathCCW.addCircle(cylinderCenterX, cylinderCenterY, (cylinderCenterY + (textSize / 2)) + textPadding, Path.Direction.CCW);
+
+        //apply matrix transform to CW path
+        pathRotationMatrix.setRotate(295, cylinderCenterX, cylinderCenterY);
+        pathCW.transform(pathRotationMatrix);
+
+        pathRotationMatrix.setRotate(150, cylinderCenterX, cylinderCenterY);
+        pathCCW.transform(pathRotationMatrix);
 
         //push text to screen
-        canvas.drawTextOnPath("swipe to spin!", path, 0, 0, textPaint);
+        canvas.drawTextOnPath("Swipe to spin!", pathCW, 0, 0, textPaint);
+        canvas.drawTextOnPath("Click to select!", pathCCW, 0, 0, textPaint);
     }
 
     // when ACTION_DOWN start touch according to the x,y values

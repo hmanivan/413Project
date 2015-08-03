@@ -138,6 +138,7 @@ public class RevolverActivity extends AppCompatActivity {
         }.start();
 
         RevolverCanvas.startRotationThread();
+
     }
 
     public void onRestart()
