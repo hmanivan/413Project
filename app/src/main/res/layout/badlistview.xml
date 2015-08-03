@@ -23,20 +23,20 @@
 
     <ScrollView>
 
+
+
         <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/checkList"
         android:gravity="top|left"
         tools:context=".ViewBadList"
-        android:layout_weight="1">
+        android:layout_weight="1"
+            android:weightSum="1">
 
 
-    </LinearLayout>
-
-
-    </ScrollView>
+        </LinearLayout>
 
 
     <Button
@@ -46,18 +46,21 @@
         android:text="Select All/ Deselect All"
         android:id="@+id/selectAll"
         android:layout_row="7"
-        android:layout_column="0" />/>
-
+        android:layout_column="0"/>
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="fill_parent"
-        android:layout_height="74dp"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
         android:text="remove"
         android:id="@+id/remove"
         android:onClick="onRemove"
-        android:layout_gravity="right"
         android:layout_row="8"
-        android:layout_column="0" />
+        android:layout_column="0"
+        android:layout_weight="0.09"/>
+
+
+    </ScrollView>
+
 
 
 </GridLayout>
