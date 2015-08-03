@@ -79,81 +79,15 @@ public class MapsActivity extends ActionBarActivity
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
-//-------------------------------------------------------------------------------------------//
+    //-------------------------------------------------------------------------------------------//
 //  This is for the settings fragment tab that we want to implement (following 2 methods)    //
 //-------------------------------------------------------------------------------------------//
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
+    public void onWindowFocusChanged(boolean hasFocus)
     {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.maps_badlist, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
-            MapsActivity.this.startActivity(myIntent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-//-------------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------------//
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-//        registerLocationChangeCallback();
-        setUpMapIfNeeded();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-    }
-
-    @Override
-    protected void onRestart()
-    {
-        super.onRestart();
-        setUpMapIfNeeded();
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-
+        super.onWindowFocusChanged(hasFocus);
         setUpMapIfNeeded();
 
-        //IF NO RESTRAUNTS FOUND, POP UP TOAST AND GO TO SETTINGS MAIN
-//        if (yelpResults.size() == 0) {
-//            Context context = MapsActivity.this;
-//            CharSequence text = "RESET SETTINGS OR CLEAR BLACKLIST, NO RESTRAUNTS FOUND WITH SPECIFIED SETTINGS";
-//            int duration = Toast.LENGTH_LONG;
-//
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
-//            toast.setGravity(Gravity.TOP | Gravity.LEFT, 0, 0);
-//
-//            Intent intent = new Intent(context, Setting_Main.class);
-//            startActivity(intent);
-//        }
         Button back = (Button) findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener()
@@ -239,6 +173,63 @@ public class MapsActivity extends ActionBarActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.maps_badlist, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings)
+        {
+            Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
+            MapsActivity.this.startActivity(myIntent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+//-------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------//
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+//        registerLocationChangeCallback();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+
+    }
+
+    @Override
     protected void onStop()
     {
         super.onStop();
@@ -261,20 +252,6 @@ public class MapsActivity extends ActionBarActivity
      */
     private void setUpMapIfNeeded()
     {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null)
-        {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null)
-            {
-                //display our location
-                updateMarker(_appState.latitude, _appState.longitude);
-                setupBusinessDataCallbacks();
-            }
-        }
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null)
         {
@@ -527,12 +504,15 @@ public class MapsActivity extends ActionBarActivity
 
     public void setMapCameraPosition(double latitude, double longitude)
     {
+        //establish parameters
+        LatLngBounds mapBounds = getLatLngBounds(_appState.latitude, _appState.longitude, latitude, longitude);
+        int width = ((findViewById(R.id.map).getWidth()) / 3);
+        int height = ((findViewById(R.id.map).getHeight()) / 3);
+
+        //move camera
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap().moveCamera(CameraUpdateFactory.newLatLngBounds(
-                getLatLngBounds(_appState.latitude, _appState.longitude, latitude, longitude),
-                ((findViewById(R.id.map).getWidth()) / 3),
-                ((findViewById(R.id.map).getHeight()) / 3),
-                0));
+                mapBounds, width, height, 0));
     }
 
     //launches Google maps for selected restaurant
