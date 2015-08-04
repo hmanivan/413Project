@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id ="@+id/blocked"
-    tools:context=".ViewBadList"
-    android:weightSum="1"
-    android:orientation="vertical"
-    android:background="@drawable/applicationbackgroundsmall"
-    android:textSize="25sp"
-    android:gravity="bottom">
 
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@drawable/woodbackround2"
+    android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:id="@+id/Rtop"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/woodbackround"
+    android:layout_marginBottom="10dp">
     <TextView
         android:id="@+id/blacklistTitle"
         android:layout_width="wrap_content"
@@ -20,47 +23,87 @@
         android:textColor="#ffffffff"
         android:textSize="55sp"
         android:textStyle="bold"/>
-
-    <ScrollView>
-
+</RelativeLayout>
 
 
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:id="@+id/Rmiddle"
+    android:layout_height="0dp"
+    android:fillViewport="true"
+    android:layout_above="@+id/Rbottom"
+    android:layout_below="@+id/Rtop">
+
+<GridLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id ="@+id/blocked"
+    tools:context=".ViewBadList"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:textSize="25sp"
+    android:gravity="bottom"
+    android:fillViewport="true">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+        >
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/checkList"
-        android:gravity="top|left"
-        tools:context=".ViewBadList"
-        android:layout_weight="1"
-            android:weightSum="1">
-
-
+            android:layout_width="match_parent"
+            android:layout_height="315dp"
+            android:orientation="vertical"
+            android:id="@+id/checkList"
+            android:gravity="top|left"
+            tools:context=".ViewBadList"
+            android:layout_weight="1">
         </LinearLayout>
+    </ScrollView>
+</GridLayout>
+
+</RelativeLayout>
 
 
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:id="@+id/Rbottom"
+    android:layout_alignParentBottom="true"
+    android:layout_marginTop="10dp"
+    >
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:background="#FFFFFF">
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
         android:text="Select All/ Deselect All"
         android:id="@+id/selectAll"
-        android:layout_row="7"
-        android:layout_column="0"/>
+        android:background="@drawable/woodbackround"
+        android:layout_marginRight="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:layout_margin="2dp"/>
+
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="315dp"
-        android:layout_height="wrap_content"
-        android:text="remove"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:text="Remove Selected"
         android:id="@+id/remove"
         android:onClick="onRemove"
-        android:layout_row="8"
-        android:layout_column="0"
-        android:layout_weight="0.09"/>
+        android:background="@drawable/woodbackround"
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:layout_margin="2dp"/>
+</LinearLayout>
 
-
-    </ScrollView>
-
-
-
-</GridLayout>
+</RelativeLayout>
+</RelativeLayout>
