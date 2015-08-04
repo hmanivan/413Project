@@ -159,6 +159,7 @@ public class MapsActivity extends ActionBarActivity
 
             Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
 
+            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
             //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
             yelpButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -171,8 +172,6 @@ public class MapsActivity extends ActionBarActivity
 
                 }
             });
-
-            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
 
             blacklist.setOnClickListener(new View.OnClickListener() {
                 @Override
