@@ -295,7 +295,7 @@ public class CanvasView extends SurfaceView
         //disable revolver selection mode on touch start
         revolverSelectionEnable = false;
 
-
+        //activate genre toasts
         longTouch();
     }
 
@@ -461,6 +461,7 @@ public class CanvasView extends SurfaceView
         return true;
     }
 
+//TODO: George : fix this code, adjust method name and add appropriate comments
     // when ACTION_UP stop touch
     private void longTouch()
     {
