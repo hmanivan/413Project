@@ -74,8 +74,12 @@
 
         <activity
             android:name="apitest.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings">
 
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="revolverwheel.revolver.RevolverActivity" />
+        </activity>
 
         <activity
             android:name="apitest.settings.Setting_Main"

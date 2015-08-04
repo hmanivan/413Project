@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +36,7 @@ import revolverwheel.revolver.RevolverActivity;
 public class Setting_Main extends ActionBarActivity {
 
     private static Toast address;
+    private RelativeLayout RL;
     private Button buttonCategory;
     private static SeekBar seekbar_radius;
     private static TextView text_radius;
@@ -110,7 +114,7 @@ public class Setting_Main extends ActionBarActivity {
 
     public void seekbarRadius(){
         text_radius = (TextView) findViewById(R.id.text_radius);
-        text_radius.setText("Radius: " + ((double) seekbar_radius.getProgress() / 10)  + " Miles");
+        text_radius.setText("Search Radius (mi.): " + ((double) seekbar_radius.getProgress() / 10));
 
         seekbar_radius.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
@@ -120,7 +124,7 @@ public class Setting_Main extends ActionBarActivity {
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
                         progressValue = ((double) progress / 10);
-                        text_radius.setText("Radius: " + progressValue + " Miles");
+                        text_radius.setText("Search Radius (mi.): " + progressValue);
 
 
                     }
@@ -134,7 +138,7 @@ public class Setting_Main extends ActionBarActivity {
                     public void onStopTrackingTouch(SeekBar seekBar) {
                         newProgress = seekbar_radius.getProgress();
                         currentProgress = newProgress;
-                        text_radius.setText("Radius: " + progressValue);
+                        text_radius.setText("Search Radius (mi.): " + progressValue);
                         SharedPreferences.Editor editor = prefs2.edit();
                         editor.putInt("SEEKPROG", newProgress);
                         editor.commit();
@@ -150,8 +154,9 @@ public class Setting_Main extends ActionBarActivity {
     public void onHintRadius(View view){
         if (address != null)
             address.cancel();
-        address = Toast.makeText(getBaseContext(),"Set Search Radius centered around your current location", Toast.LENGTH_LONG);
-        address.setGravity(Gravity.CENTER, 0, 0);
+        address = Toast.makeText(getBaseContext(),"Set Search Radius (mi.) Centered Around Your Location", Toast.LENGTH_LONG);
+
+        address.setGravity(Gravity.CENTER, 0, 450);
         address.show();
     }
 
@@ -159,8 +164,9 @@ public class Setting_Main extends ActionBarActivity {
     public void onHintSpinner(View view){
         if (address != null)
             address.cancel();
-        address = Toast.makeText(getBaseContext(),"Select desired yelp rating", Toast.LENGTH_LONG);
-        address.setGravity(Gravity.CENTER, 0, 0);
+        address = Toast.makeText(getBaseContext(),"Select Minimum Yelp Stars Rating", Toast.LENGTH_LONG);
+
+        address.setGravity(Gravity.CENTER, 0, 450);
         address.show();
     }
 
@@ -186,7 +192,7 @@ public class Setting_Main extends ActionBarActivity {
         adp.setDropDownViewResource(android.R.layout.simple_spinner_item);
         sp.setAdapter(adp);
 
-        prefs =  getSharedPreferences(prefName, MODE_PRIVATE);
+        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
         id=prefs.getInt("last_val", 2);
         sp.setSelection(id);
 
@@ -196,8 +202,7 @@ public class Setting_Main extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 // TODO Auto-generated method stub
 
-
-                prefs = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
+                prefs = getSharedPreferences(prefName, MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 //---save the values in the EditText view to preferences---
                 editor.putInt("last_val", pos);

@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/applicationbackgroundsmall">
-    <ScrollView
+    android:background="@drawable/woodbackround2"
+    >
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:orientation="vertical"
-            android:fillViewport="true">
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:id="@+id/RStopText"
+        android:background="@drawable/woodbackround">
             <TextView
                 android:text="Preferences"
-                android:textSize="30sp"
+                android:textSize="50sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:textColor="#ffffff"/>
+                android:textColor="#ffffff"
+                android:id="@+id/RStext"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
-            <RelativeLayout
+    <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="5dp">
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:id="@+id/RStop"
+                android:layout_below="@+id/RStopText"
+                android:background="@drawable/woodbackround">
                 <SeekBar
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
@@ -38,46 +44,52 @@
                     android:layout_marginRight="10px"
                     android:layout_marginTop="10px"
                     android:layout_marginBottom="10px"
+                    android:layout_alignParentRight="true"
                     />
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
                     android:background="@drawable/custom_hint_design"
                     android:onClick="onHintRadius"
-                    />
+                    android:id="@+id/onHintRadius"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="5dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_below="@id/seekbar_radius"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Radius (mi.)"
+                    android:text="Search Radius (mi.)"
                     android:id="@+id/text_radius"
-                    android:textColor="#ffffff"/>
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="2dp"
+                    android:layout_alignBottom="@+id/onHintRadius"
+                    android:layout_alignStart="@+id/seekbar_radius" />
                 <requestFocus />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="5dp"></RelativeLayout>
+                android:layout_height="100dp"
+                android:id="@+id/RSbot"
+                android:layout_below="@+id/RStop"
+                android:layout_margin="5dp"
+                android:background="@drawable/woodbackround">
 
             <TextView
                 android:layout_width="161dp"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/rating"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Yelp Rating"
-                android:layout_marginLeft="20dp"
+                android:text="Yelp Stars Rating"
                 android:textColor="#ffffff"
-                android:layout_weight="0.33" />
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/textView3"
+                android:layout_marginLeft="4dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/rating"
+                android:layout_alignEnd="@+id/rating" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="5dp">
                 <Spinner
                     android:id="@+id/rating"
                     android:layout_width="250dp"
@@ -85,57 +97,63 @@
                     android:background="@android:drawable/btn_dropdown"
                     android:spinnerMode="dropdown"
                     android:prompt="@string/Choose_Yelp_Rating"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_marginLeft="10px"
+                    android:layout_marginRight="10px"
+                    android:layout_below="@+id/textView3"
+                    android:layout_alignParentEnd="true" />
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
                     android:background="@drawable/custom_hint_design"
                     android:onClick="onHintSpinner"
                     android:layout_alignTop="@+id/rating"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/onHintYelp"/>
             </RelativeLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-            <!--<Button-->
-                <!--android:text="Clear Preferences"-->
-                <!--android:layout_width="185dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="10dp"-->
-                <!--android:id="@+id/button_clear_preferences"-->
-                <!--android:onClick="onClear"-->
-                <!--android:layout_gravity="center_horizontal" />-->
-            <Button
-                android:text="View Blocked Restaurants"
-                android:layout_width="185dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:id="@+id/button_go_to_downvote_screen"
-                android:onClick="goToDownVote"
-                android:background="#6a0500"
-                android:textColor="#ffffff"
-                android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:text="Back To Wheel"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:id="@+id/backtowheel"
-        android:background="#6a0500"
-        android:textColor="#ffffff"
-        android:layout_gravity="center_horizontal" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:background="#FFFFFF">
 
-        </LinearLayout>
-    </ScrollView>
+                <Button
+                    android:text="View Blocked Restaurants"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="2dp"
+                    android:id="@+id/button_go_to_downvote_screen"
+                    android:onClick="goToDownVote"
+                    android:background="@drawable/woodbackround"
+                    android:textColor="#ffffff"
+                    android:textSize="22sp"
+                     />
 
-</LinearLayout>
+        <Button
+            android:text="Back To Wheel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:layout_margin="2dp"
+            android:id="@+id/backtowheel"
+            android:background="@drawable/woodbackround"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+             />
+
+    </LinearLayout>
+        </RelativeLayout>
+
+</RelativeLayout>
 
 
