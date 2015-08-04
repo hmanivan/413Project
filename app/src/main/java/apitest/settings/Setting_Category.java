@@ -1,5 +1,6 @@
 package apitest.settings;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -30,6 +31,7 @@ public class Setting_Category extends ActionBarActivity {
         checkMexican.setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("M", false));
         checkVeitnamese.setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("V", false));
 
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     public void onCheckboxClicked(View view) {
