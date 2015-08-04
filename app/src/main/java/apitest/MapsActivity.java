@@ -6,23 +6,34 @@ package apitest;
 //import android.content.DialogInterface;
 //import android.content.Intent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.hardware.Camera;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.media.Image;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ozzca_000.myapplication.R;
@@ -35,20 +46,34 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import SoundUtils.SoundPlayer;
 import YelpData.Business;
 import YelpData.BusinessData;
 import apitest.settings.Setting_Main;
+import apitest.settings.ViewBadList;
 import database.DbAbstractionLayer;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationTools;
+import revolverwheel.revolver.RevolverActivity;
 
 public class MapsActivity extends ActionBarActivity
 {
@@ -93,10 +118,9 @@ public class MapsActivity extends ActionBarActivity
         back.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v)
-            {
-                //back button, goes back to revolver wheel
-                finish();
+            public void onClick(View v) { //back button, goes back to revolver wheel
+                Intent intent = new Intent(MapsActivity.this, RevolverActivity.class);
+                startActivity(intent);
             }
         });
         if (yelpResults.size() != 0)
@@ -113,8 +137,10 @@ public class MapsActivity extends ActionBarActivity
 
             Button skip = (Button) findViewById(R.id.button);  //skip button
 
-            skip.setOnClickListener(new View.OnClickListener()
-            {
+            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
+
+            
+            skip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
@@ -129,30 +155,28 @@ public class MapsActivity extends ActionBarActivity
 
             Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
 
-            blacklist.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View v)
-                {
-                    //code to run when click is on blacklist button
-                    downVoteBusiness();
-
-                    //play gunshot effect
-                    SoundPlayer.playGunshot(_appState);
-                }
-            });
-
-            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
-
             //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
-            yelpButton.setOnClickListener(new View.OnClickListener()
-            {
+            yelpButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v)
-                { //skip button, goes to next business when pressed
+                public void onClick(View v) { //skip button, goes to next business when pressed
+
+//
                     Intent myIntent = new Intent(MapsActivity.this, YelpWebViewActivity.class);
                     myIntent.putExtra("firstKeyName", yelpResults.get(businessIndex).url);
                     startActivity(myIntent);
+
+                }
+            });
+
+
+            blacklist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //code to run when click is on blacklist button
+                    downVoteBusiness();
+
+//play gunshot effect
+                    SoundPlayer.playGunshot(_appState);
 
                 }
             });
@@ -172,6 +196,10 @@ public class MapsActivity extends ActionBarActivity
         }
     }
 
+//-------------------------------------------------------------------------------------------//
+//  This is for the settings fragment tab that we want to implement (following 2 methods)    //
+//-------------------------------------------------------------------------------------------//
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -189,12 +217,12 @@ public class MapsActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
-        {
-            Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
-            MapsActivity.this.startActivity(myIntent);
-            return true;
-        }
+        //if (id == R.id.action_settings)
+        //{
+           // Intent myIntent = new Intent(MapsActivity.this, Setting_Main.class);
+            //MapsActivity.this.startActivity(myIntent);
+            //return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -525,4 +553,7 @@ public class MapsActivity extends ActionBarActivity
                         Double.toString(currentBusiness.location.coordinate.longitude)));
         startActivity(intent);
     }
+
+
+
 }

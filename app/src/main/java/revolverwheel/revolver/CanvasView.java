@@ -16,6 +16,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -26,6 +28,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import SoundUtils.SoundPlayer;
 import apitest.MapsActivity;
+import apitest.settings.Setting_Main;
+import apitest.settings.ViewBadList;
 import foodroulette.appstate.FoodRouletteApplication;
 
 /**
@@ -34,6 +38,8 @@ import foodroulette.appstate.FoodRouletteApplication;
 public class CanvasView extends SurfaceView
 {
 
+    private View myView;
+    private Bitmap mBitmap;
     private Bitmap samBetterBitmap;
 
     Context context;
@@ -468,7 +474,7 @@ public class CanvasView extends SurfaceView
         long touchTime = System.currentTimeMillis() - startTouchTimeStamp;
 
         //a click is defined as a touch event that lasted less than 200 milliseconds, and doesn't turn the wheel
-        if (touchTime < 200 && angleTurned < 10)
+        if (touchTime < 1000 && angleTurned < 10)
         {
             // this math takes into account the current angle of the wheel to create a corrected touch angle
             double adjustedAngle = (angleToTouch + 180) - degToSpin;

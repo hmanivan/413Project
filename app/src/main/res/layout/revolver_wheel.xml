@@ -3,12 +3,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".RevolverActivity">
+   <RelativeLayout
+       android:layout_width="fill_parent"
+       android:layout_height="500dp"
+       android:id="@+id/canvas"
+       android:layout_below="@+id/preferences">
     <revolverwheel.revolver.CanvasView
         android:id="@+id/revolver_canvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@drawable/applicationbackgroundsmall"
-        android:textColor="#FFFFFF"
-        />
+        android:textColor="#FFFFFF"/>
+   </RelativeLayout>
 
+    <RelativeLayout
+    android:layout_width="fill_parent"
+    android:id="@+id/preferences"
+    android:layout_height="100dp"
+    android:background="#FFFFFF">
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:onClick="onPreference"
+        android:text="Edit Preferences"
+        android:background="@drawable/woodbackround"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:id="@+id/buttonPreference"
+        android:layout_margin="2dp"/>
+</RelativeLayout>
 </RelativeLayout>

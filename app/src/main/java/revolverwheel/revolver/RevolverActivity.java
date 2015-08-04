@@ -22,6 +22,7 @@ import com.example.ozzca_000.myapplication.R;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import apitest.settings.Setting_Main;
 import revolverwheel.revolvercategories.FoodCategory;
 
 import static revolverwheel.imageJoinerUtils.CombinePNG.PNGCombiner;
@@ -54,7 +55,7 @@ public class RevolverActivity extends AppCompatActivity {
         int height = size.y;
 
         //decide which dimension is smaller, set edgelength for cylinder
-        final int cylinderEdgeLength = width <= height ?  width : height;
+        final int cylinderEdgeLength = width <= height ? width : height;
 
         //create a background thread that will populate the wheel with categories over time
         final CanvasView hardRevolverCanvas = RevolverCanvas;
@@ -166,28 +167,33 @@ public class RevolverActivity extends AppCompatActivity {
         return true;
 
     }
+    public void onPreference(View view) {
+        Intent intent = new Intent(this, Setting_Main.class);
+        startActivity(intent);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    }
+}
+
+
+   // public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent myIntent = new Intent(RevolverActivity.this, apitest.settings.Setting_Main.class);
+        //if (id == R.id.action_settings) {
+           // Intent myIntent = new Intent(RevolverActivity.this, apitest.settings.Setting_Main.class);
 //        myIntent.putExtra("key", value); //Optional parameters
-            RevolverActivity.this.startActivity(myIntent);
-            return true;
-        }
+          //  RevolverActivity.this.startActivity(myIntent);
+           // return true;
+        //}
 
-        return super.onOptionsItemSelected(item);
-    }
-
+       // return super.onOptionsItemSelected(item);
+    //}
+//}
 //-------------------------------------------------------------------------------------------//
 //-------------------------------------------------------------------------------------------//
 
 
 
-}
