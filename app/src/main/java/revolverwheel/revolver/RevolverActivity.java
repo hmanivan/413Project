@@ -60,77 +60,32 @@ public class RevolverActivity extends AppCompatActivity {
         new Thread(){
             public void run() {
                 Bitmap bitmap;
-                //amount of time to wait between loading categories
-                int sleepTime = 200;
 
                 FoodCategory[] categories = new FoodCategory[]{FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None, FoodCategory.None};
 
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);
 
-                try
-                {
-                    //set first sleep separately, seems to help with feel
-                    Thread.sleep(150);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
                 categories[0] = FoodCategory.Indian;
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);
 
-                try
-                {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
                 categories[1] = FoodCategory.American;
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);
 
-                try
-                {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
                 categories[2] = FoodCategory.Chinese;
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);
 
-                try
-                {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
                 categories[3] = FoodCategory.Italian;
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);
 
-                try
-                {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
                 categories[4] = FoodCategory.Japanese;
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);
 
-                try
-                {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
                 categories[5] = FoodCategory.Mexican;
                 bitmap = PNGCombiner(hardContext, cylinderEdgeLength, categories);
                 hardRevolverCanvas.setSamBitmap(bitmap);

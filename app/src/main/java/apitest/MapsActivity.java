@@ -506,8 +506,8 @@ public class MapsActivity extends ActionBarActivity
     {
         //establish parameters
         LatLngBounds mapBounds = getLatLngBounds(_appState.latitude, _appState.longitude, latitude, longitude);
-        int width = ((findViewById(R.id.map).getWidth()) / 3);
-        int height = ((findViewById(R.id.map).getHeight()) / 3);
+        int width = ((findViewById(R.id.map).getWidth() * 2) / 5);
+        int height = ((findViewById(R.id.map).getHeight() * 2) / 5);
 
         //move camera
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))

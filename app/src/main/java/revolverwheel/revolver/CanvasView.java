@@ -20,6 +20,7 @@ import android.view.SurfaceView;
 
 import com.example.ozzca_000.myapplication.R;
 
+import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import SoundUtils.SoundPlayer;
@@ -140,7 +141,7 @@ public class CanvasView extends SurfaceView
                         angularV += (offsetToNearestSelection / 7200);
 
                         //decay rotational velocity
-                        angularV *= .98;
+                        angularV *= .95;
 
                         //zero out if we are on a selection
                         if (Math.abs(offsetToNearestSelection + 30) < .1 && Math.abs(angularV) < 0.05)
@@ -199,15 +200,21 @@ public class CanvasView extends SurfaceView
             canvas.restore();
         }
 
+        //draw the curved text around the revolver wheel
+        drawCurvedText(canvas);
+        drawBarrel(canvas);
+    }
+
+    private void drawCurvedText(Canvas canvas)
+    {
         //set text characteristics
-        int textSize = 64;
+        float textSize = cylinderCenterX * .13f;
         int textPadding = 10;
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setTextSize(textSize);
 
-        //TODO: SAM fix this shit to conform to Georges mocks
         //draw the label text around a circle
         Path pathCW = new Path();
         Path pathCCW = new Path();
@@ -229,6 +236,45 @@ public class CanvasView extends SurfaceView
         //push text to screen
         canvas.drawTextOnPath("Swipe to spin!", pathCW, 0, 0, textPaint);
         canvas.drawTextOnPath("Click to select!", pathCCW, 0, 0, textPaint);
+    }
+
+    private void drawBarrel(Canvas canvas)
+    {
+        Path barrelPath = new Path();
+        Paint barrelPaint = new Paint();
+
+        //dimensions of the barrel
+        float barrelThickness = cylinderCenterX / 10.5f;
+        float barrelX = cylinderCenterX * 1.02f;
+        float barrelY = cylinderCenterY * .425f;
+
+        float barrelRadius = (cylinderCenterY * 0.29f);
+        barrelPath.addCircle(barrelX, barrelY, barrelRadius, Path.Direction.CW);
+
+        //characteristics of the paint
+        barrelPaint.setStrokeWidth(barrelThickness);
+        barrelPaint.setStyle(Paint.Style.STROKE);
+        barrelPaint.setColor(Color.argb(255, 157, 147, 138));
+
+        if(revolverSelectionEnable)
+        {
+            Random randomGenerator = new Random();
+            barrelPaint.setARGB(255, randomGenerator.nextInt(256), randomGenerator.nextInt(256), randomGenerator.nextInt(256));
+        }
+
+        canvas.drawPath(barrelPath, barrelPaint);
+
+        //draw gunsight
+        Path gunsight = new Path();
+        float sightStartY = barrelY - barrelRadius;
+        float sightEndY = sightStartY - barrelRadius;
+
+        gunsight.moveTo(barrelX, sightStartY);
+        gunsight.lineTo(barrelX, sightEndY);
+        canvas.drawPath(gunsight, barrelPaint);
+
+        canvas.drawPath(gunsight, barrelPaint);
+
     }
 
     // when ACTION_DOWN start touch according to the x,y values
