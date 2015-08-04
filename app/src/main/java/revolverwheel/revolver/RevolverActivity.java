@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.hardware.Camera;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -39,7 +38,6 @@ public class RevolverActivity extends AppCompatActivity {
         setContentView(R.layout.revolver_wheel);
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     public void onStart()
@@ -140,7 +138,6 @@ public class RevolverActivity extends AppCompatActivity {
         }.start();
 
         RevolverCanvas.startRotationThread();
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
     }
 

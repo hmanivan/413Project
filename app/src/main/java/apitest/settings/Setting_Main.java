@@ -3,7 +3,6 @@ package apitest.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -64,7 +63,6 @@ public class Setting_Main extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
 //    @Override
