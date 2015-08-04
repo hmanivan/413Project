@@ -1,10 +1,4 @@
 package apitest;
-//
-//import android.app.AlertDialog;
-//import android.app.Dialog;
-//import android.content.Context;
-//import android.content.DialogInterface;
-//import android.content.Intent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ozzca_000.myapplication.R;
@@ -64,6 +59,9 @@ public class MapsActivity extends ActionBarActivity
     private List<Business> yelpResults = new ArrayList<>();
     private Business currentBusiness;
     private int businessIndex = 0;
+
+    private TextView businessName;
+
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
     private Bitmap businessIcon;
@@ -90,6 +88,11 @@ public class MapsActivity extends ActionBarActivity
     public void onWindowFocusChanged(boolean hasFocus)
     {
         super.onWindowFocusChanged(hasFocus);
+
+        //initialize business name textview
+        businessName = (TextView)findViewById(R.id.business_name);
+        businessName.setTextSize(20);
+
         setupIcons();
         setUpMapIfNeeded();
 
@@ -107,8 +110,8 @@ public class MapsActivity extends ActionBarActivity
         if (yelpResults.size() != 0)
         {
             setTitle(yelpResults.get(businessIndex).name);
+            businessName.setText(yelpResults.get(businessIndex).name);
 
-            //businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
             currentBusiness = yelpResults.get(businessIndex);
 
             //  DISPLAYING rating
@@ -148,15 +151,13 @@ public class MapsActivity extends ActionBarActivity
                 }
             });
 
-
-
             blacklist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //code to run when click is on blacklist button
                     downVoteBusiness();
 
-//play gunshot effect
+                    //play gunshot effect
                     SoundPlayer.playGunshot(_appState);
 
                 }
@@ -280,10 +281,8 @@ public class MapsActivity extends ActionBarActivity
                 {
                     setMapCameraPosition(yelpResults.get(businessIndex).location.coordinate.latitude, yelpResults.get(businessIndex).location.coordinate.longitude);
 
-//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-//                businessTitleTextView.setText(yelpResults.get(businessIndex).name);
-
                     setTitle(yelpResults.get(businessIndex).name);
+                    businessName.setText(yelpResults.get(businessIndex).name);
 
                     //  DISPLAYING rating
                     ImageView img = (ImageView) findViewById(R.id.rating);
@@ -398,9 +397,10 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setTitle(business.name);
 
                 setMapCameraPosition(position.latitude, position.longitude);
-//                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
-//                businessTitleTextView.setText(business.name);
+
                 setTitle(yelpResults.get(businessIndex).name);
+                businessName.setText(yelpResults.get(businessIndex).name);
+
                 //  DISPLAYING rating
                 ImageView img = (ImageView) findViewById(R.id.rating);
                 new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
@@ -437,11 +437,12 @@ public class MapsActivity extends ActionBarActivity
                 businessMarker.setPosition(position);
                 businessMarker.setTitle(business.name);
 
-
                 setMapCameraPosition(position.latitude, position.longitude);
 //                TextView businessTitleTextView = (TextView) findViewById(R.id.businessTitle);
 //                businessTitleTextView.setText(business.name);
                 setTitle(yelpResults.get(businessIndex).name);
+                businessName.setText(yelpResults.get(businessIndex).name);
+
                 //  DISPLAYING rating
                 ImageView img = (ImageView) findViewById(R.id.rating);
                 new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();

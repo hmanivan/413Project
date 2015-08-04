@@ -64,6 +64,7 @@
         android:layout_alignEnd="@+id/mapFrag">
         <TextView
             android:layout_width="0dp"
+            android:id="@+id/business_name"
             android:layout_height="fill_parent"
             android:layout_weight="1.25"
             android:textSize="15sp"
@@ -99,10 +100,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="More Restaurant Information:"
+                android:text="Click for more Restaurant Information:"
                 android:id="@+id/text_radius"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
+                android:gravity="right"
+                android:paddingRight="15px"
+                android:paddingBottom="10px"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/yelpButton" />
