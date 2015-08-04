@@ -9,6 +9,11 @@ package apitest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
@@ -64,6 +69,8 @@ public class MapsActivity extends ActionBarActivity
     private int businessIndex = 0;
     //store reference to global appstate, access application-wide data here
     private FoodRouletteApplication _appState;
+    private Bitmap businessIcon;
+    private Bitmap userIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -86,6 +93,7 @@ public class MapsActivity extends ActionBarActivity
     public void onWindowFocusChanged(boolean hasFocus)
     {
         super.onWindowFocusChanged(hasFocus);
+        setupIcons();
         setUpMapIfNeeded();
 
         Button back = (Button) findViewById(R.id.back);
@@ -354,7 +362,7 @@ public class MapsActivity extends ActionBarActivity
                     businessMarker = mMap.addMarker(new MarkerOptions()
                             .title(currentBusiness.name)
                             .position(position)
-                            .icon(BitmapDescriptorFactory.defaultMarker(color)));
+                            .icon(BitmapDescriptorFactory.fromBitmap(businessIcon)));
                     businessMarker.isVisible();
                 }
                 //setMapCameraPosition(position.latitude, position.longitude);
@@ -451,6 +459,7 @@ public class MapsActivity extends ActionBarActivity
             MarkerOptions options = new MarkerOptions();
             options.title("You are here");
             options.position(new LatLng(latitude, longitude));
+            options.icon(BitmapDescriptorFactory.fromBitmap(userIcon));
             mMarker = mMap.addMarker(options);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 13));
         }
@@ -467,6 +476,29 @@ public class MapsActivity extends ActionBarActivity
                 mMarker.setPosition(new LatLng(latitude, longitude));
             }
         });
+    }
+
+    public void setupIcons()
+    {
+        //initialize bitmaps
+        userIcon = BitmapFactory.decodeResource(_appState.getResources(), R.drawable.revolver);
+        businessIcon = BitmapFactory.decodeResource(_appState.getResources(), R.drawable.redcrosshairs);
+
+        //set up scale factors
+        float scaleFactor = 1.25f;
+        float mapWidth = findViewById(R.id.map).getWidth();
+        float userIconScale = scaleFactor * (mapWidth / 17500);
+        float businessIconScale = scaleFactor * (mapWidth / 4000);
+
+        //set up scaling matrix
+        Matrix scaleMatrix = new Matrix();
+
+        //resize markers
+        scaleMatrix.setScale(userIconScale, userIconScale);
+        userIcon = Bitmap.createBitmap(userIcon, 0, 0, userIcon.getWidth(), userIcon.getHeight(), scaleMatrix, false);
+
+        scaleMatrix.setScale(businessIconScale, businessIconScale);
+        businessIcon = Bitmap.createBitmap(businessIcon, 0, 0, businessIcon.getWidth(), businessIcon.getHeight(), scaleMatrix, false);
     }
 
     public LatLngBounds getLatLngBounds(double lat1, double long1, double lat2, double long2)
