@@ -6,36 +6,26 @@ package apitest;
 //import android.content.DialogInterface;
 //import android.content.Intent;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.AudioManager;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ozzca_000.myapplication.R;
@@ -48,34 +38,19 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import SoundUtils.SoundPlayer;
 import YelpData.Business;
 import YelpData.BusinessData;
-import apitest.settings.Setting_Main;
-import apitest.settings.ViewBadList;
 import database.DbAbstractionLayer;
 import foodroulette.appstate.FoodRouletteApplication;
 import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationTools;
-import revolverwheel.revolver.RevolverActivity;
 
 public class MapsActivity extends ActionBarActivity
 {
@@ -158,6 +133,7 @@ public class MapsActivity extends ActionBarActivity
             });
 
             Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
+            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
 
             //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
             yelpButton.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +148,7 @@ public class MapsActivity extends ActionBarActivity
                 }
             });
 
-            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
+
 
             blacklist.setOnClickListener(new View.OnClickListener() {
                 @Override
