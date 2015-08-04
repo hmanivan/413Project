@@ -257,6 +257,7 @@ public class CanvasView extends SurfaceView
         barrelPaint.setStyle(Paint.Style.STROKE);
         barrelPaint.setColor(Color.argb(255, 157, 147, 138));
 
+        //if revolver wheel category selection is enabled, engage barrel selector partytime mode
         if(revolverSelectionEnable)
         {
             Random randomGenerator = new Random();
@@ -265,11 +266,12 @@ public class CanvasView extends SurfaceView
 
         canvas.drawPath(barrelPath, barrelPaint);
 
-        //draw gunsight
+        //create points for gunsight
         Path gunsight = new Path();
         float sightStartY = barrelY - barrelRadius;
         float sightEndY = sightStartY - barrelRadius;
 
+        //draw path for gunsight
         gunsight.moveTo(barrelX, sightStartY);
         gunsight.lineTo(barrelX, sightEndY);
         canvas.drawPath(gunsight, barrelPaint);
