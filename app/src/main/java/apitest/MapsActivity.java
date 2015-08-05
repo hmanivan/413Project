@@ -618,7 +618,7 @@ public class MapsActivity extends ActionBarActivity
 
                         int timeMinutes=time/60;
                         TextView blockTitle = (TextView) findViewById(R.id.uber);
-                        blockTitle.setText("Estimated Uber Pick Up Time:\n"+String.valueOf(timeMinutes)+" Minutes");
+                        blockTitle.setText("Uber Pick Up Time:\n"+String.valueOf(timeMinutes)+" Min.");
                         //SOmeDopeTextView.setText(String.valueOf(time));
                         System.out.println("UBER TIME============"+timeMinutes);
 
