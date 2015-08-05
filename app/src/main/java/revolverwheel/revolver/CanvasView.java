@@ -150,7 +150,14 @@ public class CanvasView extends SurfaceView
                         angularV += (offsetToNearestSelection / 7200);
 
                         //decay rotational velocity
-                        angularV *= .95;
+                        if(Math.abs(angularV) > .25)
+                        {
+                            angularV *= .97;
+                        }
+                        else
+                        {
+                            angularV *= .95;
+                        }
 
                         //zero out if we are on a selection
                         if (Math.abs(offsetToNearestSelection + 30) < .1 && Math.abs(angularV) < 0.05)
