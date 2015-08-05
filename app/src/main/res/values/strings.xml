@@ -23,4 +23,7 @@
     <string name="revolverwheel"> </string>
     <string name="message">Already in list!</string>
     <string name="title_activity_dblist">db list</string>
+    <string name="title_activity_howtoplay">HowtoplayActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

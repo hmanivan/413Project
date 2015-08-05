@@ -13,36 +13,38 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="foodroulette.appstate.FoodRouletteApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true" >
-
+        android:largeHeap="true"
+        android:theme="@style/AppTheme" >
         <activity
             android:name="apitest.SplashScreen"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="revolverwheel.revolver.RevolverActivity"
-            android:label="@string/revolverwheel">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            android:label="@string/revolverwheel"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <meta-data
@@ -54,11 +56,13 @@
 
         <activity
             android:name="apitest.MapsActivity"
-            android:label="@string/title_activity_maps">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            android:label="@string/title_activity_maps"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <meta-data
@@ -74,67 +78,76 @@
 
         <activity
             android:name="apitest.settings.SettingsActivity"
-            android:label="@string/title_activity_settings">
-
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="revolverwheel.revolver.RevolverActivity" />
         </activity>
-
         <activity
             android:name="apitest.settings.Setting_Main"
-            android:label="@string/settingmain">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+            android:label="@string/settingmain"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="revolverwheel.revolver.RevolverActivity" />
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name="apitest.settings.Setting_Category"
-            android:label="@string/title_activity_setting__category">
+            android:label="@string/title_activity_setting__category"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="apitest.settings.Setting_Main" />
         </activity>
-
-
-
         <activity
             android:name="apitest.settings.ViewBadList"
-            android:label="@string/title_activity_setting__category">
+            android:label="@string/title_activity_setting__category"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="apitest.settings.Setting_Main" />
         </activity>
-
-
         <activity
             android:name="apitest.YelpWebViewActivity"
-            android:label="@string/title_activity_setting__category">
+            android:label="@string/title_activity_setting__category" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="apitest.settings.Setting_Main" />
         </activity>
-
-
         <activity
             android:name="database.DatabaseActivity"
-            android:label="@string/title_activity_database">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            android:label="@string/title_activity_database" >
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name="database.DBListActivity"
-            android:label="@string/title_activity_dblist">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+            android:label="@string/title_activity_dblist" >
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name="apitest.settings.HowToPlay"
+            android:label="@string/title_activity_howtoplay"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="revolverwheel.revolver.RevolverActivity" />
+        </activity>
     </application>
 
 </manifest>
