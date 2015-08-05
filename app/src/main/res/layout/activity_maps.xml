@@ -115,7 +115,7 @@
             android:paddingBottom="10px"
             android:paddingRight="15px"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#85C8E8"
+            android:textColor="#ff36e3e8"
             android:textSize="18sp" />
 <RelativeLayout
     android:layout_width="0dp"
