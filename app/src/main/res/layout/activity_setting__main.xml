@@ -9,9 +9,14 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_margin="5dp"
         android:id="@+id/RStopText"
-        android:background="@drawable/woodbackround">
+        android:background="@drawable/woodbackround"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom ="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
             <TextView
                 android:text="Preferences"
                 android:textSize="50sp"

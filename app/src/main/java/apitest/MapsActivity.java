@@ -111,22 +111,24 @@ public class MapsActivity extends ActionBarActivity
 
         //initialize business name textview
         businessName = (TextView)findViewById(R.id.business_name);
-        businessName.setTextSize(20);
+        businessName.setTextSize(25);
+
+
 
         setupIcons();
         setUpMapIfNeeded();
 
-        Button back = (Button) findViewById(R.id.back);
-
-        back.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //back button, goes back to revolver wheel
-                finish();
-            }
-        });
+//        Button back = (Button) findViewById(R.id.back);
+//
+//        back.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                //back button, goes back to revolver wheel
+//                finish();
+//            }
+//        });
         if (yelpResults.size() != 0)
         {
             setTitle(yelpResults.get(businessIndex).name);
