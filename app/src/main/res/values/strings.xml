@@ -23,7 +23,14 @@
     <string name="revolverwheel"> </string>
     <string name="message">Already in list!</string>
     <string name="title_activity_dblist">db list</string>
+
+
+    //EULA Message
+    <string name="eula"> END USER LICENSE AGREEMENT
+    By installing this software you agree to... </string>
+
     <string name="title_activity_howtoplay">HowtoplayActivity</string>
 
     <string name="hello_world">Hello world!</string>
+
 </resources>

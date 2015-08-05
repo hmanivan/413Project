@@ -1,14 +1,23 @@
 package apitest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -20,6 +29,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import SoundUtils.SoundPlayer;
 import YelpData.BusinessData;
+import appActivity.SimpleEULA;
 import database.DbAbstractionLayer;
 import database.RestaurantDatabase;
 import foodroulette.appstate.FoodRouletteApplication;
@@ -76,10 +86,6 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
                     restaurantDatabase.reviewCount,
             };
 
-
-
-            showEULAmessage();
-
         }
        // DbAbstractionLayer.deleteAllData();
         restaurantDb.close();
@@ -127,14 +133,7 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
                                 }
 
                                 //go to roulette screen when position data comes back
-                                Intent intent = new Intent(SplashScreen.this, revolverwheel.revolver.RevolverActivity.class);
-
-                                //alt intent to go straight to post-roulette
-                                //Intent intent = new Intent(SplashScreen.this, MapsActivity.class);
-
-                                SplashScreen.this.startActivity(intent);
-
-                                SplashScreen.this.finish();
+                                showEULAmessage();
                             }
 
                         }.start();
@@ -145,7 +144,6 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
 
         //check to see if location services are enabled
         LocationTools.checkLocationServicesEnabled(this, _locationEnableCallback);
-
 
     }
 
@@ -202,7 +200,8 @@ public class SplashScreen extends Activity implements GoogleApiClient.Connection
 
     private void showEULAmessage()
     {
-        //TODO
+       SimpleEULA eula = new SimpleEULA(this, this);
+        eula.showEULAIfNeeded();
     }
 
 }
