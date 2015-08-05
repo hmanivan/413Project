@@ -167,7 +167,7 @@ public class MapsActivity extends ActionBarActivity
 
             });
 
-            ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
+            Button yelpButton = (Button) findViewById(R.id.yelpButton);
 
             //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
             yelpButton.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +182,7 @@ public class MapsActivity extends ActionBarActivity
                 }
             });
 
-            ImageButton uberButton = (ImageButton) findViewById(R.id.uberButton);
+            Button uberButton = (Button) findViewById(R.id.uberButton);
 
             //WHEN UBERLOGO IS CLICKED, UberWebViewActivity opens showing Uber's website within the app
             uberButton.setOnClickListener(new View.OnClickListener() {
@@ -669,9 +669,9 @@ public class MapsActivity extends ActionBarActivity
 
                         int time = uberData.times.get(0).estimate;
 
-                        float timeMinutes=time/60;
+                        int timeMinutes=time/60;
                         TextView blockTitle = (TextView) findViewById(R.id.uber);
-                        blockTitle.setText("Estimated Uber Service Time: "+String.valueOf(timeMinutes)+" Mins. Uber Login:");
+                        blockTitle.setText("Uber Pick Up Time:\n"+String.valueOf(timeMinutes)+" Min.");
                         //SOmeDopeTextView.setText(String.valueOf(time));
                         System.out.println("UBER TIME============"+timeMinutes);
 
