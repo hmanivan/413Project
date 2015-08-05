@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +13,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.DocumentsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -32,12 +34,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import GoogleAPI.DirectionsRunnable;
+import GoogleAPI.GoogleMapDirections;
 import SoundUtils.SoundPlayer;
 import YelpData.Business;
 import YelpData.BusinessData;
@@ -54,7 +62,8 @@ public class MapsActivity extends ActionBarActivity
     private LocationManager mLocationManager;
     private Marker mMarker;
     private Marker businessMarker;
-
+    private GoogleMapDirections mapDirections;
+    private Polyline navLine;
     //list of businesses to sort
     private List<Business> yelpResults = new ArrayList<>();
     private Business currentBusiness;
@@ -114,6 +123,7 @@ public class MapsActivity extends ActionBarActivity
 
             currentBusiness = yelpResults.get(businessIndex);
 
+
             //  DISPLAYING rating
             ImageView img = (ImageView) findViewById(R.id.rating);
             new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
@@ -162,6 +172,7 @@ public class MapsActivity extends ActionBarActivity
 
                 }
             });
+
         }
         else
         {
@@ -271,7 +282,7 @@ public class MapsActivity extends ActionBarActivity
             // Check if we were successful in obtaining the map.
             if (mMap != null)
             {
-//                fetchBusinessData();
+                //fetchBusinessData();
 
                 //display our location
                 updateMarker(_appState.latitude, _appState.longitude);
@@ -287,9 +298,51 @@ public class MapsActivity extends ActionBarActivity
                     //  DISPLAYING rating
                     ImageView img = (ImageView) findViewById(R.id.rating);
                     new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
+
+                    //display nav
+                    drawDirections();
                 }
             }
         }
+    }
+
+    private void drawDirections()
+    {
+        mapDirections = new GoogleMapDirections();
+
+        if(navLine != null)
+        {
+            navLine.remove();
+        }
+
+        //initialize start and end points
+        LatLng start = new LatLng(_appState.latitude, _appState.longitude);
+        double latitude = yelpResults.get(businessIndex).location.coordinate.latitude;
+        double longitude = yelpResults.get(businessIndex).location.coordinate.longitude;
+        LatLng end = new LatLng(latitude, longitude);
+
+        DirectionsRunnable callback = new DirectionsRunnable()
+        {
+            @Override
+            public void runWithDirections(Document doc)
+            {
+                //create point array
+                ArrayList<LatLng> directionPoint = mapDirections.getDirection(doc);
+
+                //set characteristics for navigation line
+                PolylineOptions rectLine = new PolylineOptions().width(20).color(Color.argb(96, 255, 0, 0));
+
+                //draw navline to screen
+                int size = directionPoint.size();
+                for(int i = 0; i < size; i++)
+                {
+                    rectLine.add(directionPoint.get(i));
+                }
+                navLine = mMap.addPolyline(rectLine);
+            }
+        };
+        //get HTTP response
+        mapDirections.getDocument(start, end, callback);
     }
 
     private void setupBusinessDataCallbacks()
@@ -400,6 +453,7 @@ public class MapsActivity extends ActionBarActivity
 
                 setTitle(yelpResults.get(businessIndex).name);
                 businessName.setText(yelpResults.get(businessIndex).name);
+                drawDirections();
 
                 //  DISPLAYING rating
                 ImageView img = (ImageView) findViewById(R.id.rating);
@@ -442,6 +496,7 @@ public class MapsActivity extends ActionBarActivity
 //                businessTitleTextView.setText(business.name);
                 setTitle(yelpResults.get(businessIndex).name);
                 businessName.setText(yelpResults.get(businessIndex).name);
+                drawDirections();
 
                 //  DISPLAYING rating
                 ImageView img = (ImageView) findViewById(R.id.rating);
