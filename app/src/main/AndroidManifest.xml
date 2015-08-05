@@ -123,6 +123,13 @@
                 android:value="apitest.settings.Setting_Main" />
         </activity>
         <activity
+            android:name="apitest.UberWebViewActivity"
+            android:label="@string/title_activity_setting__category">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="apitest.settings.Setting_Main" />
+        </activity>
+        <activity
             android:name="database.DatabaseActivity"
             android:label="@string/title_activity_database" >
 

@@ -157,7 +157,6 @@ public class MapsActivity extends ActionBarActivity
 
             });
 
-            Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
             ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
 
             //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
@@ -173,6 +172,20 @@ public class MapsActivity extends ActionBarActivity
                 }
             });
 
+            ImageButton uberButton = (ImageButton) findViewById(R.id.uberButton);
+
+            //WHEN UBERLOGO IS CLICKED, UberWebViewActivity opens showing Uber's website within the app
+            uberButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//
+                    Intent myIntent = new Intent(MapsActivity.this, UberWebViewActivity.class);
+                    myIntent.putExtra("secondKeyName", "https://login.uber.com/login");
+                    startActivity(myIntent);
+                }
+            });
+
+            Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
             blacklist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
