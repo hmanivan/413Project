@@ -66,7 +66,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To direcelty select a restaurant from the wheel, click on the desired food icon in the wheel."
+            android:text="To directly select a restaurant from the wheel, click on the desired food icon in the wheel."
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:layout_gravity="left"/>
