@@ -1,37 +1,79 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".RevolverActivity">
-   <RelativeLayout
-       android:layout_width="fill_parent"
-       android:layout_height="500dp"
-       android:id="@+id/canvas"
-       android:layout_below="@+id/preferences">
-    <revolverwheel.revolver.CanvasView
-        android:id="@+id/revolver_canvas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/applicationbackgroundsmall"
-        android:textColor="#FFFFFF"/>
-   </RelativeLayout>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/woodbackround2"
+    tools:context=".RevolverActivity">
 
     <RelativeLayout
-    android:layout_width="fill_parent"
-    android:id="@+id/preferences"
-    android:layout_height="100dp"
-    android:background="#FFFFFF">
-    <Button
+        android:id="@+id/canvas"
+        android:layout_width="fill_parent"
+        android:layout_height="450dp"
+        android:background="@drawable/woodbackround2">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+
+            <revolverwheel.revolver.CanvasView
+                android:id="@+id/revolver_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="40dp"
+                android:alpha="0.99"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:onClick="onPreference"
-        android:text="Edit Preferences"
-        android:background="@drawable/woodbackround"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:id="@+id/buttonPreference"
-        android:layout_margin="2dp"/>
-</RelativeLayout>
+        android:layout_below="@+id/canvas"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <RelativeLayout
+            android:id="@+id/howTo"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/buttonHowTo"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/woodbackround"
+                android:onClick="onHowToPlay"
+                android:text="How to Play"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preferences"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/buttonPreference"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="2dp"
+                android:background="@drawable/woodbackround"
+                android:onClick="onPreference"
+                android:text="Edit Preferences"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
 </RelativeLayout>

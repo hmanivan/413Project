@@ -92,6 +92,7 @@ public class CanvasView extends SurfaceView
         context = c;
         _appstate = ((FoodRouletteApplication) (context.getApplicationContext()));
 
+
         // and we set a new Paint with the desired attributes
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -99,6 +100,7 @@ public class CanvasView extends SurfaceView
         mPaint.setDither(true);
 
         setWillNotDraw(false);
+
     }
 
     //thread which calculates rotation angle for cylinder by measuring how much time has passed
@@ -199,6 +201,7 @@ public class CanvasView extends SurfaceView
         if (samBetterBitmap != null)
         {
             canvas.save();
+
 
             Matrix matrix = new Matrix();
             matrix.setRotate(degToSpin, cylinderCenterX, cylinderCenterY);

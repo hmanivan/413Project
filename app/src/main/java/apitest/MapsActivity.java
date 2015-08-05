@@ -25,6 +25,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,6 +52,7 @@ import java.util.List;
 import GoogleAPI.DirectionsRunnable;
 import GoogleAPI.GoogleMapDirections;
 import SoundUtils.SoundPlayer;
+import UberAPI.UberData;
 import YelpData.Business;
 import YelpData.BusinessData;
 import database.DbAbstractionLayer;
@@ -55,6 +61,14 @@ import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationTools;
 
+import com.android.volley.*;
+import com.android.volley.RequestQueue;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+//import org.scribe.model.Response;
+
+
 public class MapsActivity extends ActionBarActivity
 {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -62,8 +76,13 @@ public class MapsActivity extends ActionBarActivity
     private LocationManager mLocationManager;
     private Marker mMarker;
     private Marker businessMarker;
+
     private GoogleMapDirections mapDirections;
     private Polyline navLine;
+
+
+    private static RequestQueue mQueue;
+
     //list of businesses to sort
     private List<Business> yelpResults = new ArrayList<>();
     private Business currentBusiness;
@@ -75,12 +94,14 @@ public class MapsActivity extends ActionBarActivity
     private FoodRouletteApplication _appState;
     private Bitmap businessIcon;
     private Bitmap userIcon;
+    private  final static String uberUri= "https://api.uber.com/v1/estimates/time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        mQueue = Volley.newRequestQueue(this);
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
 
@@ -88,6 +109,8 @@ public class MapsActivity extends ActionBarActivity
         setContentView(R.layout.activity_maps);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        populateUBERData();
     }
 
     //-------------------------------------------------------------------------------------------//
@@ -100,29 +123,28 @@ public class MapsActivity extends ActionBarActivity
 
         //initialize business name textview
         businessName = (TextView)findViewById(R.id.business_name);
-        businessName.setTextSize(20);
+        businessName.setTextSize(25);
 
         setupIcons();
         setUpMapIfNeeded();
 
-        Button back = (Button) findViewById(R.id.back);
-
-        back.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //back button, goes back to revolver wheel
-                finish();
-            }
-        });
+//        Button back = (Button) findViewById(R.id.back);
+//
+//        back.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                //back button, goes back to revolver wheel
+//                finish();
+//            }
+//        });
         if (yelpResults.size() != 0)
         {
             setTitle(yelpResults.get(businessIndex).name);
             businessName.setText(yelpResults.get(businessIndex).name);
 
             currentBusiness = yelpResults.get(businessIndex);
-
 
             //  DISPLAYING rating
             ImageView img = (ImageView) findViewById(R.id.rating);
@@ -145,7 +167,6 @@ public class MapsActivity extends ActionBarActivity
 
             });
 
-            Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
             ImageButton yelpButton = (ImageButton) findViewById(R.id.yelpButton);
 
             //WHEN YELPLOGO IS CLICKED, YelpWebViewActivity opens showing the businness's Yelp website within the app
@@ -161,6 +182,20 @@ public class MapsActivity extends ActionBarActivity
                 }
             });
 
+            ImageButton uberButton = (ImageButton) findViewById(R.id.uberButton);
+
+            //WHEN UBERLOGO IS CLICKED, UberWebViewActivity opens showing Uber's website within the app
+            uberButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//
+                    Intent myIntent = new Intent(MapsActivity.this, UberWebViewActivity.class);
+                    myIntent.putExtra("secondKeyName", "https://login.uber.com/login");
+                    startActivity(myIntent);
+                }
+            });
+
+            Button blacklist = (Button) findViewById(R.id.blacklistbutton); //blacklist button
             blacklist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -172,7 +207,6 @@ public class MapsActivity extends ActionBarActivity
 
                 }
             });
-
         }
         else
         {
@@ -393,7 +427,7 @@ public class MapsActivity extends ActionBarActivity
                 }
 
 
-                System.out.println("YELPSIZE===============" + yelpResults.size() + "RATINGSETTINGS========" + rating + "RADIUSSETTINGS=========" + radius);
+
 
                 //Custom sorting class which compares businesses by distance to user
                 class BusinessComparator implements Comparator<Business>
@@ -615,6 +649,46 @@ public class MapsActivity extends ActionBarActivity
         startActivity(intent);
     }
 
+
+    private void populateUBERData()
+    {
+        String currLat=Double.toString(_appState.latitude);
+        String currLong=Double.toString(_appState.longitude);
+
+        final String url1 ="https://api.uber.com/v1/estimates/time?start_latitude="+currLat+"&start_longitude="+currLong+"&server_token=VG3lVgGREzta1qdqqxR5dzHSRZPOFiZkYnBEpAXD";
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        //DO something here with json
+
+                        UberData uberData = new Gson().fromJson(response.toString(), UberData.class);
+
+                        int time = uberData.times.get(0).estimate;
+
+                        float timeMinutes=time/60;
+                        TextView blockTitle = (TextView) findViewById(R.id.uber);
+                        blockTitle.setText("Estimated Uber Service Time: "+String.valueOf(timeMinutes)+" Mins. Uber Login:");
+                        //SOmeDopeTextView.setText(String.valueOf(time));
+                        System.out.println("UBER TIME============"+timeMinutes);
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+            mQueue.add(jsObjRequest);
+
+    }
 
 
 }
