@@ -23,6 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ozzca_000.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +44,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import SoundUtils.SoundPlayer;
+import UberAPI.UberData;
 import YelpData.Business;
 import YelpData.BusinessData;
 import database.DbAbstractionLayer;
@@ -47,6 +53,14 @@ import foodroulette.callbacks.BusinessRunnable;
 import foodroulette.callbacks.LocationRunnable;
 import foodroulette.locationutils.LocationTools;
 
+import com.android.volley.*;
+import com.android.volley.RequestQueue;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+//import org.scribe.model.Response;
+
+
 public class MapsActivity extends ActionBarActivity
 {
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
@@ -54,6 +68,8 @@ public class MapsActivity extends ActionBarActivity
     private LocationManager mLocationManager;
     private Marker mMarker;
     private Marker businessMarker;
+
+    private static RequestQueue mQueue;
 
     //list of businesses to sort
     private List<Business> yelpResults = new ArrayList<>();
@@ -66,12 +82,14 @@ public class MapsActivity extends ActionBarActivity
     private FoodRouletteApplication _appState;
     private Bitmap businessIcon;
     private Bitmap userIcon;
+    private  final static String uberUri= "https://api.uber.com/v1/estimates/time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        mQueue = Volley.newRequestQueue(this);
         // setting the reference to global appstate
         _appState = ((FoodRouletteApplication) getApplicationContext());
 
@@ -79,6 +97,8 @@ public class MapsActivity extends ActionBarActivity
         setContentView(R.layout.activity_maps);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        populateUBERData();
     }
 
     //-------------------------------------------------------------------------------------------//
@@ -289,6 +309,7 @@ public class MapsActivity extends ActionBarActivity
                     //  DISPLAYING rating
                     ImageView img = (ImageView) findViewById(R.id.rating);
                     new ImageLoadTask(yelpResults.get(businessIndex).rating_img_url_large, img).execute();
+
                 }
             }
         }
@@ -342,7 +363,7 @@ public class MapsActivity extends ActionBarActivity
                 }
 
 
-                System.out.println("YELPSIZE===============" + yelpResults.size() + "RATINGSETTINGS========" + rating + "RADIUSSETTINGS=========" + radius);
+
 
                 //Custom sorting class which compares businesses by distance to user
                 class BusinessComparator implements Comparator<Business>
@@ -562,6 +583,44 @@ public class MapsActivity extends ActionBarActivity
         startActivity(intent);
     }
 
+
+    private void populateUBERData()
+    {
+        String currLat=Double.toString(_appState.latitude);
+        String currLong=Double.toString(_appState.longitude);
+
+        final String url1 ="https://api.uber.com/v1/estimates/time?start_latitude="+currLat+"&start_longitude="+currLong+"&server_token=VG3lVgGREzta1qdqqxR5dzHSRZPOFiZkYnBEpAXD";
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        //DO something here with json
+
+                        UberData uberData = new Gson().fromJson(response.toString(), UberData.class);
+
+                        int time = uberData.times.get(0).estimate;
+
+                        float timeMinutes=time/60;
+                        //SOmeDopeTextView.setText(String.valueOf(time));
+                        System.out.println("UBER TIME============"+timeMinutes);
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+            mQueue.add(jsObjRequest);
+
+    }
 
 
 }
