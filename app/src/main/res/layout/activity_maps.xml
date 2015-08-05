@@ -161,7 +161,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1">
+                    android:layout_weight=".5"
+                    android:id="@+id/ubertime">
 
                     <TextView
                         android:id="@+id/uberstatic"
@@ -185,7 +186,7 @@
                         android:id="@+id/uber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentBottom="false"
                         android:layout_alignParentStart="false"
                         android:layout_alignParentTop="false"
                         android:layout_weight="1"
@@ -194,26 +195,36 @@
                         android:paddingRight="15px"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff"
-                        android:textSize="18sp" />
+                        android:textSize="25sp"
+                        android:layout_alignParentRight="false"
+                        android:layout_alignWithParentIfMissing="false"
+                        android:layout_alignParentLeft="false"
+                        android:layout_toEndOf="@id/uberstatic" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="#ffffff">
+                    android:layout_weight="1.5"
+                    android:background="#ffffff"
+                    android:minWidth="50dp">
 
                     <Button
                         android:id="@+id/uberButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentEnd="false"
                         android:layout_alignParentTop="true"
-                        android:layout_margin="2dp"
                         android:background="@drawable/woodbackround"
                         android:text="Go to Uber"
-                        android:textColor="#ffffff" />
+                        android:textColor="#ffffff"
+                        android:textSize="20dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -245,9 +256,9 @@
                 android:layout_marginTop="2dp"
                 android:background="@drawable/woodbackround"
                 android:onClick="onYelpButton"
-                android:text="Current Restaurant Yelp Info"
+                android:text="Restaurant Yelp Info"
                 android:textColor="#ffffff"
-                android:textSize="21dp" />
+                android:textSize="30sp" />
 
 
         </RelativeLayout>
