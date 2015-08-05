@@ -2,10 +2,12 @@ package revolverwheel.revolver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.Menu;
@@ -27,6 +29,7 @@ public class RevolverActivity extends AppCompatActivity {
     private Context mContext;
     private ImageView combinedRevolverImage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,10 @@ public class RevolverActivity extends AppCompatActivity {
         mContext = getApplicationContext();
         RevolverCanvas = (CanvasView) findViewById(R.id.revolver_canvas);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        //SharedPreferences ratingPreferences = PreferenceManager.getDefaultSharedPreferences(RevolverActivity.this);
+        //float rating = (float) ratingPreferences.getInt("last_val", 2) + 1;
+        //System.out.println("RATING===" + rating);
+
     }
 
     public void onStart()

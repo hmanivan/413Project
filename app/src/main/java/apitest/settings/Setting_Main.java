@@ -192,8 +192,9 @@ public class Setting_Main extends ActionBarActivity {
         adp.setDropDownViewResource(android.R.layout.simple_spinner_item);
         sp.setAdapter(adp);
 
-        prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-        id=prefs.getInt("last_val", 2);
+        SharedPreferences ratingPreferences = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
+        //prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+        id=ratingPreferences.getInt("last_val", 2);
         sp.setSelection(id);
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -201,18 +202,18 @@ public class Setting_Main extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 // TODO Auto-generated method stub
-
-                prefs = getSharedPreferences(prefName, MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("last_val",pos).commit();
+               // prefs = getSharedPreferences(prefName, MODE_PRIVATE);
+                //SharedPreferences.Editor editor = prefs.edit();
 //---save the values in the EditText view to preferences---
-                editor.putInt("last_val", pos);
+                //editor.putInt("last_val", pos);
 
 //---saves the values---
-                editor.commit();
+                //editor.commit();
 
+                //System.out.println("RATING===" + (pos+1));
 
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
 // TODO Auto-generated method stub
