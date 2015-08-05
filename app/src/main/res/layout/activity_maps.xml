@@ -220,7 +220,7 @@
                         android:background="@drawable/woodbackround"
                         android:text="Go to Uber"
                         android:textColor="#ffffff"
-                        android:textSize="20dp"
+                        android:textSize="30dp"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="2dp"
