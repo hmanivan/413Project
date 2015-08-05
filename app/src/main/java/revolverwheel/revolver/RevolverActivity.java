@@ -41,6 +41,10 @@ public class RevolverActivity extends AppCompatActivity {
         //float rating = (float) ratingPreferences.getInt("last_val", 2) + 1;
         //System.out.println("RATING===" + rating);
 
+        SharedPreferences ratingPreferences = PreferenceManager.getDefaultSharedPreferences(RevolverActivity.this);
+        float radius = (float) ratingPreferences.getInt("SEEKPROG", 20);
+        System.out.println("RATING==="+radius);
+
     }
 
     public void onStart()

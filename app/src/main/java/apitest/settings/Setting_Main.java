@@ -94,8 +94,9 @@ public class Setting_Main extends ActionBarActivity {
 //    }
 
     public void getSeekPref() {
-        prefs2 = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
-        currentProgress = prefs2.getInt("SEEKPROG", 20);
+        SharedPreferences radPreferences = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
+        //prefs2 = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
+        currentProgress = radPreferences.getInt("SEEKPROG", 20);
     }
 
     public void createSeekbar(){
@@ -106,8 +107,9 @@ public class Setting_Main extends ActionBarActivity {
     }
 
     public float getRadius() {
-        prefs2 = getSharedPreferences( "SEEKPROG", Context.MODE_PRIVATE );
-        currentProgress = prefs2.getInt("SEEKPROG", 20);
+        SharedPreferences radPreferences = PreferenceManager.getDefaultSharedPreferences(Setting_Main.this);
+        //prefs2 = getSharedPreferences( "SEEKPROG", Context.MODE_PRIVATE );
+        currentProgress = radPreferences.getInt("SEEKPROG", 20);
         SeekRadValue = ((float)currentProgress/10);
         return SeekRadValue;
     }
@@ -139,13 +141,17 @@ public class Setting_Main extends ActionBarActivity {
                         newProgress = seekbar_radius.getProgress();
                         currentProgress = newProgress;
                         text_radius.setText("Search Radius (mi.): " + progressValue);
-                        SharedPreferences.Editor editor = prefs2.edit();
-                        editor.putInt("SEEKPROG", newProgress);
-                        editor.commit();
+//                        SharedPreferences.Editor editor = prefs2.edit();
+//                        editor.putInt("SEEKPROG", newProgress);
+//                        editor.commit();
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("SEEKPROG",newProgress).commit();
+
+                        System.out.println("RATING===" + getRadius());
 
 
                     }
                 }
+
 
         );
 
