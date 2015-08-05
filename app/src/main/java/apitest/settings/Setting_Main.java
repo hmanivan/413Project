@@ -146,7 +146,7 @@ public class Setting_Main extends ActionBarActivity {
 //                        editor.commit();
                         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putInt("SEEKPROG",newProgress).commit();
 
-                        System.out.println("RATING===" + getRadius());
+                        //System.out.println("RATING===" + getRadius());
 
 
                     }

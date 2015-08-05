@@ -404,7 +404,7 @@ public class MapsActivity extends ActionBarActivity
                 //FILTERING OUT BUSINESS BY RADIUS IN SETTINGS, ONLY GOING TO DISPLAY BUSINESSES that are <= GIVEN SETTING
                 SharedPreferences radiusPreferences = PreferenceManager.getDefaultSharedPreferences(MapsActivity.this);
                 float radius = (float) radiusPreferences.getInt("SEEKPROG", 20);
-                System.out.println("RATING==="+radius);
+                //System.out.println("RATING==="+radius);
 
 
                 int businessCount = businessData.businesses.size();

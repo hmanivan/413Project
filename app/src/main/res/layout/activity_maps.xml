@@ -89,6 +89,57 @@
         android:weightSum="5"
         tools:context=".MainActivity">
 
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/uberbackground"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_alignParentStart="false"-->
+            <!--android:layout_below="@+id/yeodbackround"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_weight="1">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:layout_margin="2dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:weightSum="2">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/uber"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_alignParentStart="true"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center"-->
+                    <!--android:paddingBottom="10px"-->
+                    <!--android:paddingRight="15px"-->
+                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+                    <!--android:textColor="#ff36e3e8"-->
+                    <!--android:textSize="18sp" />-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="fill_parent"-->
+                    <!--android:layout_margin="2dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="#ffffff">-->
+
+                    <!--<Button-->
+                        <!--android:id="@+id/uberButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_margin="2dp"-->
+                        <!--android:background="@drawable/woodbackround"-->
+                        <!--android:text="Go to Uber"-->
+                        <!--android:textColor="#ffffff" />-->
+                <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
 
         <RelativeLayout
             android:id="@+id/uberbackground"
@@ -116,24 +167,25 @@
                         android:id="@+id/uberstatic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/uberstatic"
+                        android:layout_alignParentBottom="false"
+                        android:layout_alignParentEnd="false"
                         android:layout_alignParentStart="false"
                         android:layout_alignParentTop="false"
+                        android:layout_toEndOf="@id/uberstatic"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:paddingBottom="10px"
                         android:paddingRight="15px"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_alignEnd="@id/uberstatic"
-                        android:layout_alignParentEnd="false"
-                        android:layout_toEndOf="@id/uberstatic"
-                        android:layout_alignParentBottom="false" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/uber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
                         android:layout_alignParentStart="false"
                         android:layout_alignParentTop="false"
                         android:layout_weight="1"
@@ -142,8 +194,7 @@
                         android:paddingRight="15px"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:layout_alignParentBottom="true" />
+                        android:textSize="18sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
