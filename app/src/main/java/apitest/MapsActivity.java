@@ -617,6 +617,8 @@ public class MapsActivity extends ActionBarActivity
                         int time = uberData.times.get(0).estimate;
 
                         float timeMinutes=time/60;
+                        TextView blockTitle = (TextView) findViewById(R.id.uber);
+                        blockTitle.setText("Estimated Uber Service Time: "+String.valueOf(timeMinutes)+" Mins. Uber Login:");
                         //SOmeDopeTextView.setText(String.valueOf(time));
                         System.out.println("UBER TIME============"+timeMinutes);
 
