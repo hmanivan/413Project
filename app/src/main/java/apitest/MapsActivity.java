@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -687,11 +689,15 @@ public class MapsActivity extends ActionBarActivity
                         int time = uberData.times.get(0).estimate;
 
                         int timeMinutes=time/60;
+                        TextView blockTitle2 = (TextView) findViewById(R.id.uberstatic);
+                        blockTitle2.setText("Uber Pick Up Time:\n");
                         TextView blockTitle = (TextView) findViewById(R.id.uber);
-                        blockTitle.setText("Uber Pick Up Time:\n"+String.valueOf(timeMinutes)+" Min.");
+
+                        SpannableString content = new SpannableString(String.valueOf(timeMinutes)+" Min.");
+                        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                        blockTitle.setText(content);
                         //SOmeDopeTextView.setText(String.valueOf(time));
                         System.out.println("UBER TIME============"+timeMinutes);
-
 
                     }
                 }, new Response.ErrorListener() {
@@ -704,8 +710,5 @@ public class MapsActivity extends ActionBarActivity
                 });
 
             mQueue.add(jsObjRequest);
-
     }
-
-
 }

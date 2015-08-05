@@ -1,255 +1,284 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postroulette"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center|top"
-    android:orientation="vertical"
-    android:weightSum="1"
     android:background="@drawable/woodbackround2"
-    tools:context=".MainActivity"
-    android:id="@+id/postroulette"
+    android:columnCount="1"
+    android:orientation="vertical"
     android:rowCount="4"
-    android:columnCount="1">
+    android:weightSum="1"
+    tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/mapFrag"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:id="@+id/mapFrag"
-        android:weightSum="1"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:context=".MainActivity">
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="fill_parent"
             android:layout_height="190dp"
-            tools:context=".MapsActivity"
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
-            android:layout_weight="0.50" />
+            android:layout_weight="0.50"
+            tools:context=".MapsActivity" />
 
     </LinearLayout>
 
     <RelativeLayout
-    android:layout_marginBottom="2dp"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/mainFragment">
+        android:id="@+id/mainFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp">
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:layout_width="263dp"
-        android:layout_height="100dp"
-        android:id="@+id/yelpRatingDisplay"
-        android:background="@drawable/woodbackround"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/yelpRatingDisplay"
+            android:layout_width="263dp"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
-        <TextView
-            android:layout_width="0dp"
-            android:id="@+id/business_name"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.25"
-            android:textColor="#85C8E8"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/woodbackround"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:id="@+id/rating"
-        android:textSize="25sp"
-        android:textColor="#ffffff"
-        android:layout_weight="0.75"
-        android:layout_margin="5dp"/>
+            <TextView
+                android:id="@+id/business_name"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.25"
+                android:gravity="center"
+                android:textColor="#85C8E8"
+                android:textStyle="bold|italic" />
 
-
-    </LinearLayout>
-
-
-</RelativeLayout>
-
-<LinearLayout
-
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-
-    android:orientation="vertical"
-    android:weightSum="5"
-    tools:context=".MainActivity"
-    android:id="@+id/blacklist">
+            <ImageView
+                android:id="@+id/rating"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="0.75"
+                android:textColor="#ffffff"
+                android:textSize="25sp" />
 
 
-    <RelativeLayout
-        android:id="@+id/uberbackground"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentStart="false"
-        android:layout_below="@+id/yeodbackround"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="1">
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal"
-    android:weightSum="2"
-    android:layout_margin="2dp">
-        <TextView
-            android:id="@+id/uber"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+
+        android:id="@+id/blacklist"
+        android:layout_width="fill_parent"
+
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5"
+        tools:context=".MainActivity">
+
+
+        <RelativeLayout
+            android:id="@+id/uberbackground"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentStart="false"
+            android:layout_below="@+id/yeodbackround"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="2dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/uberstatic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="false"
+                        android:layout_alignParentTop="false"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingBottom="10px"
+                        android:paddingRight="15px"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_alignEnd="@id/uberstatic"
+                        android:layout_alignParentEnd="false"
+                        android:layout_toEndOf="@id/uberstatic"
+                        android:layout_alignParentBottom="false" />
+
+                    <TextView
+                        android:id="@+id/uber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="false"
+                        android:layout_alignParentTop="false"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingBottom="10px"
+                        android:paddingRight="15px"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:layout_alignParentBottom="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="#ffffff">
+
+                    <Button
+                        android:id="@+id/uberButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/woodbackround"
+                        android:text="Go to Uber"
+                        android:textColor="#ffffff" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/yeodbackround"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignStart="@+id/yelpRatingDisplay"
+            android:layout_below="@+id/yelpRatingDisplay"
+            android:layout_margin="2dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:paddingBottom="10px"
-            android:paddingRight="15px"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#85C8E8"
-            android:textSize="18sp" />
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="fill_parent"
-    android:background="#ffffff"
-    android:layout_margin="2dp">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:id="@+id/uberButton"
-            android:textColor="#ffffff"
-            android:text="Go to Uber"
-            android:background="@drawable/woodbackround"
+            android:background="#ffffff">
+
+            <Button
+                android:id="@+id/yelpButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/woodbackround"
+                android:onClick="onYelpButton"
+                android:text="Current Restaurant Yelp Info"
+                android:textColor="#ffffff"
+                android:textSize="21dp" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="2dp"
-            android:layout_alignParentEnd="true" />
-</RelativeLayout>
-</LinearLayout>
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:background="#FFFFFF">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#ffffff"
-        android:id="@+id/yeodbackround"
-        android:layout_below="@+id/yelpRatingDisplay"
-        android:layout_alignStart="@+id/yelpRatingDisplay"
-        android:layout_weight="1"
-        android:layout_margin="2dp">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Current Restaurant Yelp Info"
-            android:id="@+id/yelpButton"
-            android:onClick="onYelpButton"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:textSize="21dp"
-            android:background="@drawable/woodbackround"
-            android:textColor="#ffffff"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignParentStart="true" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/woodbackround"
+                android:onClick="getDirections"
+                android:text="Get Directions"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="2dp"
-        android:layout_weight="1"
-        android:background="#FFFFFF">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="2dp"
-            android:text="Get Directions"
-            android:textColor="#ffffff"
-            android:background="@drawable/woodbackround"
-            android:onClick="getDirections"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/button2"
-            android:textSize="30sp"/>
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            tools:context=".MainActivity">
 
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="2dp"
-        tools:context=".MainActivity"
-        android:background="#FFFFFF">
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="2dp"
+                android:background="@drawable/woodbackround"
+                android:text="Next Restaurant"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+        </RelativeLayout>
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:text="Next Restaurant"
-            android:background="@drawable/woodbackround"
-            android:textColor="#ffffff"
-            android:id="@+id/button"
-            android:layout_gravity="center_horizontal"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="2dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="30sp"
-            android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
+            android:layout_weight="1"
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="2dp"
-        android:layout_weight="1"
+            android:background="#FFFFFF">
 
-        android:background="#FFFFFF">
+            <Button
+                android:id="@+id/blacklistbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="2dp"
+                android:background="@drawable/woodbackround"
 
-        <Button
-            android:id="@+id/blacklistbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:onClick="onBlack"
-            android:text="Add to Blocklist"
-            android:background="@drawable/woodbackround"
-            android:textColor="#ffffff"
-            android:layout_margin="2dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentTop="true"
-
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:textSize="30sp"
-            android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
-
-
-</LinearLayout>
-
-
+                android:onClick="onBlack"
+                android:text="Add to Blocklist"
+                android:textColor="#ffffff"
+                android:textSize="30sp" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

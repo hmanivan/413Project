@@ -305,7 +305,7 @@ public class CanvasView extends SurfaceView
         revolverSelectionEnable = false;
 
         //activate genre toasts
-        longTouch();
+        genreTouchToasts();
     }
 
     // when ACTION_MOVE move touch according to the x,y values
@@ -472,58 +472,40 @@ public class CanvasView extends SurfaceView
 
 //TODO: George : fix this code, adjust method name and add appropriate comments
     // when ACTION_UP stop touch
-    private void longTouch()
+    private void genreTouchToasts()
     {
         long touchTime = System.currentTimeMillis() - startTouchTimeStamp;
 
-        //a click is defined as a touch event that lasted less than 200 milliseconds, and doesn't turn the wheel
-        if (touchTime < 1000 && angleTurned < 10)
+        //limit the amount of toasts that will be generated
+        if (touchTime < 200 && angleTurned < 10)
         {
             // this math takes into account the current angle of the wheel to create a corrected touch angle
             double adjustedAngle = (angleToTouch + 180) - degToSpin;
 
-            //overflow correction
-            if (adjustedAngle < 0)
-            {
-                adjustedAngle += 360;
-            }
+//            //overflow correction
+//            if (adjustedAngle < 0)
+//            {
+//                adjustedAngle += 360;
+//            }
 
             //begin button click listeners. Insert appropriate button onClick equivalent code within
             if (adjustedAngle <= 120 && adjustedAngle > 60)
             {
-                //run code for option 1
-                _appstate.rouletteSelection = 0;
-
                 Toast.makeText(getContext(), "Indian Food", Toast.LENGTH_SHORT).show();
             } else if (adjustedAngle <= 180 && adjustedAngle > 120)
             {
-                //run code for option 2
-                _appstate.rouletteSelection = 1;
-
                 Toast.makeText(getContext(), "American Food", Toast.LENGTH_SHORT).show();
             } else if (adjustedAngle <= 240 && adjustedAngle > 180)
             {
-                //run code for option 3
-                _appstate.rouletteSelection = 2;
-
                 Toast.makeText(getContext(), "Chinese Food", Toast.LENGTH_SHORT).show();
             } else if (adjustedAngle <= 300 && adjustedAngle > 240)
             {
-                //run code for option 4
-                _appstate.rouletteSelection = 3;
-
                 Toast.makeText(getContext(), "Italian Food", Toast.LENGTH_SHORT).show();
             } else if (adjustedAngle <= 360 && adjustedAngle > 300)
             {
-                //run code for option 5
-                _appstate.rouletteSelection = 4;
-
                 Toast.makeText(getContext(), "Japanese Food", Toast.LENGTH_SHORT).show();
             } else if (adjustedAngle <= 60 && adjustedAngle > 0)
             {
-                //run code for option 6
-                _appstate.rouletteSelection = 5;
-
                 Toast.makeText(getContext(), "Mexican Food", Toast.LENGTH_SHORT).show();
             }
         }
