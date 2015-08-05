@@ -4,23 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.hardware.Camera;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
+import apitest.settings.HowToPlay;
 import com.example.ozzca_000.myapplication.R;
-
-import java.util.concurrent.LinkedBlockingQueue;
 
 import apitest.settings.Setting_Main;
 import revolverwheel.revolvercategories.FoodCategory;
@@ -169,6 +162,11 @@ public class RevolverActivity extends AppCompatActivity {
     }
     public void onPreference(View view) {
         Intent intent = new Intent(this, Setting_Main.class);
+        startActivity(intent);
+
+    }
+    public void onHowToPlay(View view) {
+        Intent intent = new Intent(this, HowToPlay.class);
         startActivity(intent);
 
     }
